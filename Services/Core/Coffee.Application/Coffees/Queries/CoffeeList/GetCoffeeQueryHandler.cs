@@ -1,13 +1,14 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Domain.DTOs;
+using Coffee.Domain.Shared;
 using MediatR;
 
 namespace Coffee.Application.Coffees.Queries.CoffeeList;
 
 public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository)
-    : IRequestHandler<GetCoffeeQuery, IEnumerable<GetCoffeeListDto>>
+    : IRequestHandler<GetCoffeeQuery, ResultT<List<GetCoffeeListDto>>>
 {
-    public async Task<IEnumerable<GetCoffeeListDto>> Handle(GetCoffeeQuery request, CancellationToken cancellationToken)
+    public async Task<ResultT<List<GetCoffeeListDto>>> Handle(GetCoffeeQuery request, CancellationToken cancellationToken)
     {
         try
         {
@@ -22,7 +23,7 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository)
             ).OrderByDescending(key => key.CreatedAt)
                 .ToList();
 
-            return coffeeListDto;
+            return Result.Success(coffeeListDto);
         }
         
         catch (Exception exception)

@@ -11,7 +11,7 @@ public abstract class Entity : IEquatable<Entity>
     public static bool operator ==(Entity? left, Entity? right)
     {
         if (left is null && right is null)
-            return false;
+            return true;
 
         if (left is null || right is null)
             return false;

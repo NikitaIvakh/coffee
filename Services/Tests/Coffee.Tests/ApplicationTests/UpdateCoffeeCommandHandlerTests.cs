@@ -17,7 +17,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
     public async Task Handle_Should_SuccessfullyUpdated()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
+        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);
@@ -28,14 +28,15 @@ public sealed class UpdateCoffeeCommandHandlerTests
         var result = await handler.Handle(command, default);
 
         // Assert
-        result.Should().NotBeNull();
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailure.Should().BeFalse();
     }
 
     [Fact]
     public async Task Handle_Should_SuccessfullyUpdated_RepositoryUpdateCall_Once()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
+        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);
@@ -53,7 +54,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
     public async Task Handle_Should_SuccessfullyUpdated_UnitOfWorkCall_Once()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
+        var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);

@@ -15,7 +15,7 @@ public sealed class GetCoffeeByIdQueryHandlerTests
     public async Task Handler_Should_GetCoffeeById_Success()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("testName", "testDescription", 22.86m, CoffeeType.Kenya);
+        var coffee = CoffeeEntity.Create("testName", "testDescription", 22.86m, CoffeeType.Kenya).Value;
         _coffeeRepository.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
 
         var query = new GetCoffeeByIdQuery(coffee.Id);

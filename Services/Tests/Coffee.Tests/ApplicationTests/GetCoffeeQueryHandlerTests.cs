@@ -15,7 +15,7 @@ public sealed class GetCoffeeQueryHandlerTests
     public async Task Query_Should_ReturnCoffeeList_Success()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("testName", "testDescription", 22.87m, CoffeeType.Brazil);
+        var coffee = CoffeeEntity.Create("testName", "testDescription", 22.87m, CoffeeType.Brazil).Value;
         var coffeeList = new List<CoffeeEntity>{ coffee, coffee, coffee };
         _coffeeRepository.Setup(key => key.GetAllAsync()).ReturnsAsync(coffeeList);
 

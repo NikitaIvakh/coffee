@@ -1,5 +1,6 @@
 ﻿using Coffee.Domain.DTOs;
 using Coffee.Domain.Enums;
+using Coffee.Domain.Shared;
 using MediatR;
 
 namespace Coffee.Application.Coffees.Handlers.Create;
@@ -7,4 +8,4 @@ namespace Coffee.Application.Coffees.Handlers.Create;
 public record class CreateCoffeeCommand
     (
         CreateCoffeeDto CreateCoffeeDto
-    ) : IRequest<Guid>;
+    ) : IRequest<ResultT<Guid>>;

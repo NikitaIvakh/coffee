@@ -17,7 +17,7 @@ public sealed class CreateCoffeeCommandHandlerTests
     public async Task Handle_Should_ReturnSuccessResult()
     {
         // Arrange
-        var coffee = new CreateCoffeeDto("test", "text", 20.5m, CoffeeType.Brazil);
+        var coffee = new CreateCoffeeDto("test123", "test123", 20.5m, CoffeeType.Brazil);
         var command = new CreateCoffeeCommand(coffee);
         var handler = new CreateCoffeeCommandHandler(_couponRepositoryMock.Object, _unitOfWorkMock.Object);
 
@@ -25,14 +25,15 @@ public sealed class CreateCoffeeCommandHandlerTests
        var result = await handler.Handle(command, default);
 
        // Assert
-       result.Should().NotBeEmpty();
+       result.IsSuccess.Should().BeTrue();
+       result.IsFailure.Should().BeFalse();
     }
 
     [Fact]
     public async Task Handle_Should_CallCoffeeRepositoryCreate_Once()
     {
         // Arrange
-        var coffee = new CreateCoffeeDto("test", "text", 20.5m, CoffeeType.Brazil);
+        var coffee = new CreateCoffeeDto("test123", "test123", 20.5m, CoffeeType.Brazil);
         var command = new CreateCoffeeCommand(coffee);
         var handler = new CreateCoffeeCommandHandler(_couponRepositoryMock.Object, _unitOfWorkMock.Object);
         
@@ -47,7 +48,7 @@ public sealed class CreateCoffeeCommandHandlerTests
     public async Task Handle_Should_CallUnitOfWorkCreate_Once()
     {
         // Arrange
-        var coffee = new CreateCoffeeDto("test", "text", 20.5m, CoffeeType.Brazil);
+        var coffee = new CreateCoffeeDto("test123", "test123", 20.5m, CoffeeType.Brazil);
         var command = new CreateCoffeeCommand(coffee);
         var handler = new CreateCoffeeCommandHandler(_couponRepositoryMock.Object, _unitOfWorkMock.Object);
         

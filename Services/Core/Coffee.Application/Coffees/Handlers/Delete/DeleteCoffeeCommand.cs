@@ -1,6 +1,7 @@
 ﻿using Coffee.Domain.DTOs;
+using Coffee.Domain.Shared;
 using MediatR;
 
 namespace Coffee.Application.Coffees.Handlers.Delete;
 
-public record DeleteCoffeeCommand(DeleteCoffeeDto DeleteCoffeeDto): IRequest<Unit>;
+public record DeleteCoffeeCommand(DeleteCoffeeDto DeleteCoffeeDto): IRequest<ResultT<Unit>>;

@@ -17,7 +17,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
     public async Task Handle_Should_SuccessRemoveCoffee()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia);
+        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
@@ -28,14 +28,15 @@ public sealed class DeleteCoffeeCommandHandlerTests
         var result = await handler.Handle(command, default);
 
         // Assert
-        result.Should().NotBeNull();
+        result.IsSuccess.Should().BeTrue();
+        result.IsFailure.Should().BeFalse();
     }
 
     [Fact]
     public async Task Handle_Should_RepositoryCallOnce()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia);
+        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
@@ -53,7 +54,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
     public async Task Handle_Should_UnitOfWorkCallOnce()
     {
         // Arrange
-        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia);
+        var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
