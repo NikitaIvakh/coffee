@@ -1,4 +1,4 @@
-﻿using Coffee.Domain.Interfaces;
+﻿using Coffee.Application.Abstractors.Interfaces;
 
 namespace Coffee.Infrastructure.Repositories;
 

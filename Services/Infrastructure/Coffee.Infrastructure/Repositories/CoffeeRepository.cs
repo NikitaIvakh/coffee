@@ -1,5 +1,5 @@
-﻿using Coffee.Domain.Entities;
-using Coffee.Domain.Interfaces;
+﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coffee.Infrastructure.Repositories;
@@ -11,12 +11,12 @@ public class CoffeeRepository(ApplicationDbContext context) : ICoffeeRepository
         return context.Coffies.AsNoTracking().AsQueryable();
     }
 
-    public async Task CreateAsync(CoffeeEntity entity)
+    public async Task CreateAsync(CoffeeEntity entity, CancellationToken token)
     {
         if (entity is null)
             throw new Exception("Entity is error");
 
-        await context.AddAsync(entity);
+        await context.AddAsync(entity, token);
         await Task.CompletedTask;
     }
 

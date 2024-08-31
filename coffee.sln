@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Infrastructure", "Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.WebAPI", "Services\Presentation\Coffee.WebAPI\Coffee.WebAPI.csproj", "{F904A171-71C3-4DA2-B56A-58BB8CFD724C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coffee.Tests", "Services\Tests\Coffee.Tests\Coffee.Tests.csproj", "{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,7 @@ Global
 		{6C7544D2-3D3B-480E-B402-6AEAB7BC158C} = {964807AD-7E57-435A-AFB7-89657B2B9F54}
 		{B532C6A2-DB22-47F4-B1E8-5065236CDECB} = {222DAE7A-DB50-4B37-8644-904ACFF6DEF9}
 		{F904A171-71C3-4DA2-B56A-58BB8CFD724C} = {269F1CC4-11A1-499B-BD53-E1017421FE39}
+		{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE} = {4092A800-BA7E-4181-A2F0-9CBF0ED533E4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9C3EC4D9-6F96-42C5-95BE-A09BD63B0A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,5 +53,9 @@ Global
 		{F904A171-71C3-4DA2-B56A-58BB8CFD724C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F904A171-71C3-4DA2-B56A-58BB8CFD724C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F904A171-71C3-4DA2-B56A-58BB8CFD724C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41686ED0-05F8-49BF-ADD1-1C6EFD8A96CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

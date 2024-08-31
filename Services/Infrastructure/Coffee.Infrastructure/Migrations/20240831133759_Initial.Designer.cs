@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Coffee.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240831120950_Initial")]
+    [Migration("20240831133759_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -31,6 +31,10 @@ namespace Coffee.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("CoffeeType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -43,10 +47,7 @@ namespace Coffee.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<byte>("Sort")
-                        .HasColumnType("smallint");
+                        .HasColumnType("numeric(10, 2)");
 
                     b.HasKey("Id");
 

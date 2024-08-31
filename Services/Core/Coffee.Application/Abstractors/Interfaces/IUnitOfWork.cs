@@ -1,4 +1,4 @@
-﻿namespace Coffee.Domain.Interfaces;
+﻿namespace Coffee.Application.Abstractors.Interfaces;
 
 public interface IUnitOfWork
 {

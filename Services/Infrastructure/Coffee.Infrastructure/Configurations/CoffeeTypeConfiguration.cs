@@ -2,6 +2,7 @@
 using Coffee.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Coffee.Infrastructure.Configurations;
 
@@ -11,6 +12,6 @@ public class CoffeeTypeConfiguration: IEntityTypeConfiguration<CoffeeEntity>
     {
         builder.HasKey(key => key.Id);
         builder.Property(key => key.Price).HasColumnType("numeric(10, 2)");
-        builder.Property(key => key.Sort).HasConversion<string>();
+        builder.Property(key => key.CoffeeType).HasConversion<string>();
     }
 }

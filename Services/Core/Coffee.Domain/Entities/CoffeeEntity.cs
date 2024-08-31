@@ -7,13 +7,13 @@ public class CoffeeEntity : Entity, IAuditableData
 {
     private CoffeeEntity() {}
 
-    private CoffeeEntity(Guid id, string name, string description, decimal price, Sort sort, DateTimeOffset createdAt) : base(id)
+    private CoffeeEntity(Guid id, string name, string description, decimal price, CoffeeType coffeeType, DateTimeOffset createdAt) : base(id)
     {
         Id = id;
         Name = name;
         Description = description;
         Price = price;
-        Sort = sort;
+        CoffeeType = coffeeType;
         CreatedAt = createdAt;
     }
 
@@ -24,13 +24,13 @@ public class CoffeeEntity : Entity, IAuditableData
     public string Description { get; private set; } = string.Empty;
     
     public decimal Price { get; private set; }
-    
-    public Sort Sort { get; private set; }
-    
+
+    public CoffeeType CoffeeType { get; private set; }
+
     public DateTimeOffset CreatedAt { get; set; }
 
-    public static CoffeeEntity Create(string name, string description, decimal price, Sort sort)
+    public static CoffeeEntity Create(string name, string description, decimal price, CoffeeType coffeeType)
     {
-        return new CoffeeEntity(Guid.NewGuid(), name, description, price, sort, DateTimeOffset.UtcNow);
+        return new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, DateTimeOffset.UtcNow);
     }
 }

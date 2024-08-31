@@ -28,6 +28,10 @@ namespace Coffee.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("CoffeeType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -40,10 +44,7 @@ namespace Coffee.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<byte>("Sort")
-                        .HasColumnType("smallint");
+                        .HasColumnType("numeric(10, 2)");
 
                     b.HasKey("Id");
 

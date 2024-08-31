@@ -1,4 +1,4 @@
-﻿using Coffee.Domain.Interfaces;
+﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

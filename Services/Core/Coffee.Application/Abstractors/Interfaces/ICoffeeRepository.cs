@@ -1,12 +1,12 @@
 ﻿using Coffee.Domain.Entities;
 
-namespace Coffee.Domain.Interfaces;
+namespace Coffee.Application.Abstractors.Interfaces;
 
 public interface ICoffeeRepository
 {
     IQueryable<CoffeeEntity> GetAll();
 
-    Task CreateAsync(CoffeeEntity entity);
+    Task CreateAsync(CoffeeEntity entity, CancellationToken token);
 
     Task UpdateAsync(CoffeeEntity entity);
 

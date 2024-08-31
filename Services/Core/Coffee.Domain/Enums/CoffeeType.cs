@@ -1,6 +1,6 @@
 ﻿namespace Coffee.Domain.Enums;
 
-public enum Sort: byte
+public enum CoffeeType
 {
     Brazil = 1,
     Kenya = 2,
