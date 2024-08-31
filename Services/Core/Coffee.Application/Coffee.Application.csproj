@@ -16,8 +16,4 @@
       <ProjectReference Include="..\Coffee.Domain\Coffee.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Coffees\Queries\" />
-    </ItemGroup>
-
 </Project>

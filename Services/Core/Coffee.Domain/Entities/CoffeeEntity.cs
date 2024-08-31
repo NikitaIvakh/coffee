@@ -7,13 +7,14 @@ public class CoffeeEntity : Entity, IAuditableData
 {
     private CoffeeEntity() {}
 
-    private CoffeeEntity(Guid id, string name, string description, decimal price, CoffeeType coffeeType, DateTimeOffset createdAt) : base(id)
+    private CoffeeEntity(Guid id, string name, string description, decimal price, CoffeeType coffeeType, string imageUrl, DateTimeOffset createdAt) : base(id)
     {
         Id = id;
         Name = name;
         Description = description;
         Price = price;
         CoffeeType = coffeeType;
+        ImageUrl = imageUrl;
         CreatedAt = createdAt;
     }
 
@@ -27,11 +28,14 @@ public class CoffeeEntity : Entity, IAuditableData
 
     public CoffeeType CoffeeType { get; private set; }
 
+    public string ImageUrl { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
 
     public static CoffeeEntity Create(string name, string description, decimal price, CoffeeType coffeeType)
     {
-        return new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, DateTimeOffset.UtcNow);
+        const string imageUrl = "https://placehold.co/600x400";
+        return new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, imageUrl, DateTimeOffset.UtcNow);
     }
     
     public static CoffeeEntity Update(CoffeeEntity existingEntity, string? name, string? description, decimal? price, CoffeeType? coffeeType)
