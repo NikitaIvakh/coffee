@@ -4,7 +4,9 @@ namespace Coffee.Application.Abstractors.Interfaces;
 
 public interface ICoffeeRepository
 {
-    IQueryable<CoffeeEntity> GetAll();
+    Task<IEnumerable<CoffeeEntity>> GetAllAsync();
+
+    Task<CoffeeEntity> GetCoffeeEntityAsync(Guid id);
 
     Task CreateAsync(CoffeeEntity entity, CancellationToken token);
 

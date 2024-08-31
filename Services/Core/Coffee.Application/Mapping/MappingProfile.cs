@@ -9,5 +9,6 @@ public class MappingProfile: Profile
     public MappingProfile()
     {
         CreateMap<CoffeeEntity, CreateCoffeeDto>().ReverseMap();
+        CreateMap<CoffeeEntity, UpdateCoffeeDto>().ReverseMap();
     }
 }

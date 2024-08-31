@@ -18,7 +18,6 @@
 
     <ItemGroup>
       <Folder Include="Coffees\Handlers\Delete\" />
-      <Folder Include="Coffees\Handlers\Update\" />
       <Folder Include="Coffees\Queries\" />
     </ItemGroup>
 

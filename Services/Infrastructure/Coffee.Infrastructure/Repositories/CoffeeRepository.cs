@@ -6,9 +6,14 @@ namespace Coffee.Infrastructure.Repositories;
 
 public class CoffeeRepository(ApplicationDbContext context) : ICoffeeRepository
 {
-    public IQueryable<CoffeeEntity> GetAll()
+    public async Task<IEnumerable<CoffeeEntity>> GetAllAsync()
     {
-        return context.Coffies.AsNoTracking().AsQueryable();
+        return await context.Coffies.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<CoffeeEntity> GetCoffeeEntityAsync(Guid id)
+    {
+        return (await context.Coffies.FirstOrDefaultAsync(key => key.Id == id))!;
     }
 
     public async Task CreateAsync(CoffeeEntity entity, CancellationToken token)

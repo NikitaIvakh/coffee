@@ -33,4 +33,26 @@ public class CoffeeEntity : Entity, IAuditableData
     {
         return new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, DateTimeOffset.UtcNow);
     }
+    
+    public static CoffeeEntity Update(CoffeeEntity existingEntity, string? name, string? description, decimal? price, CoffeeType? coffeeType)
+    {
+        ArgumentNullException.ThrowIfNull(existingEntity);
+        existingEntity.Update(name, description, price, coffeeType);
+        return existingEntity;
+    }
+
+    private void Update(string? name, string? description, decimal? price, CoffeeType? coffeeType)
+    {
+        if (name != null)
+            Name = name;
+
+        if (description != null)
+            Description = description;
+
+        if (price.HasValue)
+            Price = price.Value;
+
+        if (coffeeType.HasValue)
+            CoffeeType = coffeeType.Value;
+    }
 }
