@@ -1,7 +1,8 @@
 ﻿using Coffee.Application.Coffees.Handlers.Create;
 using Coffee.Application.Coffees.Handlers.Delete;
 using Coffee.Application.Coffees.Handlers.Update;
-using Coffee.Application.Coffees.Queries;
+using Coffee.Application.Coffees.Queries.CoffeeById;
+using Coffee.Application.Coffees.Queries.CoffeeList;
 using Coffee.Domain.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,13 @@ public class CoffeeController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<GetCoffeeListDto>> GetCoffeeList()
     {
         var query = await mediator.Send(new GetCoffeeQuery());
+        return Ok(query);
+    }
+
+    [HttpGet(nameof(GetCoffee) + "{id}")]
+    public async Task<ActionResult<GetCoffeeDto>> GetCoffee(Guid id)
+    {
+        var query = await mediator.Send(new GetCoffeeByIdQuery(id));
         return Ok(query);
     }
     

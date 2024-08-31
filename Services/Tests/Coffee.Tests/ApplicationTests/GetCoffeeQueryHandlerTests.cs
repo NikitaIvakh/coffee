@@ -1,5 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
-using Coffee.Application.Coffees.Queries;
+using Coffee.Application.Coffees.Queries.CoffeeList;
 using Coffee.Domain.Entities;
 using Coffee.Domain.Enums;
 using FluentAssertions;

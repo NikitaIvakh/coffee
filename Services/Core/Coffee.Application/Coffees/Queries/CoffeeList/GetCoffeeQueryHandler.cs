@@ -2,7 +2,7 @@
 using Coffee.Domain.DTOs;
 using MediatR;
 
-namespace Coffee.Application.Coffees.Queries;
+namespace Coffee.Application.Coffees.Queries.CoffeeList;
 
 public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository)
     : IRequestHandler<GetCoffeeQuery, IEnumerable<GetCoffeeListDto>>
