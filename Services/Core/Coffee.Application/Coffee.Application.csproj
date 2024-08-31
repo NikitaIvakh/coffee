@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Coffees\Handlers\Delete\" />
       <Folder Include="Coffees\Queries\" />
     </ItemGroup>
 

@@ -10,19 +10,19 @@ namespace Coffee.Tests.ApplicationTests;
 
 public sealed class UpdateCoffeeCommandHandlerTests
 {
-    private readonly Mock<ICoffeeRepository> _coffeeRepository = new();
-    private readonly Mock<IUnitOfWork> _unitOfWork = new();
+    private readonly Mock<ICoffeeRepository> _coffeeRepositoryMock = new();
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
 
     [Fact]
     public async Task Handle_Should_SuccessfullyUpdated()
     {
         // Arrange
         var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
-        _coffeeRepository.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
+        _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepository.Object, _unitOfWork.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -36,17 +36,17 @@ public sealed class UpdateCoffeeCommandHandlerTests
     {
         // Arrange
         var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
-        _coffeeRepository.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
+        _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepository.Object, _unitOfWork.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
         
         // Act
         await handler.Handle(command, default);
 
         // Assert
-        _coffeeRepository.Verify(key => key.UpdateAsync(It.IsAny<CoffeeEntity>()), Times.Once);
+        _coffeeRepositoryMock.Verify(key => key.UpdateAsync(It.IsAny<CoffeeEntity>()), Times.Once);
     }
 
     [Fact]
@@ -54,16 +54,16 @@ public sealed class UpdateCoffeeCommandHandlerTests
     {
         // Arrange
         var coffee = CoffeeEntity.Create("test", "description", 23, CoffeeType.Kenya);
-        _coffeeRepository.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
+        _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil);
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepository.Object, _unitOfWork.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
         
         // Act
         await handler.Handle(command, default);
         
         // Assert
-        _unitOfWork.Verify(key => key.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        _unitOfWorkMock.Verify(key => key.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
     }
 }

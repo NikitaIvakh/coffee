@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Coffees.Handlers.Create;
+using Coffee.Application.Coffees.Handlers.Delete;
 using Coffee.Application.Coffees.Handlers.Update;
 using Coffee.Domain.DTOs;
 using MediatR;
@@ -21,6 +22,13 @@ public class CoffeeController(IMediator mediator) : ControllerBase
     public async Task<ActionResult<Unit>> UpdateCoffee(Guid id, [FromBody] UpdateCoffeeDto updateCoffeeDto)
     {
         var command = await mediator.Send(new UpdateCoffeeCommand(updateCoffeeDto));
+        return Ok(command);
+    }
+
+    [HttpDelete($"{nameof(DeleteCoffee)}/" + "{id}")]
+    public async Task<ActionResult<Unit>> DeleteCoffee(Guid id, [FromBody] DeleteCoffeeDto deleteCoffeeDto)
+    {
+        var command = await mediator.Send(new DeleteCoffeeCommand(deleteCoffeeDto));
         return Ok(command);
     }
 }
