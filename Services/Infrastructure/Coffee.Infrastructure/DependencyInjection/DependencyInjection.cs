@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Coffee.Domain.Interfaces;
+using Coffee.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +17,8 @@ public static class DependencyInjection
 
     private static void RegisterRepositories(this IServiceCollection services)
     {
-        
+        services.AddScoped<ICoffeeRepository, CoffeeRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
     private static void RegisterDatabase(IServiceCollection services, IConfiguration configuration)
