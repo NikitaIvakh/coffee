@@ -3,12 +3,13 @@ using Coffee.Domain.Primitives;
 
 namespace Coffee.Domain.Entities;
 
-public class Coffee : Entity, IAuditableData
+public class CoffeeEntity : Entity, IAuditableData
 {
-    private Coffee() {}
+    private CoffeeEntity() {}
 
-    private Coffee(Guid id, string name, string description, decimal price, Sort sort, DateTimeOffset createdAt) : base(id)
+    private CoffeeEntity(Guid id, string name, string description, decimal price, Sort sort, DateTimeOffset createdAt) : base(id)
     {
+        Id = id;
         Name = name;
         Description = description;
         Price = price;
@@ -16,6 +17,8 @@ public class Coffee : Entity, IAuditableData
         CreatedAt = createdAt;
     }
 
+    public Guid Id { get; private set; }
+    
     public string Name { get; private set; } = string.Empty;
     
     public string Description { get; private set; } = string.Empty;
@@ -26,8 +29,8 @@ public class Coffee : Entity, IAuditableData
     
     public DateTimeOffset CreatedAt { get; set; }
 
-    public static Coffee Create(string name, string description, decimal price, Sort sort)
+    public static CoffeeEntity Create(string name, string description, decimal price, Sort sort)
     {
-        return new Coffee(Guid.NewGuid(), name, description, price, sort, DateTimeOffset.UtcNow);
+        return new CoffeeEntity(Guid.NewGuid(), name, description, price, sort, DateTimeOffset.UtcNow);
     }
 }

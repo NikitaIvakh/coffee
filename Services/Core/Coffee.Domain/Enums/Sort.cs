@@ -1,8 +1,8 @@
 ﻿namespace Coffee.Domain.Enums;
 
-public enum Sort
+public enum Sort: byte
 {
-    Brazil,
-    Kenya,
-    Columbia 
+    Brazil = 1,
+    Kenya = 2,
+    Columbia = 3
 }
