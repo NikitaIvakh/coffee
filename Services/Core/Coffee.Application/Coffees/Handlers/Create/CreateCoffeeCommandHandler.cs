@@ -13,7 +13,13 @@ public class CreateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
     {
         try
         {
-            var coffee = CoffeeEntity.Create(request.CreateCoffeeDto.Name, request.CreateCoffeeDto.Description, request.CreateCoffeeDto.Price, request.CreateCoffeeDto.CoffeeType);
+            var coffee = CoffeeEntity.Create
+            (
+                request.CreateCoffeeDto.Name, 
+                request.CreateCoffeeDto.Description, 
+                request.CreateCoffeeDto.Price, 
+                request.CreateCoffeeDto.CoffeeType
+            );
 
             if (coffee.IsFailure)
                 return Result.Failure<Guid>(DomainErrors.CoffeeEntity.CoffeeCanNotCreate($"{coffee.Error.Code}: {coffee.Error.Message}"));
