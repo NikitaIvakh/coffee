@@ -2,4 +2,4 @@
 
 namespace Coffee.Domain.DTOs;
 
-public record GetCoffeeListDto(string Name, CoffeeType CoffeeType, decimal Price, string ImageUrl, DateTimeOffset CreatedAt);
+public record GetCoffeeListDto(string Name, CoffeeType CoffeeType, decimal Price, DateTimeOffset CreatedAt);

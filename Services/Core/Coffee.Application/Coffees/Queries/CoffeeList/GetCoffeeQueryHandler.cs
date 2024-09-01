@@ -18,7 +18,6 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository)
                 coffee.Name, 
                 coffee.CoffeeType, 
                 coffee.Price, 
-                coffee.ImageUrl, 
                 coffee.CreatedAt)
             ).OrderByDescending(key => key.CreatedAt)
                 .ToList();

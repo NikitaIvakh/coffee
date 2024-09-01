@@ -9,17 +9,16 @@ public class CoffeeEntity : Entity, IAuditableData
 {
     private CoffeeEntity() {}
 
-    private CoffeeEntity(Guid id, string name, string description, decimal price, CoffeeType coffeeType, string imageUrl, DateTimeOffset createdAt) : base(id)
+    private CoffeeEntity(Guid id, string name, string description, decimal price, CoffeeType coffeeType, DateTimeOffset createdAt) : base(id)
     {
         Id = id;
         Name = name;
         Description = description;
         Price = price;
         CoffeeType = coffeeType;
-        ImageUrl = imageUrl;
         CreatedAt = createdAt;
     }
-
+    
     public Guid Id { get; private set; }
     
     public string Name { get; private set; } = string.Empty;
@@ -30,14 +29,13 @@ public class CoffeeEntity : Entity, IAuditableData
 
     public CoffeeType CoffeeType { get; private set; }
 
-    public string ImageUrl { get; private set; }
-
+    public IReadOnlyCollection<CoffeePhoto> CoffeePhotos { get; private set; }
+    private readonly List<CoffeePhoto> _photos = [];
+    
     public DateTimeOffset CreatedAt { get; set; }
 
     public static ResultT<CoffeeEntity> Create(string name, string description, decimal price, CoffeeType coffeeType)
     {
-        const string imageUrl = "https://placehold.co/600x400";
-
         if (name.Length is > Constraints.MaxLength or < Constraints.MinLength)
             return Result.Failure<CoffeeEntity>(DomainErrors.CoffeeEntity.InvalidLength(nameof(name), name.Length));
 
@@ -47,7 +45,7 @@ public class CoffeeEntity : Entity, IAuditableData
         if (price is > Constraints.MaxValue or < Constraints.MinValue)
             return Result.Failure<CoffeeEntity>(DomainErrors.CoffeeEntity.InvalidValue(nameof(price)));
 
-        var coffeeEntity = new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, imageUrl, DateTimeOffset.UtcNow);
+        var coffeeEntity = new CoffeeEntity(Guid.NewGuid(), name, description, price, coffeeType, DateTimeOffset.UtcNow);
         return Result.Create(coffeeEntity);
     }
     
@@ -56,6 +54,26 @@ public class CoffeeEntity : Entity, IAuditableData
         ArgumentNullException.ThrowIfNull(existingEntity);
         existingEntity.Update(name, description, price, coffeeType);
         return Result.Success(existingEntity);
+    }
+
+    public Result AddPhoto(CoffeePhoto coffeePhoto)
+    {
+        if (_photos.Count > Constraints.PhotoCountLimit)
+            return Result.Failure(DomainErrors.CoffeeEntity.PhotoCountLimit(nameof(coffeePhoto)));
+        
+        _photos.Add(coffeePhoto);
+        return Result.Success();
+    }
+
+    public Result DeletePhoto(string path)
+    {
+        var photo = _photos.FirstOrDefault(key => key.Patch.Contains(path));
+
+        if (photo is null)
+            return Result.Failure(DomainErrors.CoffeePhoto.PhotoNotFound(nameof(path)));
+
+        _photos.Remove(photo);
+        return Result.Success();
     }
 
     private void Update(string? name, string? description, decimal? price, CoffeeType? coffeeType)

@@ -23,5 +23,32 @@ public static class DomainErrors
 
         public static readonly Func<string, Error> CoffeeCanNotUpdate = (property) =>
             new Error("update.error", $"{property}");
+
+        public static readonly Func<string, Error> PhotoCountLimit = (property) =>
+            new Error("photo.count.limit", $"{property} - photo count limit");
+    }
+
+    public static class CoffeePhoto
+    {
+        public static readonly Func<string, Error> FileTypeInvalid = (property) =>
+            new Error("file.type.invalid", $"{property} is invalid");
+
+        public static readonly Func<string, Error> FileInvalidLength = (property) =>
+            new Error("file.invalid.length", $"{property} - length is invalid");
+
+        public static readonly Func<string, Error> PhotoNotFound = (property) =>
+            new Error("photo.not.found", $"{property} - NOT FOUND");
+
+        public static readonly Func<string, Error> SaveFailure = (property) =>
+            new Error("save.failure", $"{property}: save failure");
+        
+        public static readonly Func<string, Error> PhotosLoadingFailure = (property) =>
+            new Error("save.failure", $"{property}: photo loading failure");
+        
+        public static readonly Func<string, Error> RemovePhotoFailure = (property) =>
+            new Error("save.failure", $"{property}: remove photo failure");
+        
+        public static readonly Func<string, Error> RemovePhotosFailure = (property) =>
+            new Error("save.failure", $"{property}: remove photos failure");
     }
 }

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Coffee.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240831154852_Initial")]
+    [Migration("20240901165145_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -42,10 +42,6 @@ namespace Coffee.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -56,6 +52,43 @@ namespace Coffee.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Coffies");
+                });
+
+            modelBuilder.Entity("Coffee.Domain.Entities.CoffeePhoto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CoffeeEntityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsMatch")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Patch")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoffeeEntityId");
+
+                    b.ToTable("CoffeePhoto");
+                });
+
+            modelBuilder.Entity("Coffee.Domain.Entities.CoffeePhoto", b =>
+                {
+                    b.HasOne("Coffee.Domain.Entities.CoffeeEntity", null)
+                        .WithMany("CoffeePhotos")
+                        .HasForeignKey("CoffeeEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Coffee.Domain.Entities.CoffeeEntity", b =>
+                {
+                    b.Navigation("CoffeePhotos");
                 });
 #pragma warning restore 612, 618
         }

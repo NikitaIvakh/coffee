@@ -18,7 +18,7 @@ public class GetCoffeeByIdQueryHandler(ICoffeeRepository coffeeRepository)
             if (coffee is null)
                 return Result.Failure<GetCoffeeDto>(DomainErrors.CoffeeEntity.CoffeeNotFound(request.Id));
 
-            var coffeeDto = new GetCoffeeDto(coffee.Id, coffee.Name, coffee.Description, coffee.Price, coffee.ImageUrl);
+            var coffeeDto = new GetCoffeeDto(coffee.Id, coffee.Name, coffee.Description, coffee.Price);
             return Result.Success(coffeeDto);
         }
         

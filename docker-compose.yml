@@ -1,0 +1,75 @@
+﻿version: '3.8'
+
+services:
+  coffee:
+    container_name: coffee_api
+    build:
+      context: .
+      dockerfile: Services/Presentation/Coffee.WebAPI/Dockerfile
+    ports:
+      - "5000:5000" 
+      - "5001:5001" 
+    environment:
+      - ASPNETCORE_URLS=http://+:5000;https://+:5001
+    volumes:
+      - .:/usr/src/app/
+      - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
+    depends_on:
+      - postgres
+      - pgadmin
+      - minio-server
+    networks:
+      - my_network
+  
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: CoffeeDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - my_network
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: strong-password
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      my_network:
+  
+  minio-server:
+    image: minio/minio
+    container_name: minio-server
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    command: server --console-address ":9001" /data
+    restart: always
+    networks:
+      - my_network
+
+volumes:
+  postgres-data:
+  minio_data:
+  pgadmin-data:
+
+networks:
+  my_network:
