@@ -1,0 +1,37 @@
+@import-normalize;
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap');
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+:root {
+	/* Typography */
+	--family: 'Merienda', sans-serif;
+	--fs-ssm: 12px;
+	--fs-sm: 14px;
+	--fs-md: 24px;
+	--fs-lg: 40px;
+
+	--lh-ssm: 17px;
+	--lh-sm: 20px;
+	--lh-md: 35px;
+	--lh-lg: 58px;
+
+	--fw-light: 300;
+	--fw-normal: 400;
+	--fw-bold: 700;
+
+	// colors
+	--color-text: #fff;
+}
+
+body {
+	margin: 0;
+	font-family: var(--family);
+	color: var(--colors-text);
+	font-weight: var(--fw-light);
+	background-color: var(--colors-bg);
+}
