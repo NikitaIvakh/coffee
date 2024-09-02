@@ -27,11 +27,12 @@ public class CoffeeEntity : Entity, IAuditableData
     
     public decimal Price { get; private set; }
 
+    public string? ImageUrl { get; private set; }
+
+    public string? ImageLocalPath { get; private set; }
+    
     public CoffeeType CoffeeType { get; private set; }
 
-    public IReadOnlyCollection<CoffeePhoto> CoffeePhotos { get; private set; }
-    private readonly List<CoffeePhoto> _photos = [];
-    
     public DateTimeOffset CreatedAt { get; set; }
 
     public static ResultT<CoffeeEntity> Create(string name, string description, decimal price, CoffeeType coffeeType)
@@ -56,26 +57,20 @@ public class CoffeeEntity : Entity, IAuditableData
         return Result.Success(existingEntity);
     }
 
-    public Result AddPhoto(CoffeePhoto coffeePhoto)
+    public static void UpdateImage(CoffeeEntity coffeeEntity, string? imageUrl, string? imageLocalPath)
     {
-        if (_photos.Count > Constraints.PhotoCountLimit)
-            return Result.Failure(DomainErrors.CoffeeEntity.PhotoCountLimit(nameof(coffeePhoto)));
-        
-        _photos.Add(coffeePhoto);
-        return Result.Success();
+        if (imageUrl is null && imageLocalPath is null)
+        {
+            Result.Failure<CoffeeEntity>(DomainErrors.CoffeePhoto.SaveFailure($"{nameof(imageUrl)}: {imageLocalPath}"));
+            return;
+        }
+
+        if (imageUrl is not null || imageLocalPath is not null)
+            UpdateImageFields(coffeeEntity, imageUrl, imageLocalPath);
+
+        Result.Success(coffeeEntity);
     }
-
-    public Result DeletePhoto(string path)
-    {
-        var photo = _photos.FirstOrDefault(key => key.Patch.Contains(path));
-
-        if (photo is null)
-            return Result.Failure(DomainErrors.CoffeePhoto.PhotoNotFound(nameof(path)));
-
-        _photos.Remove(photo);
-        return Result.Success();
-    }
-
+    
     private void Update(string? name, string? description, decimal? price, CoffeeType? coffeeType)
     {
         if (name is { Length: < Constraints.MaxLength or > Constraints.MinLength })
@@ -89,5 +84,19 @@ public class CoffeeEntity : Entity, IAuditableData
 
         if (coffeeType.HasValue)
             CoffeeType = coffeeType.Value;
+    }
+    
+    private static void UpdateImageFields(CoffeeEntity coffeeEntity, string? imageUrl, string? imageLocalPath)
+    {
+        if (imageUrl is not null)
+            coffeeEntity.ImageUrl = imageUrl;
+
+        if (imageLocalPath is not null)
+            coffeeEntity.ImageLocalPath = imageLocalPath;
+
+        if (imageUrl is not null || imageLocalPath is not null) return;
+        
+        coffeeEntity.ImageUrl = "https://placehold.co/600x400";
+        coffeeEntity.ImageLocalPath = "https://placehold.co/600x400";
     }
 }

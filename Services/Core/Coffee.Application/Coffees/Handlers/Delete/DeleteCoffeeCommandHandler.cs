@@ -1,6 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Domain.Common;
-using Coffee.Domain.Entities;
 using Coffee.Domain.Shared;
 using MediatR;
 
@@ -18,6 +17,18 @@ public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
             if (coffee == null)
                 return Result.Failure<Unit>(DomainErrors.CoffeeEntity.CoffeeCanNotDeleted(nameof(coffee)));
 
+            if (!string.IsNullOrEmpty(coffee.ImageLocalPath))
+            {
+                var fileNameToDelete = $"Id_{coffee.Id}*";
+                var filePathToDelete = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "CoffeeImages");
+                var files = Directory.GetFiles(filePathToDelete, fileNameToDelete + ".*");
+
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+            }
+            
             await coffeeRepository.DeleteAsync(coffee);
             await unitOfWork.SaveChangesAsync(cancellationToken);
 

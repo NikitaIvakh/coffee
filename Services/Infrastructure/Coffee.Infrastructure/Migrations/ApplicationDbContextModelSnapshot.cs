@@ -51,41 +51,30 @@ namespace Coffee.Infrastructure.Migrations
                     b.ToTable("Coffies");
                 });
 
-            modelBuilder.Entity("Coffee.Domain.Entities.CoffeePhoto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CoffeeEntityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsMatch")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Patch")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoffeeEntityId");
-
-                    b.ToTable("CoffeePhoto");
-                });
-
-            modelBuilder.Entity("Coffee.Domain.Entities.CoffeePhoto", b =>
-                {
-                    b.HasOne("Coffee.Domain.Entities.CoffeeEntity", null)
-                        .WithMany("CoffeePhotos")
-                        .HasForeignKey("CoffeeEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Coffee.Domain.Entities.CoffeeEntity", b =>
                 {
-                    b.Navigation("CoffeePhotos");
+                    b.OwnsOne("Coffee.Domain.ValueObject.CoffeeImage", "CoffeeImage", b1 =>
+                        {
+                            b1.Property<Guid>("CoffeeEntityId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("ImageLocalPath")
+                                .HasColumnType("text")
+                                .HasColumnName("ImageLocalPath");
+
+                            b1.Property<string>("ImageUrl")
+                                .HasColumnType("text")
+                                .HasColumnName("ImageUrl");
+
+                            b1.HasKey("CoffeeEntityId");
+
+                            b1.ToTable("Coffies");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CoffeeEntityId");
+                        });
+
+                    b.Navigation("CoffeeImage");
                 });
 #pragma warning restore 612, 618
         }

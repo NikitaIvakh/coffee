@@ -5,7 +5,4 @@ using MediatR;
 
 namespace Coffee.Application.Coffees.Handlers.Create;
 
-public record class CreateCoffeeCommand
-    (
-        CreateCoffeeDto CreateCoffeeDto
-    ) : IRequest<ResultT<Guid>>;
+public record CreateCoffeeCommand(CreateCoffeeDto CreateCoffeeDto) : IRequest<ResultT<Guid>>;

@@ -17,7 +17,6 @@ services:
     depends_on:
       - postgres
       - pgadmin
-      - minio-server
     networks:
       - my_network
   
@@ -37,7 +36,7 @@ services:
       - my_network
   
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     container_name: pgadmin4_container
     restart: always
     ports:
@@ -50,22 +49,6 @@ services:
     networks:
       my_network:
   
-  minio-server:
-    image: minio/minio
-    container_name: minio-server
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    volumes:
-      - minio_data:/data
-    environment:
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-    command: server --console-address ":9001" /data
-    restart: always
-    networks:
-      - my_network
-
 volumes:
   postgres-data:
   minio_data:
@@ -73,3 +56,4 @@ volumes:
 
 networks:
   my_network:
+    driver: bridge

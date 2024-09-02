@@ -12,7 +12,5 @@ public class CoffeeTypeConfiguration: IEntityTypeConfiguration<CoffeeEntity>
         builder.HasKey(key => key.Id);
         builder.Property(key => key.Price).HasColumnType("numeric(10, 2)");
         builder.Property(key => key.CoffeeType).HasConversion<string>();
-
-        builder.HasMany(key => key.CoffeePhotos).WithOne().IsRequired();
     }
 }

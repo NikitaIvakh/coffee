@@ -16,12 +16,6 @@ public class CoffeeRepository(ApplicationDbContext context) : ICoffeeRepository
         return (await context.Coffies.FirstOrDefaultAsync(key => key.Id == id))!;
     }
 
-    public async Task<IReadOnlyList<CoffeeEntity>> GetAllWithPhotosAsync(CancellationToken token)
-    {
-        var coffees = await context.Coffies.Include(key => key.CoffeePhotos).ToListAsync(token);
-        return coffees;
-    }
-
     public async Task CreateAsync(CoffeeEntity entity, CancellationToken token)
     {
         if (entity is null)

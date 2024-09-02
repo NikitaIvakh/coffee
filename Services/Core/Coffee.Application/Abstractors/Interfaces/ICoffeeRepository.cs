@@ -8,8 +8,6 @@ public interface ICoffeeRepository
 
     Task<CoffeeEntity> GetCoffeeEntityAsync(Guid id);
 
-    Task<IReadOnlyList<CoffeeEntity>> GetAllWithPhotosAsync(CancellationToken token);
-
     Task CreateAsync(CoffeeEntity entity, CancellationToken token);
 
     Task UpdateAsync(CoffeeEntity entity);

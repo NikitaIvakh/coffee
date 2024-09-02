@@ -1,8 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using Coffee.Application.DependencyInjection;
 using Coffee.Infrastructure.DependencyInjection;
-using Coffee.Infrastructure.Jobs;
-using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureApplicationService();
+builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
@@ -31,7 +30,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.UseHangfireDashboard();
-HandleWorker.StartRecurringJobs();
-
 app.Run();
