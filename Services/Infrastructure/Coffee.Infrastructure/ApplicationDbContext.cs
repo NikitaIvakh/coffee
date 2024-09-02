@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using Coffee.Application.Abstractors.DbContext;
 using Coffee.Domain.Entities;
+using Coffee.Infrastructure.Interceptors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Coffee.Infrastructure;
 
@@ -13,5 +15,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 }

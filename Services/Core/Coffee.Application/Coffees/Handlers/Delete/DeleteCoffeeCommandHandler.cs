@@ -1,11 +1,12 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Application.Providers;
 using Coffee.Domain.Common;
 using Coffee.Domain.Shared;
 using MediatR;
 
 namespace Coffee.Application.Coffees.Handlers.Delete;
 
-public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUnitOfWork unitOfWork)
+public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUnitOfWork unitOfWork, ICacheProvider cacheProvider)
     : IRequestHandler<DeleteCoffeeCommand, ResultT<Unit>>
 {
     public async Task<ResultT<Unit>> Handle(DeleteCoffeeCommand request, CancellationToken cancellationToken)
@@ -13,9 +14,6 @@ public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
         try
         {
             var coffee = await coffeeRepository.GetCoffeeEntityAsync(request.DeleteCoffeeDto.Id);
-
-            if (coffee == null)
-                return Result.Failure<Unit>(DomainErrors.CoffeeEntity.CoffeeCanNotDeleted(nameof(coffee)));
 
             if (!string.IsNullOrEmpty(coffee.ImageLocalPath))
             {
@@ -31,6 +29,12 @@ public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
             
             await coffeeRepository.DeleteAsync(coffee);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await cacheProvider.RemoveAsync("coffees", cancellationToken);
+            
+            var coffees = await coffeeRepository.GetAllAsync();
+            var result = Result.Success(coffees);
+            await cacheProvider.SetAsync("coffees", result, cancellationToken);
 
             return Result.Success(Unit.Value);
         }

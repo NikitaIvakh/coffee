@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Application.Providers;
 using Coffee.Domain.Common;
 using Coffee.Domain.Entities;
 using Coffee.Domain.Shared;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coffee.Application.Coffees.Handlers.Update;
 
-public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
+public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, ICacheProvider cacheProvider)
     : IRequestHandler<UpdateCoffeeCommand, ResultT<Unit>>
 {
     public async Task<ResultT<Unit>> Handle(UpdateCoffeeCommand request, CancellationToken cancellationToken)
@@ -16,9 +17,6 @@ public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
         try
         {
             var coffee = await coffeeRepository.GetCoffeeEntityAsync(request.UpdateCoffeeDto.Id);
-
-            if (coffee is null)
-                return Result.Failure<Unit>(DomainErrors.CoffeeEntity.CoffeeNotFound(request.UpdateCoffeeDto.Id));
 
             var coffeeUpdate = CoffeeEntity.Update(coffee,
                 request.UpdateCoffeeDto.Name,
@@ -71,6 +69,12 @@ public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
 
             await coffeeRepository.UpdateAsync(coffeeUpdate.Value);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await cacheProvider.RemoveAsync("coffees", cancellationToken);
+            
+            var coffees = await coffeeRepository.GetAllAsync();
+            var result = Result.Success(coffees);
+            await cacheProvider.SetAsync("coffees", result, cancellationToken);
             
             return Result.Success(Unit.Value);
         }

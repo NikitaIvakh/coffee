@@ -12,5 +12,6 @@ public class MappingProfile: Profile
         CreateMap<CoffeeEntity, UpdateCoffeeDto>().ReverseMap();
         CreateMap<CoffeeEntity, DeleteCoffeeDto>().ReverseMap();
         CreateMap<CoffeeEntity, GetCoffeeListDto>().ReverseMap();
+        CreateMap<CoffeeEntity, GetCoffeeDto>().ReverseMap();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Application.Coffees.Handlers.Update;
+using Coffee.Application.Providers;
 using Coffee.Domain.DTOs;
 using Coffee.Domain.Entities;
 using Coffee.Domain.Enums;
@@ -14,6 +15,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
     private readonly Mock<ICoffeeRepository> _coffeeRepositoryMock = new();
     private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
     private readonly Mock<HttpContextAccessor> _httpContextAccessor = new();
+    private readonly Mock<ICacheProvider> _cacheProvider = new();
 
     [Fact]
     public async Task Handle_Should_SuccessfullyUpdated()
@@ -24,7 +26,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil, null, "text", "text");
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object, _cacheProvider.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -43,7 +45,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil, null, "text", "text");
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object, _cacheProvider.Object);
         
         // Act
         await handler.Handle(command, default);
@@ -61,7 +63,7 @@ public sealed class UpdateCoffeeCommandHandlerTests
         
         var updateCoffee = new UpdateCoffeeDto(coffee.Id, "testName", "testDescription", 99, CoffeeType.Brazil, null, "text", "text");
         var command = new UpdateCoffeeCommand(updateCoffee);
-        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object);
+        var handler = new UpdateCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _httpContextAccessor.Object, _cacheProvider.Object);
         
         // Act
         await handler.Handle(command, default);

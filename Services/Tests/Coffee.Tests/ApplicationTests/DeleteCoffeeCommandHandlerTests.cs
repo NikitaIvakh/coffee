@@ -1,5 +1,6 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Application.Coffees.Handlers.Delete;
+using Coffee.Application.Providers;
 using Coffee.Domain.DTOs;
 using Coffee.Domain.Entities;
 using Coffee.Domain.Enums;
@@ -12,6 +13,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
 {
     private readonly Mock<ICoffeeRepository> _coffeeRepositoryMock = new();
     private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
+    private readonly Mock<ICacheProvider> _cacheProvider = new();
 
     [Fact]
     public async Task Handle_Should_SuccessRemoveCoffee()
@@ -22,7 +24,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
         var command = new DeleteCoffeeCommand(deleteCoffeeDto);
-        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
+        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -41,7 +43,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
         var command = new DeleteCoffeeCommand(deleteCoffeeDto);
-        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
+        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act
         await handler.Handle(command, default);
@@ -59,7 +61,7 @@ public sealed class DeleteCoffeeCommandHandlerTests
 
         var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
         var command = new DeleteCoffeeCommand(deleteCoffeeDto);
-        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object);
+        var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act
         await handler.Handle(command, default);

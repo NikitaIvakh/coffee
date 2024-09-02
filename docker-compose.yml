@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Services/Presentation/Coffee.WebAPI/Dockerfile
     ports:
-      - "5000:5000" 
-      - "5001:5001" 
+      - "5000:5000"
+      - "5001:5001"
     environment:
       - ASPNETCORE_URLS=http://+:5000;https://+:5001
     volumes:
@@ -17,6 +17,7 @@ services:
     depends_on:
       - postgres
       - pgadmin
+      - redis
     networks:
       - my_network
   
@@ -35,6 +36,15 @@ services:
     networks:
       - my_network
   
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+  
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: pgadmin4_container
@@ -47,11 +57,10 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     networks:
-      my_network:
-  
+      - my_network
+
 volumes:
   postgres-data:
-  minio_data:
   pgadmin-data:
 
 networks:

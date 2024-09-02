@@ -1,5 +1,7 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
 using Coffee.Application.Coffees.Queries.CoffeeById;
+using Coffee.Application.Providers;
+using Coffee.Domain.DTOs;
 using Coffee.Domain.Entities;
 using Coffee.Domain.Enums;
 using FluentAssertions;
@@ -10,6 +12,7 @@ namespace Coffee.Tests.ApplicationTests;
 public sealed class GetCoffeeByIdQueryHandlerTests
 {
     private readonly Mock<ICoffeeRepository> _coffeeRepository = new();
+    private readonly Mock<ICacheProvider> _cacheProvider = new();
 
     [Fact]
     public async Task Handler_Should_GetCoffeeById_Success()
@@ -19,7 +22,7 @@ public sealed class GetCoffeeByIdQueryHandlerTests
         _coffeeRepository.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
 
         var query = new GetCoffeeByIdQuery(coffee.Id);
-        var handler = new GetCoffeeByIdQueryHandler(_coffeeRepository.Object);
+        var handler = new GetCoffeeByIdQueryHandler(_coffeeRepository.Object, _cacheProvider.Object);
 
         // Act
         var result = await handler.Handle(query, default);
