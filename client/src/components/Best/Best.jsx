@@ -28,7 +28,7 @@ const Best = () => {
 				<div key={i} className='our-best__list-item'>
 					<img className='our-best__image' src={coffee.imageUrl} alt={coffee.name} />
 					<div className='our-best__title'>{coffee.name}</div>
-					<div className='our-best__price'>{coffee.price}$</div>
+					<div className='our-best__price'>{coffee.price.toFixed(2)}$</div>
 				</div>
 			)
 		})
