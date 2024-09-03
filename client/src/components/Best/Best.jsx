@@ -1,29 +1,51 @@
-﻿import coffeeFirst from '../../resources/img/coffee/coffee_first.jpeg'
-import coffeeSecond from '../../resources/img/coffee/coffee_second.jpeg'
-import coffeeThird from '../../resources/img/coffee/coffee_third.jpeg'
+﻿import { useEffect, useMemo, useState } from 'react'
+import useHttp from '../../hooks/http.hook'
 import './best.scss'
+import SetContentList from '../utils/SetContentList'
 
 const Best = () => {
+	const [coffees, setCoffees] = useState([])
+	const { request, process, setProcess } = useHttp()
+	
+	useEffect(() => {
+		onUpdateCoffees()
+	}, [])
+	
+	const onUpdateCoffees = () => {
+		request('https://localhost:5001/api/coffee/GetCoffeeList?Limit=3')
+			.then(onCharLoaded)
+			.then(() => setProcess('confirmed'))
+			.catch(res => console.log(res))
+	}
+	
+	const onCharLoaded = (data) => {
+		setCoffees(coffees => [...coffees, ...data.value])
+	}
+	
+	const renderItems = (coffees) => {
+		const coffeeItems = coffees.map((coffee, i) => {
+			return (
+				<div key={i} className='our-best__list-item'>
+					<img className='our-best__image' src={coffee.imageUrl} alt={coffee.name} />
+					<div className='our-best__title'>{coffee.name}</div>
+					<div className='our-best__price'>{coffee.price}$</div>
+				</div>
+			)
+		})
+		
+		return (<div className='our-best__wrapper'>
+			{coffeeItems}
+		</div>)
+	}
+	
+	const elements = useMemo(() => {
+		return SetContentList(() => renderItems(coffees), process, coffees)
+	}, [process])
+	
 	return (
 		<section className='our-best'>
 			<h2 className='our-best__header'>Our best</h2>
-			<div className='our-best__wrapper'>
-				<div className='our-best__list-item'>
-					<img className='our-best__image' src={coffeeFirst} alt='coffee' />
-					<div className='our-best__title'>Solimo Coffee Beans 2 kg</div>
-					<div className='our-best__price'>10.73$</div>
-				</div>
-				<div className='our-best__list-item'>
-					<img className='our-best__image' src={coffeeSecond} alt='coffee' />
-					<div className='our-best__title'>Presto Coffee Beans 1 kg</div>
-					<div className='our-best__price'>15.99$</div>
-				</div>
-				<div className='our-best__list-item'>
-					<img className='our-best__image' src={coffeeThird} alt='coffee' />
-					<div className='our-best__title'>AROMISTICO Coffee 1 kg</div>
-					<div className='our-best__price'>6.99$</div>
-				</div>
-			</div>
+			{elements}
 		</section>
 	)
 }

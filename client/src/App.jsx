@@ -1,9 +1,9 @@
 import './styles/app.scss'
-import MainPage from './pages/MainPage'
+import Main from './pages/Main'
 
 function App() {
 	return (
-		<MainPage />
+		<Main />
 	)
 }
 

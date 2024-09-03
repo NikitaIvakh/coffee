@@ -12,10 +12,12 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository, ICachePro
     public async Task<ResultT<List<GetCoffeeListDto>>> Handle(GetCoffeeQuery request,
         CancellationToken cancellationToken)
     {
-        return await cacheProvider.GetAsync("coffees", async () =>
+        var limitValue = request.Limit.HasValue ? request.Limit.Value.ToString() : "no-limit";
+        var cacheKey = $"coffees_{limitValue}";
+        return await cacheProvider.GetAsync(cacheKey, async () =>
         {
             var coffeeList = await coffeeRepository.GetAllAsync();
-            var coffeeListDto = coffeeList.Select(coffee => new GetCoffeeListDto
+            IEnumerable<GetCoffeeListDto> coffeeListDto = coffeeList.Select(coffee => new GetCoffeeListDto
                 (
                     coffee.Id,
                     coffee.Name,
@@ -25,10 +27,12 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository, ICachePro
                     coffee.ImageUrl,
                     coffee.ImageLocalPath
                 ))
-                .OrderByDescending(key => key.CreatedAt)
-                .ToList();
+                .OrderByDescending(key => key.CreatedAt);
 
-            return Result.Success(coffeeListDto);
+            if (request.Limit is > 0)
+                coffeeListDto = coffeeListDto.Take(request.Limit.Value);
+
+            return Result.Success(coffeeListDto.ToList());
         }, cancellationToken);
     }
 }

@@ -4,7 +4,7 @@ import Header from '../components/header/Header'
 import Best from '../components/Best/Best'
 import Promo from '../components/Promo/Promo'
 
-const MainPage = () => {
+const Main = () => {
 	return (
 		(
 			<>
@@ -20,4 +20,4 @@ const MainPage = () => {
 	)
 }
 
-export  default MainPage
+export default Main
