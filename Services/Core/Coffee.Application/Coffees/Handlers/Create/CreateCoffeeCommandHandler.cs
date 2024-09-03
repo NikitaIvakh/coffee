@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Application.Helpers;
 using Coffee.Application.Providers;
 using Coffee.Domain.Common;
 using Coffee.Domain.Entities;
@@ -54,12 +55,7 @@ public class CreateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
             
             await coffeeRepository.UpdateAsync(coffee.Value);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-
-            await cacheProvider.RemoveAsync("coffees", cancellationToken);
-            
-            var coffees = await coffeeRepository.GetAllAsync();
-            var result = Result.Success(coffees);
-            await cacheProvider.SetAsync("coffees", result, cancellationToken);
+            await RecreateCacheAsyncHelper.RecreateCacheAsync(coffeeRepository, cacheProvider, cancellationToken);
 
             return Result.Success(coffee.Value.Id);
         }

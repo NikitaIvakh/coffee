@@ -27,7 +27,6 @@
 			background-image: url('../../resources/img/icons/beans_light.svg');
 			background-size: contain;
 			background-repeat: no-repeat;
-			margin-right: 8px;
 		}
 		
 		&:nth-child(-n + 2) {
@@ -44,21 +43,13 @@
 			padding: 10px;
 			margin: 0 auto;
 		}
-		&__item {
-			padding-right: 0;
-			margin-bottom: 10px;
-			
-			&:nth-child(-n+2) {
-				padding-right: 5px;
-			}
-		}
 	}
 	
-	@media (max-width: 320px) {
-		&__list {
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
+	@media (max-width: 767px) {
+		&__item {
+			&:nth-child(-n + 2) {
+				padding-right: 10px;
+			}
 		}
 	}
 }

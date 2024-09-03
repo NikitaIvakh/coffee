@@ -32,4 +32,12 @@
 			padding-right: 40px;
 		}
 	}
+	
+	@media (max-width: 320px) {
+		&__item{
+			&:nth-child(-n + 2) {
+				padding-right: 10px;
+			}
+		}
+	}
 }

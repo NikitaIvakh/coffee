@@ -12,10 +12,9 @@ const Best = () => {
 	}, [])
 	
 	const onUpdateCoffees = () => {
-		request('https://localhost:5001/api/coffee/GetCoffeeList?Limit=3')
+		request('https://localhost:8081/api/coffee/GetCoffeeList?Offset=3')
 			.then(onCharLoaded)
 			.then(() => setProcess('confirmed'))
-			.catch(res => console.log(res))
 	}
 	
 	const onCharLoaded = (data) => {

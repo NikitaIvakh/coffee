@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Coffee.Application.Coffees.Queries.CoffeeList;
 
-public record GetCoffeeQuery(int? Limit = null): IRequest<ResultT<List<GetCoffeeListDto>>>;
+public record GetCoffeeQuery(int? Offset = null): IRequest<ResultT<List<GetCoffeeListDto>>>;
