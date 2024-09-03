@@ -1,4 +1,4 @@
-import coffeeBeansLight from '../../resources/img/icons/coffee_beans_light.png'
+import coffeeBeansLight from '../../resources/img/icons/beans_light.svg'
 import './promo.scss'
 
 const Promo = () => {

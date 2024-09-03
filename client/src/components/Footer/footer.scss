@@ -1,0 +1,35 @@
+﻿.footer {
+	margin-top: 30px;
+	padding-bottom: 21px;
+	&__wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	&__list {
+		display: flex;
+		align-items: flex-end;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	&__item {
+		color: var(--color-text-black);
+		font-size: var(--fs-ssm);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-ssm);
+		&:first-child::before {
+			content: '';
+			display: inline-block;
+			width: 35px;
+			height: 35px;
+			background-image: url('../../resources/img/icons/beans_dark.svg');
+			background-size: contain;
+			background-repeat: no-repeat;
+			margin-right: 8px;
+		}
+		&:nth-child(-n + 2) {
+			padding-right: 40px;
+		}
+	}
+}

@@ -1,6 +1,7 @@
 .promo {
 	padding-top: 111px;
 	text-align: center;
+	
 	&__header {
 		color: var(--color-text);
 		font-size: var(--fs-lg);
@@ -8,9 +9,11 @@
 		line-height: var(--lh-lg);
 		margin-bottom: 20px;
 	}
+	
 	.divider {
 		border: 1px solid var(--color-text);
 	}
+	
 	&__subheader {
 		color: var(--color-text);
 		font-size: var(--fs-md);
@@ -19,6 +22,7 @@
 		margin-bottom: 10px;
 		margin-top: 35px;
 	}
+	
 	&__title {
 		color: var(--color-text);
 		font-size: var(--fs-md);
@@ -26,6 +30,7 @@
 		line-height: var(--lh-md);
 		margin-bottom: 30px;
 	}
+	
 	&__btn {
 		display: block;
 		color: var(--color-text);

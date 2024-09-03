@@ -83,13 +83,16 @@ select {
 	align-items: center;
 	margin-top: 20px;
 }
+
 .divider {
 	width: 60px;
 	border: 1px solid var(--color-text-black);
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+	
 	&--first {
 		margin-right: 25px;
 	}
+	
 	&--second {
 		margin-left: 25px;
 	}
