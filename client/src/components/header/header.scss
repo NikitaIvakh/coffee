@@ -1,5 +1,4 @@
 .header {
-	width: 100%;
 	padding: 30px 0 0 148px;
 	&__wrapper {
 		display: flex;
@@ -30,6 +29,32 @@
 		}
 		&:nth-child(-n + 2) {
 			padding-right: 40px;
+		}
+	}
+	
+	@media (max-width: 767px) {
+		padding: 10px 0;
+		text-align: center;
+		&__wrapper {
+			flex-direction: column;
+			align-items: center;
+			padding: 10px;
+			margin: 0 auto;
+		}
+		&__item {
+			padding-right: 0;
+			margin-bottom: 10px;
+			&:nth-child(-n+2) {
+				padding-right: 5px;
+			}
+		}
+	}
+	
+	@media (max-width: 320px) {
+		&__list {
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }

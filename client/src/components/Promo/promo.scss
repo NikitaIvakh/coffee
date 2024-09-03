@@ -8,25 +8,8 @@
 		line-height: var(--lh-lg);
 		margin-bottom: 20px;
 	}
-	&__divider-wrapper {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-	&__divider {
-		width: 60px;
+	.divider {
 		border: 1px solid var(--color-text);
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-	}
-	&__divider--first {
-		margin-right: 25px;
-	}
-	&__divider--second {
-		margin-left: 25px;
-	}
-	&__image {
-		padding: 0 25px;
 	}
 	&__subheader {
 		color: var(--color-text);
@@ -34,6 +17,7 @@
 		font-weight: var(--fw-bold);
 		line-height: var(--lh-md);
 		margin-bottom: 10px;
+		margin-top: 35px;
 	}
 	&__title {
 		color: var(--color-text);
@@ -55,5 +39,11 @@
 		border: 2px solid var(--color-text);
 		cursor: pointer;
 		margin: 0 auto;
+	}
+}
+
+@media (max-width: 320px) {
+	.promo {
+		padding-top: 10px;
 	}
 }

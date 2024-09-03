@@ -5,14 +5,14 @@ const Promo = () => {
 	return (
 		<section className='promo'>
 			<h1 className='promo__header'>Everything You Love About Coffee</h1>
-			<div className='promo__divider-wrapper'>
-				<div className='promo__divider promo__divider--first'></div>
+			<div className='divider-wrapper'>
+				<div className='divider divider--first'></div>
 				<img
 					className='promo__image'
 					src={coffeeBeansLight}
 					alt='coffee beans light'
 				/>
-				<div className='promo__divider promo__divider--second'></div>
+				<div className='divider divider--second'></div>
 			</div>
 			<h2 className='promo__subheader'>
 				We make every day full of energy and taste
