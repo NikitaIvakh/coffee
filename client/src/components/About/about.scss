@@ -1,5 +1,5 @@
 ﻿.about {
-	padding-top: 80px;
+	padding: 80px 0 104px 0;
 	&__wrapper {
 		text-align: center;
 	}
@@ -22,5 +22,9 @@
 		&__description-wrapper{
 			padding: 0 10px 0 10px;
 		}
+	}
+	
+	@media (max-width: 320px) {
+			padding-top: 30px;
 	}
 }
