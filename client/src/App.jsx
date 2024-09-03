@@ -1,13 +1,9 @@
-import AboutBeans from './components/AboutBeans/AboutBeans'
-import Controls from './components/Controls/Controls'
-import HeaderPromoSecond from './components/HeaderPromo_Second/HeaderPromoSecond'
+import OurCoffee from './pages/OurCoffee'
 
 function App() {
 	return (
 		<>
-			<HeaderPromoSecond />
-			<AboutBeans />
-			<Controls />
+			<OurCoffee />
 		</>
 	)
 }
