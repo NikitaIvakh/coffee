@@ -1,0 +1,44 @@
+﻿.filter {
+	&__label {
+		color: var(--color-text-black);
+		font-size: var(--fs-sm);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-sm);
+		padding-right: 35px;
+	}
+}
+
+.btn {
+	border-radius: 4px;
+	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+	background: var(--color-text);
+	color: var(--color-text);
+	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	
+	transition: background 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+	
+	&:hover {
+		filter: brightness(85%);
+		box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.3);
+	}
+	
+	&:active {
+		filter: brightness(75%);
+		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+	}
+	
+	// Добавляем отступ справа для всех кнопок, кроме последней
+	& + .btn {
+		margin-left: 5px;
+	}
+	
+	&__filter {
+		color: var(--color-text-black);
+		font-size: var(--fs-sm);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-ss);
+	}
+}

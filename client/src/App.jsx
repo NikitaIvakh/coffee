@@ -1,9 +1,14 @@
-import './styles/app.scss'
-import Main from './pages/Main'
+import AboutBeans from './components/AboutBeans/AboutBeans'
+import Controls from './components/Controls/Controls'
+import HeaderPromoSecond from './components/HeaderPromo_Second/HeaderPromoSecond'
 
 function App() {
 	return (
-		<Main />
+		<>
+			<HeaderPromoSecond />
+			<AboutBeans />
+			<Controls />
+		</>
 	)
 }
 

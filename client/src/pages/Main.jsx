@@ -1,17 +1,13 @@
 ﻿import About from '../components/About/About'
 import Footer from '../components/Footer/Footer'
-import Header from '../components/header/Header'
-import Promo from '../components/Promo/Promo'
+import HeaderPromoMain from '../components/HeaderPromo_Main/HeaderPromoMain'
 import BestList from '../features/best/BestList'
 
 const Main = () => {
 	return (
 		(
 			<>
-				<section className='wrapper'>
-					<Header />
-					<Promo />
-				</section>
+				<HeaderPromoMain />
 				<About />
 				<BestList />
 				<Footer />
