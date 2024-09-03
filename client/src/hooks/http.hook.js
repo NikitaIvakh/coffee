@@ -2,7 +2,7 @@
 
 const useHttp = () => {
 	const [process, setProcess] = useState('waiting')
-	const request = useCallback(async (url, method = 'GET', body = null, headers = { 'Content-type': 'application-json' }) => {
+	const request = async (url, method = 'GET', body = null, headers = { 'Content-type': 'application-json' }) => {
 		try {
 			setProcess('loading')
 			const response = await fetch(url, { method, body, headers })
@@ -16,7 +16,7 @@ const useHttp = () => {
 			setProcess('error')
 			throw new Error(exception)
 		}
-	}, [])
+	}
 	
 	const clearErrors = useCallback(() => {
 		setProcess('loading')

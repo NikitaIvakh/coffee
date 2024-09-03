@@ -1,8 +1,8 @@
 ﻿import About from '../components/About/About'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/header/Header'
-import Best from '../components/Best/Best'
 import Promo from '../components/Promo/Promo'
+import BestList from '../features/best/BestList'
 
 const Main = () => {
 	return (
@@ -13,7 +13,7 @@ const Main = () => {
 					<Promo />
 				</section>
 				<About />
-				<Best />
+				<BestList />
 				<Footer />
 			</>
 		)

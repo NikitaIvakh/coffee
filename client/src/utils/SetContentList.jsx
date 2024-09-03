@@ -1,18 +1,17 @@
 ﻿import ErrorMessage from '../errors/ErrorMessage'
-import Spinner from '../Spinner/Spinner'
+import Spinner from '../components/Spinner/Spinner'
 
 const SetContentList = (Component, process, data) => {
 	switch (process) {
 		case 'waiting':
-			return <Spinner />
 		case 'loading':
 			return <Spinner />
 		case 'confirmed':
-			return <Component />
+			return <Component data={data} />
 		case 'error':
 			return <ErrorMessage />
 		default:
-			throw new Error('Unexpected process state')
+			return null
 	}
 }
 
