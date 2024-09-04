@@ -14,7 +14,9 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository, ICachePro
         CancellationToken cancellationToken)
     {
         var limitValue = request.Limit.HasValue ? request.Limit.Value.ToString() : "no-limit";
-        var cacheKey = $"coffees_{limitValue}";
+        var searchValue = request.Search ?? "no-search";
+        var cacheKey = $"coffees_{limitValue}_{searchValue}"; 
+        
         return await cacheProvider.GetAsync(cacheKey, async () =>
         {
             var coffeeList = await coffeeRepository.GetAllAsync();
@@ -29,6 +31,9 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository, ICachePro
                     coffee.ImageLocalPath
                 ))
                 .OrderByDescending(key => key.CreatedAt);
+
+            if (request.Search is not null)
+                coffeeListDto= coffeeListDto.Where(key => key.Name.Contains(request.Search));
 
             if (request.Limit is > 0)
                 coffeeListDto = coffeeListDto.Take(request.Limit.Value);
