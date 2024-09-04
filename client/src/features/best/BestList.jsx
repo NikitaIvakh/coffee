@@ -1,4 +1,5 @@
 ﻿import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import SetContentList from '../../utils/SetContentList'
 import { useBase } from './use-base'
@@ -8,14 +9,18 @@ const BestList = () => {
 	const [coffees, { status }] = useBase()
 	
 	const renderItems = (coffees) => {
-		const duration = 300
 		const coffeeItems = coffees.map((coffee, i) => {
+			const duration = 300
+			const { name, price, imageUrl } = coffee
+			
 			return (
 				<CSSTransition key={i} timeout={duration} classNames='coffee__item' unmountOnExit>
 					<div key={i} className='our-best__list-item'>
-						<img className='our-best__image' src={coffee.imageUrl} alt={coffee.name} />
-						<div className='our-best__title'>{coffee.name}</div>
-						<div className='our-best__price'>{coffee.price.toFixed(2)}$</div>
+						<Link to={(`/OurCoffee/${coffee.id}`)}>
+							<img className='our-best__image' src={imageUrl} alt={name} />
+							<div className='our-best__title'>{name}</div>
+							<div className='our-best__price'>{price.toFixed(2)}$</div>
+						</Link>
 					</div>
 				</CSSTransition>
 			)

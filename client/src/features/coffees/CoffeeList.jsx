@@ -1,22 +1,23 @@
 ﻿import './coffeeList.scss'
 import { useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SetContentList from '../../utils/SetContentList'
 import useCoffees from './use-coffees'
 
 const CoffeeList = () => {
-	const navigate = useNavigate()
 	const [coffees, { status }] = useCoffees()
 	
 	const renderItems = (coffees) => {
 		const coffeeItems = coffees.map((coffee, i) => {
-			const { imageUrl, name, coffeeType, price } = coffee
+			const { id, imageUrl, name, coffeeType, price } = coffee
 			return (
 				<div className='coffees-item' key={i}>
-					<img src={imageUrl} alt={name} />
-					<div className='coffees-item__title'>{name}</div>
-					<div className='coffees-item__sort'>{coffeeType}</div>
-					<div className='coffees-item__price'>{price}$</div>
+					<Link to={(`/OurCoffee/${id}`)}>
+						<img src={imageUrl} alt={name} />
+						<div className='coffees-item__title'>{name}</div>
+						<div className='coffees-item__sort'>{coffeeType}</div>
+						<div className='coffees-item__price'>{price}$</div>
+					</Link>
 				</div>
 			)
 		})

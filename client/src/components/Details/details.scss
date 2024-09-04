@@ -1,0 +1,135 @@
+﻿.details {
+	margin-top: 70px;
+	
+	&__wrapper {
+		max-width: 800px;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(auto, auto));
+		grid-template-rows: auto;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+		gap: 55px;
+	}
+	
+	.divider__wrapper {
+		margin-top: 15px;
+	}
+	
+	@media (max-width: 767px) {
+		padding: 0 10px;
+	}
+	
+	&__img {
+		width: 400px;
+		height: 355px;
+		
+		img {
+			width: 100%;
+			max-height: 100%;
+			object-fit: cover;
+		}
+	}
+	
+	&__descr {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-content: center;
+		justify-content: center;
+	}
+	
+	@media (max-width: 575px) {
+		margin-top: 30px;
+		&__wrapper {
+			grid-template-columns: repeat(1, minmax(200px, 1fr));
+		}
+		
+		&__img {
+			width: 100%;
+			height: 100%;
+			
+			img {
+				width: 100%;
+				max-height: 100%;
+				object-fit: cover;
+			}
+		}
+		
+		&__descr {
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	
+	&__title {
+		display: block;
+		margin: 0 auto;
+		color: var(--color-text-black);
+		font-size: var(--fs-md);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-md);
+	}
+	
+	
+	&__country {
+		color: var(--color-text-black);
+		font-size: var(--fs-sm);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-sm);
+		margin-top: 15px;
+		
+		span {
+			font-weight: var(--fw-bold);
+		}
+	}
+	
+	&__description {
+		color: var(--color-text-black);
+		font-size: var(--fs-sm);
+		font-weight: var(--fw-normal);
+		line-height: var(--lh-sm);
+		margin-top: 15px;
+		
+		span {
+			font-weight: var(--fw-bold);
+		}
+	}
+	
+	&__price {
+		color: var(--color-text-black);
+		font-size: var(--fs-md);
+		font-weight: var(--fw-normal);
+		margin-top: 8px;
+		
+		span {
+			font-size: var(--fs-sm);
+			font-weight: var(--fw-bold);
+		}
+	}
+	
+	&__home {
+		display: block;
+		margin: 0 auto;
+		font-size: 1rem;
+		color: var(--color-text);
+		text-decoration: none;
+		border: 1px solid rgba(0, 0, 0, .4);
+		border-radius: 4px;
+		padding: 10px 20px;
+		transition: background-color 0.3s, color 0.3s;
+		background: rgba(211, 211, 211, .9);
+		box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+		grid-column: 1 / 3;
+		
+		&:hover {
+			background-color: gray;
+			color: white;
+		}
+	}
+}

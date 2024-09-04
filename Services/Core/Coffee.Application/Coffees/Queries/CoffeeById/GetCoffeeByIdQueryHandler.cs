@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Application.Helpers;
 using Coffee.Application.Providers;
 using Coffee.Domain.DTOs;
 using Coffee.Domain.Shared;
@@ -11,10 +12,21 @@ public class GetCoffeeByIdQueryHandler(ICoffeeRepository coffeeRepository, ICach
 {
     public async Task<ResultT<GetCoffeeDto>> Handle(GetCoffeeByIdQuery request, CancellationToken cancellationToken)
     {
-        return await cacheProvider.GetAsync("CoffeeById", async () =>
+        var cacheKey = $"coffees_{request.Id}";
+
+        return await cacheProvider.GetAsync(cacheKey, async () =>
         {
             var coffee = await coffeeRepository.GetCoffeeEntityAsync(request.Id);
-            var coffeeDto = new GetCoffeeDto(coffee.Id, coffee.Name, coffee.Description, coffee.Price, coffee.ImageUrl, coffee.ImageLocalPath);
+            var coffeeDto = new GetCoffeeDto
+            (
+                coffee.Id,
+                coffee.Name,
+                CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
+                coffee.Description,
+                coffee.Price,
+                coffee.ImageUrl,
+                coffee.ImageLocalPath
+            );
 
             return Result.Success(coffeeDto);
         }, cancellationToken);
