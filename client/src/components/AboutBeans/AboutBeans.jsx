@@ -6,9 +6,7 @@ const AboutBeans = () => {
 	return (
 		<section className='beans'>
 			<div className='beans__wrapper'>
-				<div className='beans__img'>
-					<img src={AboutBeansImg} alt='about beans' />
-				</div>
+				<img src={AboutBeansImg} alt='about beans' />
 				<div className='beans__text'>
 					<h2 className='beans__title'>About our beans</h2>
 					<div className='divider-wrapper'>

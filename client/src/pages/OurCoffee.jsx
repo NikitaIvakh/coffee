@@ -8,8 +8,8 @@ const OurCoffee = () => {
 		<>
 			<HeaderPromoSecond />
 			<AboutBeans />
-			<Controls />
-			<Footer />
+			{/*<Controls />*/}
+			{/*<Footer />*/}
 		</>
 	)
 }
