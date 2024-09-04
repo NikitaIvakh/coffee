@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import Main from './pages/Main'
+import NotFound from './pages/NotFound'
 import OurCoffee from './pages/OurCoffee'
 import './styles/app.scss'
 
@@ -23,6 +24,7 @@ const AnimatedRoutes = () => {
 					<Routes location={location}>
 						<Route path='/' element={<Main />} />
 						<Route path='/OurCoffee' element={<OurCoffee />} />
+						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</div>
 			</CSSTransition>
