@@ -1,27 +1,8 @@
-﻿import { useEffect, useMemo, useState } from 'react'
-import useHttp from '../../hooks/http.hook'
-import './coffeeList.scss'
+﻿import './coffeeList.scss'
+import { useMemo } from 'react'
 import SetContentList from '../../utils/SetContentList'
 
-const CoffeeList = () => {
-	const [coffees, setCoffees] = useState([])
-	const { request, process, setProcess } = useHttp()
-	
-	useEffect(() => {
-		onUpdateCoffees()
-	}, [])
-	
-	const onUpdateCoffees = () => {
-		request('https://localhost:8081/api/coffee/GetCoffeeList')
-			.then(onCoffeesLoaded)
-			.then(() => setProcess('confirmed'))
-			.catch(res => console.log(res))
-	}
-	
-	const onCoffeesLoaded = (data) => {
-		setCoffees(coffees => [...coffees, ...data.value])
-	}
-	
+const CoffeeList = ({ process, filteredCoffeesBySearch }) => {
 	const renderItems = (coffees) => {
 		const coffeeItems = coffees.map((coffee, i) => {
 			const { imageUrl, name, coffeeType, price } = coffee
@@ -43,8 +24,8 @@ const CoffeeList = () => {
 	}
 	
 	const elements = useMemo(() => {
-		return SetContentList(() => renderItems(coffees), process, coffees)
-	}, [process, coffees])
+		return SetContentList(() => renderItems(filteredCoffeesBySearch), process, filteredCoffeesBySearch)
+	}, [process, filteredCoffeesBySearch])
 	
 	return (
 		<section className='coffees'>
