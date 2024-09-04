@@ -1,5 +1,5 @@
 ﻿import AboutBeans from '../components/AboutBeans/AboutBeans'
-import Controls from '../components/Controls/Controls'
+import Controls from '../features/coffees/Controls'
 import Footer from '../components/Footer/Footer'
 import HeaderPromoSecond from '../components/HeaderPromo_Second/HeaderPromoSecond'
 

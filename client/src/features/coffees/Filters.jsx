@@ -1,6 +1,9 @@
-﻿import './filters.scss'
+﻿import './styles/filters.scss'
+import useFilter from './use-filter'
 
-const Filter = ({ filteredCoffees, setFilter }) => {
+const Filter = () => {
+	const [filter, handleClick] = useFilter()
+	
 	const buttonsData = [
 		{ name: '', label: 'All' },
 		{ name: 'Brazil', label: 'Brazil' },
@@ -9,8 +12,8 @@ const Filter = ({ filteredCoffees, setFilter }) => {
 	]
 	
 	const isActive = (name) => {
-		if (name === '') return filteredCoffees.length === 0
-		return filteredCoffees.every(coffee => coffee['coffeeType'] === name)
+		if (name === '') return filter === 'All'
+		return filter === name
 	}
 	
 	const buttons = buttonsData.map(({ name, label }) => {
@@ -22,8 +25,10 @@ const Filter = ({ filteredCoffees, setFilter }) => {
 				className={`btn btn__filter ${clazz}`}
 				type='button'
 				key={name}
-				onClick={() => setFilter(name)}
-			>{label}</button>
+				onClick={() => handleClick(name)}
+			>
+				{label}
+			</button>
 		)
 	})
 	

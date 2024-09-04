@@ -1,14 +1,16 @@
 ﻿import { useEffect, useMemo, useState } from 'react'
 import useHttp from '../../hooks/http.hook'
-import CoffeeList from '../CoffeeList/CoffeeList'
-import Filter from '../Filters/Filters'
-import Search from '../Search/Search'
-import './controls.scss'
+import CoffeeList from '../../components/CoffeeList/CoffeeList'
+import Filter from './Filters'
+import Search from './Search'
+import './styles/controls.scss'
+import { useSelector } from 'react-redux'
+import { selectSearch, selectFilters } from './coffees-selectors'
 
 const Controls = () => {
+	const searchText = useSelector(selectSearch)
+	const filter = useSelector(selectFilters)
 	const [coffees, setCoffees] = useState([])
-	const [filter, setFilter] = useState('')
-	const [searchText, setSearchText] = useState('')
 	const { request, process, setProcess } = useHttp()
 	
 	useEffect(() => {
@@ -23,20 +25,20 @@ const Controls = () => {
 	}
 	
 	const onCoffeesLoaded = (data) => {
-		setCoffees(coffees => [...coffees, ...data.value])
+		setCoffees(data.value)
 	}
 	
 	const filteredCoffees = useMemo(() => {
 		return coffees
 			.filter(coffee => coffee.name.toLowerCase().includes(searchText.toLowerCase()))
-			.filter(coffee => filter === '' || coffee['coffeeType'].toLowerCase() === filter.toLowerCase())
+			.filter(coffee => filter === 'All' || coffee['coffeeType'].toLowerCase() === filter.toLowerCase())
 	}, [searchText, filter, coffees])
 	
 	return (
 		<>
 			<div className='controls__wrapper'>
-				<Search setSearchText={setSearchText} />
-				<Filter setFilter={setFilter} filteredCoffees={filteredCoffees} />
+				<Search />
+				<Filter />
 			</div>
 			<CoffeeList process={process} filteredCoffees={filteredCoffees} />
 		</>

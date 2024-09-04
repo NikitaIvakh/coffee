@@ -2,9 +2,11 @@
 import axios from 'axios'
 import * as api from '../config'
 import { bestReducer } from '../features/best/best-slice'
+import { controlsReducer } from '../features/coffees/coffees-slice'
 
 const rootReducers = combineReducers({
-	best: bestReducer
+	best: bestReducer,
+	controls: controlsReducer
 })
 
 const store = configureStore({
