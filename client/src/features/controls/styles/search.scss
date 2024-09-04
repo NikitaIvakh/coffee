@@ -33,3 +33,26 @@
 		}
 	}
 }
+
+@media (max-width: 991px) {
+	.searchForm {
+		margin-top: 60px;
+	}
+}
+
+@media (max-width: 575px) {
+	.searchForm {
+		display: block;
+		
+		&__label {
+			margin: 20px 0 10px 0;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
+			padding: 0;
+		}
+	}
+}

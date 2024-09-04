@@ -1,7 +1,15 @@
-﻿.controls__wrapper {
+﻿.controls {
 	width: 800px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
+	
+	@media (max-width: 991px) {
+		width: 100%;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		padding: 0 10px 0 10px;
+	}
 }

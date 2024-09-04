@@ -8,7 +8,7 @@ const OurCoffee = () => {
 		<>
 			<HeaderPromoSecond />
 			<AboutBeans />
-			{/*<Controls />*/}
+			<Controls />
 			{/*<Footer />*/}
 		</>
 	)

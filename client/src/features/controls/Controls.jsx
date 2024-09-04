@@ -6,11 +6,11 @@ import './styles/controls.scss'
 const Controls = () => {
 	return (
 		<>
-			<div className='controls__wrapper'>
+			<div className='controls'>
 				<Search />
 				<Filter />
 			</div>
-			<CoffeeList />
+			{/*<CoffeeList />*/}
 		</>
 	)
 }
