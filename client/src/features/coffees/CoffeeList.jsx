@@ -1,8 +1,13 @@
 ﻿import './coffeeList.scss'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import SetContentList from '../../utils/SetContentList'
+import useCoffees from './use-coffees'
 
-const CoffeeList = ({ process, filteredCoffees }) => {
+const CoffeeList = () => {
+	const navigate = useNavigate()
+	const [coffees, { status }] = useCoffees()
+	
 	const renderItems = (coffees) => {
 		const coffeeItems = coffees.map((coffee, i) => {
 			const { imageUrl, name, coffeeType, price } = coffee
@@ -24,8 +29,8 @@ const CoffeeList = ({ process, filteredCoffees }) => {
 	}
 	
 	const elements = useMemo(() => {
-		return SetContentList(() => renderItems(filteredCoffees), process, filteredCoffees)
-	}, [process, filteredCoffees])
+		return SetContentList(() => renderItems(coffees), status, coffees)
+	}, [status, coffees])
 	
 	return (
 		<section className='coffees'>

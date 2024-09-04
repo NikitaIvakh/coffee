@@ -9,7 +9,7 @@ const Search = () => {
 			<label htmlFor='search' className='searchForm__label'>Lookiing for</label>
 			<input
 				className='searchForm__input'
-				type='text'
+				type='search'
 				id='search'
 				name='search'
 				placeholder='start typing here...'
