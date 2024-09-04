@@ -5,7 +5,7 @@ import Filter from './Filters'
 import Search from './Search'
 import './styles/controls.scss'
 import { useSelector } from 'react-redux'
-import { selectSearch, selectFilters } from './coffees-selectors'
+import { selectSearch, selectFilters } from './controls-selectors'
 
 const Controls = () => {
 	const searchText = useSelector(selectSearch)

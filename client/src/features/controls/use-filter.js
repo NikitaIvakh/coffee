@@ -1,6 +1,6 @@
 ﻿import { useDispatch, useSelector } from 'react-redux'
-import { selectFilters } from './coffees-selectors'
-import { setFilter } from './coffees-slice'
+import { selectFilters } from './controls-selectors'
+import { setFilter } from './controls-slice'
 
 const UseFilter = () => {
 	const dispatch = useDispatch()

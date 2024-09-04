@@ -1,6 +1,6 @@
 ﻿import { useDispatch, useSelector } from 'react-redux'
-import { selectSearch } from './coffees-selectors'
-import { setSearch } from './coffees-slice'
+import { selectSearch } from './controls-selectors'
+import { setSearch } from './controls-slice'
 
 const UseSearch = () => {
 	const dispatch = useDispatch()

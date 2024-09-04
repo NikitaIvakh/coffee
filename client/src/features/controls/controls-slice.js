@@ -5,7 +5,7 @@ const initialState = {
 	filter: 'All'
 }
 
-const CoffeesSlice = createSlice({
+const ControlsSlice = createSlice({
 	name: '@@controls',
 	initialState,
 	reducers: {
@@ -19,5 +19,5 @@ const CoffeesSlice = createSlice({
 	}
 })
 
-export const controlsReducer = CoffeesSlice.reducer
-export const { setSearch, setFilter, clearControls } = CoffeesSlice.actions
+export const controlsReducer = ControlsSlice.reducer
+export const { setSearch, setFilter, clearControls } = ControlsSlice.actions

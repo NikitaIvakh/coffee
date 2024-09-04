@@ -2,7 +2,7 @@
 import axios from 'axios'
 import * as api from '../config'
 import { bestReducer } from '../features/best/best-slice'
-import { controlsReducer } from '../features/controls/coffees-slice'
+import { controlsReducer } from '../features/controls/controls-slice'
 
 const rootReducers = combineReducers({
 	best: bestReducer,
