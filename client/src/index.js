@@ -5,6 +5,7 @@ import App from './App'
 import './styles/index.scss'
 import './styles/style.scss'
 import store from './store/store'
+import './styles/mixin.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

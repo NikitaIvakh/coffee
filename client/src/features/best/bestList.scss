@@ -83,3 +83,25 @@
 		}
 	}
 }
+
+.coffee__item-enter {
+	opacity: 0;
+	transform: translateY(20px);
+}
+
+.coffee__item-enter-active {
+	opacity: 1;
+	transform: translateY(0);
+	transition: opacity 300ms, transform 300ms;
+}
+
+.coffee__item-exit {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.coffee__item-exit-active {
+	opacity: 0;
+	transform: translateY(-20px);
+	transition: opacity 300ms, transform 300ms;
+}

@@ -13,9 +13,9 @@ public class RecreateCacheAsyncHelper
     {
         var coffeeList = await coffeeRepository.GetAllAsync();
         var coffeeEntities = coffeeList as CoffeeEntity[] ?? coffeeList.ToArray();
-        for (var offset = 0; offset <= coffeeEntities.Length; offset++)
+        for (var limit = 0; limit <= coffeeEntities.Length; limit++)
         {
-            var cacheKey = $"coffees_{(offset > 0 ? offset.ToString() : "no-limit")}";
+            var cacheKey = $"coffees_{(limit > 0 ? limit.ToString() : "no-limit")}";
             IEnumerable<GetCoffeeListDto> coffeeListDto = coffeeEntities.Select(coffee => new GetCoffeeListDto
                 (
                     coffee.Id,
@@ -28,8 +28,8 @@ public class RecreateCacheAsyncHelper
                 ))
                 .OrderByDescending(key => key.CreatedAt);
 
-            if (offset > 0)
-                coffeeListDto = coffeeListDto.Take(offset);
+            if (limit > 0)
+                coffeeListDto = coffeeListDto.Take(limit);
 
             var result = Result.Success(coffeeListDto.ToList());
             await cacheProvider.SetAsync(cacheKey, result, token);

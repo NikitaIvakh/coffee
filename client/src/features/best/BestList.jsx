@@ -1,4 +1,5 @@
 ﻿import { useMemo } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import SetContentList from '../../utils/SetContentList'
 import { useBase } from './use-base'
 import './bestList.scss'
@@ -7,19 +8,23 @@ const BestList = () => {
 	const [coffees, { status }] = useBase()
 	
 	const renderItems = (coffees) => {
+		const duration = 300
 		const coffeeItems = coffees.map((coffee, i) => {
 			return (
-				<div key={i} className='our-best__list-item'>
-					<img className='our-best__image' src={coffee.imageUrl} alt={coffee.name} />
-					<div className='our-best__title'>{coffee.name}</div>
-					<div className='our-best__price'>{coffee.price.toFixed(2)}$</div>
-				</div>
+				<CSSTransition key={i} timeout={duration} classNames='coffee__item' unmountOnExit>
+					<div key={i} className='our-best__list-item'>
+						<img className='our-best__image' src={coffee.imageUrl} alt={coffee.name} />
+						<div className='our-best__title'>{coffee.name}</div>
+						<div className='our-best__price'>{coffee.price.toFixed(2)}$</div>
+					</div>
+				</CSSTransition>
 			)
 		})
 		
-		return (<div className='our-best__wrapper'>
-			{coffeeItems}
-		</div>)
+		return (
+			<div className='our-best__wrapper'>
+				<TransitionGroup component={null}>{coffeeItems}</TransitionGroup>
+			</div>)
 	}
 	
 	const elements = useMemo(() => {

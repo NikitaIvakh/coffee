@@ -3,7 +3,7 @@
 export const loadItems = createAsyncThunk(
 	'@@coffees/load-coffees',
 	async (_, { extra: { client, api } }) => {
-		const response = await client.get(api.ALL_COFFEES_WITH_OFFSET)
+		const response = await client.get(api.ALL_COFFEES_WITH_LIMIT)
 		return response.data
 	},
 	{

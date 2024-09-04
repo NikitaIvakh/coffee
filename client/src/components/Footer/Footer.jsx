@@ -1,4 +1,5 @@
-﻿import coffeeBeansDark from '../../resources/img/icons/main_beans_dark.svg'
+﻿import { NavLink } from 'react-router-dom'
+import coffeeBeansDark from '../../resources/img/icons/main_beans_dark.svg'
 import './footer.scss'
 
 const Footer = () => {
@@ -7,8 +8,8 @@ const Footer = () => {
 			<div className='footer'>
 				<div className='footer__wrapper'>
 					<ul className='footer__list'>
-						<li className='footer__item'>Coffee house</li>
-						<li className='footer__item'>Our coffee</li>
+						<NavLink to='/' className='footer__item'>Coffee house</NavLink>
+						<NavLink to='/OurCoffee' className='footer__item'>Our coffee</NavLink>
 						<li className='footer__item'>For your pleasure</li>
 					</ul>
 				</div>
