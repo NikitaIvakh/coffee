@@ -10,7 +10,7 @@ const Controls = () => {
 				<Search />
 				<Filter />
 			</div>
-			{/*<CoffeeList />*/}
+			<CoffeeList />
 		</>
 	)
 }

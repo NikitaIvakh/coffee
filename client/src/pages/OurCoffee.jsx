@@ -9,7 +9,7 @@ const OurCoffee = () => {
 			<HeaderPromoSecond />
 			<AboutBeans />
 			<Controls />
-			{/*<Footer />*/}
+			<Footer />
 		</>
 	)
 }

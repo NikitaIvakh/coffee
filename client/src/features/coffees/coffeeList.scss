@@ -2,18 +2,34 @@
 	padding: 60px 0 70px 0;
 	
 	&__container {
-		width: 800px;
+		max-width: 800px;
 		display: block;
 		margin: 0 auto;
 	}
 	
 	&__wrapper {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(auto, 1fr));
 		column-gap: 70px;
 		row-gap: 60px;
 		justify-content: center;
 		align-items: stretch;
+	}
+	
+	@media (max-width: 991px) {
+		&__wrapper {
+			grid-template-columns: repeat(2, minmax(200px, 1fr));
+			justify-content: center;
+			align-items: center;
+			padding: 0 10px 0 10px;
+		}
+	}
+	
+	@media (max-width: 575px) {
+		&__wrapper {
+			grid-template-columns: auto;
+			
+		}
 	}
 	
 	&-item {
