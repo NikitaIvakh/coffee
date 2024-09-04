@@ -2,7 +2,7 @@
 import { useMemo } from 'react'
 import SetContentList from '../../utils/SetContentList'
 
-const CoffeeList = ({ process, filteredCoffeesBySearch }) => {
+const CoffeeList = ({ process, filteredCoffees }) => {
 	const renderItems = (coffees) => {
 		const coffeeItems = coffees.map((coffee, i) => {
 			const { imageUrl, name, coffeeType, price } = coffee
@@ -24,8 +24,8 @@ const CoffeeList = ({ process, filteredCoffeesBySearch }) => {
 	}
 	
 	const elements = useMemo(() => {
-		return SetContentList(() => renderItems(filteredCoffeesBySearch), process, filteredCoffeesBySearch)
-	}, [process, filteredCoffeesBySearch])
+		return SetContentList(() => renderItems(filteredCoffees), process, filteredCoffees)
+	}, [process, filteredCoffees])
 	
 	return (
 		<section className='coffees'>

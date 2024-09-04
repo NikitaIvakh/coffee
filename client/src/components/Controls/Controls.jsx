@@ -7,6 +7,7 @@ import './controls.scss'
 
 const Controls = () => {
 	const [coffees, setCoffees] = useState([])
+	const [filter, setFilter] = useState('')
 	const [searchText, setSearchText] = useState('')
 	const { request, process, setProcess } = useHttp()
 	
@@ -25,18 +26,19 @@ const Controls = () => {
 		setCoffees(coffees => [...coffees, ...data.value])
 	}
 	
-	const filteredCoffeesBySearch = useMemo(() => {
-		return coffees.filter(coffee =>
-			coffee.name.toLowerCase().includes(searchText.toLowerCase()))
-	}, [searchText, coffees])
+	const filteredCoffees = useMemo(() => {
+		return coffees
+			.filter(coffee => coffee.name.toLowerCase().includes(searchText.toLowerCase()))
+			.filter(coffee => filter === '' || coffee['coffeeType'].toLowerCase() === filter.toLowerCase())
+	}, [searchText, filter, coffees])
 	
 	return (
 		<>
 			<div className='controls__wrapper'>
 				<Search setSearchText={setSearchText} />
-				<Filter />
+				<Filter setFilter={setFilter} filteredCoffees={filteredCoffees} />
 			</div>
-			<CoffeeList process={process} filteredCoffeesBySearch={filteredCoffeesBySearch} />
+			<CoffeeList process={process} filteredCoffees={filteredCoffees} />
 		</>
 	)
 }
