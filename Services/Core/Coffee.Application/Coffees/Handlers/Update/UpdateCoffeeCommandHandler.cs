@@ -48,8 +48,7 @@ public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
                     CoffeeEntity.UpdateImage(coffee, null, null);
                 }
 
-                var fileName = $"Id_{coffee.Id}------${Guid.NewGuid()}" +
-                               Path.GetExtension(request.UpdateCoffeeDto.Avatar.FileName);
+                var fileName = $"Id_{coffee.Id}------{Guid.NewGuid()}" + Path.GetExtension(request.UpdateCoffeeDto.Avatar.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "CoffeeImages");
                 var directoryLocation = Path.Combine(Directory.GetCurrentDirectory(), filePath);
 
@@ -62,8 +61,8 @@ public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
                     await request.UpdateCoffeeDto.Avatar.CopyToAsync(fileStream, cancellationToken);
 
                 var baseUrl = $"{httpContextAccessor.HttpContext!.Request.Scheme}://" +
-                              $"${httpContextAccessor.HttpContext.Request.Host.Value}" +
-                              $"${httpContextAccessor.HttpContext.Request.PathBase.Value}";
+                              $"{httpContextAccessor.HttpContext.Request.Host.Value}" +
+                              $"{httpContextAccessor.HttpContext.Request.PathBase.Value}";
                 
                 CoffeeEntity.UpdateImage(coffee, Path.Combine(baseUrl, "CoffeeImages", fileName), filePath);
             }

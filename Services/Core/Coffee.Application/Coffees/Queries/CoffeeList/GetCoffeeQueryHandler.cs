@@ -1,4 +1,5 @@
 ﻿using Coffee.Application.Abstractors.Interfaces;
+using Coffee.Application.Helpers;
 using Coffee.Application.Providers;
 using Coffee.Domain.DTOs;
 using Coffee.Domain.Shared;
@@ -21,7 +22,7 @@ public class GetCoffeeQueryHandler(ICoffeeRepository coffeeRepository, ICachePro
                 (
                     coffee.Id,
                     coffee.Name,
-                    coffee.CoffeeType,
+                    CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
                     coffee.Price,
                     coffee.CreatedAt,
                     coffee.ImageUrl,

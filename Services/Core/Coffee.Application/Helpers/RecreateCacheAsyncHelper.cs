@@ -20,7 +20,7 @@ public class RecreateCacheAsyncHelper
                 (
                     coffee.Id,
                     coffee.Name,
-                    coffee.CoffeeType,
+                    CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
                     coffee.Price,
                     coffee.CreatedAt,
                     coffee.ImageUrl,

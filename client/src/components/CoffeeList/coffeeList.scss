@@ -1,0 +1,62 @@
+﻿.coffees {
+	padding: 60px 0 70px 0;
+	
+	&__container {
+		width: 800px;
+		display: block;
+		margin: 0 auto;
+	}
+	
+	&__wrapper {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		column-gap: 70px;
+		row-gap: 60px;
+		justify-content: center;
+		align-items: stretch;
+	}
+	
+	&-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		border-radius: 8px;
+		border: 1px solid #ccc;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		text-align: center;
+		background-color: rgba(211, 211, 211, .23); /* ярко серый */
+		
+		img {
+			max-width: 100%;
+			min-height: 134px;
+			object-fit: cover;
+			height: auto;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+			margin: 0 auto;
+		}
+		
+		&__title {
+			color: var(--color-text-black);
+			font-size: var(--fs-sm);
+			font-weight: var(--fw-normal);
+			line-height: var(--lh-sm);
+			margin-top: 14px;
+		}
+		
+		&__sort,
+		&__price {
+			color: var(--color-text-black);
+			font-size: var(--fs-sm);
+			font-weight: var(--fw-normal);
+			line-height: var(--lh-sm);
+			text-align: right;
+			margin-top: 14px;
+		}
+		
+		&__price {
+			font-weight: var(--fw-bold);
+		}
+	}
+}
