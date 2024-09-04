@@ -18,9 +18,9 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     private readonly ISender _sender = sender;
 
     [HttpGet(nameof(GetCoffeeList))]
-    public async Task<ActionResult<ResultT<List<GetCoffeeListDto>>>> GetCoffeeList(string? search, int? limit = null)
+    public async Task<ActionResult<ResultT<List<GetCoffeeListDto>>>> GetCoffeeList(string? search, string? filter, int? limit = null)
     {
-        var query = await _sender.Send(new GetCoffeeQuery(search, limit));
+        var query = await _sender.Send(new GetCoffeeQuery(search, filter, limit));
         return query.IsSuccess ? Ok(query) : HandleFailure<List<GetCoffeeListDto>>(query);
     }
     
