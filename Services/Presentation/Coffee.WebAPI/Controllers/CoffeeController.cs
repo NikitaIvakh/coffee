@@ -18,12 +18,12 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     private readonly ISender _sender = sender;
 
     [HttpGet(nameof(GetCoffeeList))]
-    public async Task<ActionResult<ResultT<List<GetCoffeeListDto>>>> GetCoffeeList(string? search, string? filter, int? limit = null)
+    public async Task<ActionResult<ResultT<PaginationList<GetCoffeeListDto>>>> GetCoffeeList(string? search, string? filter, int page, int pageSize, int? limit = null)
     {
-        var query = await _sender.Send(new GetCoffeeQuery(search, filter, limit));
-        return query.IsSuccess ? Ok(query) : HandleFailure<List<GetCoffeeListDto>>(query);
+        var query = await _sender.Send(new GetCoffeeQuery(search, filter, page, pageSize, limit));
+        return query.IsSuccess ? Ok(query) : HandleFailure<PaginationList<GetCoffeeListDto>>(query);
     }
-    
+
     [HttpGet(nameof(GetCoffee) + "/{id}")]
     public async Task<ActionResult<ResultT<GetCoffeeDto>>> GetCoffee(Guid id)
     {
@@ -35,7 +35,9 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     public async Task<ActionResult<ResultT<Guid>>> CreateCoffee([FromForm] CreateCoffeeDto createCoffeeDto)
     {
         var command = await _sender.Send(new CreateCoffeeCommand(createCoffeeDto));
-        return command.IsSuccess ? CreatedAtAction(nameof(CreateCoffee), new { Id = command.Value }, command.Value) : HandleFailure<Guid>(command);
+        return command.IsSuccess
+            ? CreatedAtAction(nameof(CreateCoffee), new { Id = command.Value }, command.Value)
+            : HandleFailure<Guid>(command);
     }
 
     [HttpPatch($"{nameof(UpdateCoffee)}/" + "{id}")]

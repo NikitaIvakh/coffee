@@ -6,57 +6,75 @@ using Coffee.Domain.Shared;
 
 namespace Coffee.Application.Helpers;
 
-public class RecreateCacheAsyncHelper
+public abstract class RecreateCacheAsyncHelper
 {
     public static async Task RecreateCacheAsync(ICoffeeRepository coffeeRepository, ICacheProvider cacheProvider,
         CancellationToken token)
     {
-        var coffeeList = await coffeeRepository.GetAllAsync();
-        var coffeeEntities = coffeeList as CoffeeEntity[] ?? coffeeList.ToArray();
+        var coffeeEntities = (await coffeeRepository.GetAllAsync()).ToArray();
+        var filterOptions = GetFilterOptions(coffeeEntities);
 
-        var filterOptions = coffeeEntities
-            .Select(key => CoffeeTypeHelper.GetDescription(key.CoffeeType))
-            .Distinct()
-            .Concat(["no-filter"]);
+        var searchOptions = GetSearchOptions(coffeeEntities);
+        var searchEnumerable = searchOptions as string[] ?? searchOptions.ToArray();
 
-        var searchOptions = coffeeEntities
-            .Select(key => key.Name)
-            .Distinct()
-            .Concat(["no-search"]);
+        var pageSizes = new[] { 10, 20, 50 };
 
-        for (var limit = 0; limit < coffeeEntities.Length; limit++)
+        foreach (var filter in filterOptions)
         {
-            var limitValue = limit > 0 ? limit.ToString() : "no-limit";
-
-            foreach (var filter in filterOptions)
+            foreach (var search in searchEnumerable)
             {
-                foreach (var search in searchOptions)
+                foreach (var pageSize in pageSizes)
                 {
-                    var cacheKey = $"coffees_{limitValue}_{search}_{filter}";
+                    var cacheKey = GenerateCacheKey(filter, search, pageSize);
+                    var coffeeListDto = GetFilteredAndSearchedCoffeeListDto(coffeeEntities, search, filter);
 
-                    IEnumerable<GetCoffeeListDto> coffeeListDto = coffeeEntities.Select(coffee => new GetCoffeeListDto(
-                        coffee.Id,
-                        coffee.Name,
-                        CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
-                        coffee.Price,
-                        coffee.CreatedAt,
-                        coffee.ImageUrl,
-                        coffee.ImageLocalPath
-                    )).OrderByDescending(key => key.CreatedAt);
-
-                    if (search != "no-search")
-                        coffeeListDto = coffeeListDto.Where(key => key.Name.Contains(search));
-
-                    if (filter != "no-filter")
-                        coffeeListDto = coffeeListDto.Where(key => string.Equals(key.CoffeeType, filter, StringComparison.OrdinalIgnoreCase));
-
-                    if (limit > 0)
-                        coffeeListDto = coffeeListDto.Take(limit);
-
-                    var reslult = Result.Success(coffeeListDto.ToList());
-                    await cacheProvider.SetAsync(cacheKey, reslult, token);
+                    var result = Result.Success(coffeeListDto);
+                    await cacheProvider.SetAsync(cacheKey, result, token);
                 }
             }
         }
+    }
+
+    private static IEnumerable<string> GetFilterOptions(CoffeeEntity[] coffeeEntities)
+    {
+        return coffeeEntities
+            .Select(key => CoffeeTypeHelper.GetDescription(key.CoffeeType))
+            .Distinct()
+            .Append("no-filter");
+    }
+
+    private static IEnumerable<string> GetSearchOptions(CoffeeEntity[] coffeeEntities)
+    {
+        return coffeeEntities
+            .Select(key => key.Name)
+            .Distinct()
+            .Append("no-search");
+    }
+
+    private static string GenerateCacheKey(string filter, string search, int pageSize)
+    {
+        return $"coffees_{filter}_{search}_{pageSize}";
+    }
+
+    private static List<GetCoffeeListDto> GetFilteredAndSearchedCoffeeListDto(CoffeeEntity[] coffeeEntities, string search, string filter)
+    {
+        var coffeeListDto = coffeeEntities.Select(coffee =>
+            new GetCoffeeListDto(
+                coffee.Id,
+                coffee.Name,
+                CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
+                coffee.Price,
+                coffee.CreatedAt,
+                coffee.ImageUrl,
+                coffee.ImageLocalPath
+            )).OrderByDescending(key => key.CreatedAt).ToList();
+
+        if (search != "no-search")
+            coffeeListDto = coffeeListDto.Where(key => key.Name.Contains(search)).ToList();
+
+        if (filter != "no-filter")
+            coffeeListDto = coffeeListDto.Where(key => string.Equals(key.CoffeeType, filter)).ToList();
+
+        return coffeeListDto;
     }
 }
