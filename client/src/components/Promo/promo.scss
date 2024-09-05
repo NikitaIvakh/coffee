@@ -45,6 +45,15 @@
 		cursor: pointer;
 		margin: 0 auto;
 	}
+	
+	a {
+		text-decoration: none;
+		
+		&:hover {
+			filter: brightness(85%);
+			box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3);
+		}
+	}
 }
 
 @media (max-width: 320px) {

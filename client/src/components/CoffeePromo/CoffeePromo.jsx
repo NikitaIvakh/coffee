@@ -1,9 +1,11 @@
-﻿import "./coffeePromo.scss"
+﻿import './coffeePromo.scss'
 
-const CoffeePromo = () => {
+const CoffeePromo = (props) => {
+	const { title } = props
+	
 	return (
-		<div className="coffeePromo">
-			<h2 className="coffeePromo__title">Our Coffee</h2>
+		<div className='coffeePromo'>
+			<h2 className='coffeePromo__title'>{title}</h2>
 		</div>
 	)
 }

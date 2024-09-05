@@ -10,7 +10,7 @@ const Footer = () => {
 					<ul className='footer__list'>
 						<NavLink to='/' className='footer__item'>Coffee house</NavLink>
 						<NavLink to='/OurCoffee' className='footer__item'>Our coffee</NavLink>
-						<li className='footer__item'>For your pleasure</li>
+						<NavLink to='/Pleasure' className='footer__item'>For your pleasure</NavLink>
 					</ul>
 				</div>
 				<div className='divider-wrapper'>

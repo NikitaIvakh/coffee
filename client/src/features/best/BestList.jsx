@@ -1,5 +1,4 @@
 ﻿import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import SetContentList from '../../utils/SetContentList'
 import { useBase } from './use-base'
@@ -16,11 +15,9 @@ const BestList = () => {
 			return (
 				<CSSTransition key={i} timeout={duration} classNames='coffee__item' unmountOnExit>
 					<div key={i} className='our-best__list-item'>
-						<Link to={(`/OurCoffee/${coffee.id}`)}>
-							<img className='our-best__image' src={imageUrl} alt={name} />
-							<div className='our-best__title'>{name}</div>
-							<div className='our-best__price'>{price.toFixed(2)}$</div>
-						</Link>
+						<img className='our-best__image' src={imageUrl} alt={name} />
+						<div className='our-best__title'>{name}</div>
+						<div className='our-best__price'>{price.toFixed(2)}$</div>
 					</div>
 				</CSSTransition>
 			)

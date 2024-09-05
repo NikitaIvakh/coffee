@@ -5,13 +5,14 @@ import SetContentList from '../../utils/SetContentList'
 import Info from './Info'
 import useCoffee from './use-coffee'
 
-const Details = () => {
+const Details = (props) => {
+	const { path } = props
 	const { id } = useParams()
 	const { coffee, status } = useCoffee(id)
 	
 	const renderItems = (coffee) => {
 		return (
-			<Info {...coffee} />
+			<Info path={path} {...coffee} />
 		)
 	}
 	

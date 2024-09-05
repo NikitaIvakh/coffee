@@ -1,10 +1,12 @@
 import React, { useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import ControlDetails from './features/details/ControlDetails'
+import ControlsOurCoffee from './pages/ControlsOurCoffee'
+import ControlsOurPleasure from './pages/ControlsOurPleasure'
 import Main from './pages/Main'
 import NotFound from './pages/NotFound'
 import OurCoffee from './pages/OurCoffee'
+import Pleasure from './pages/Pleasure'
 import './styles/app.scss'
 
 const AnimatedRoutes = () => {
@@ -25,7 +27,9 @@ const AnimatedRoutes = () => {
 					<Routes location={location}>
 						<Route path='/' element={<Main />} />
 						<Route path='/OurCoffee' element={<OurCoffee />} />
-						<Route path='/OurCoffee/:id' element={<ControlDetails />} />
+						<Route path='/OurCoffee/:id' element={<ControlsOurCoffee />} />
+						<Route path='/Pleasure' element={<Pleasure />} />
+						<Route path='/Pleasure/:id' element={<ControlsOurPleasure />} />
 						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</div>

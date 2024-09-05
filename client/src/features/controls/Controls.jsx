@@ -3,14 +3,16 @@ import Filter from './Filters'
 import Search from './Search'
 import './styles/controls.scss'
 
-const Controls = () => {
+const Controls = (props) => {
+	const { path } = props
+	
 	return (
 		<>
 			<div className='controls'>
 				<Search />
 				<Filter />
 			</div>
-			<CoffeeList />
+			<CoffeeList path={path} />
 		</>
 	)
 }

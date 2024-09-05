@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import SetContentList from '../../utils/SetContentList'
 import useCoffees from './use-coffees'
 
-const CoffeeList = () => {
+const CoffeeList = (props) => {
+	const { path } = props
 	const [coffees, { status }] = useCoffees()
 	
 	const renderItems = (coffees) => {
@@ -12,7 +13,7 @@ const CoffeeList = () => {
 			const { id, imageUrl, name, coffeeType, price } = coffee
 			return (
 				<div className='coffees-item' key={i}>
-					<Link to={(`/OurCoffee/${id}`)}>
+					<Link to={(`/${path}/${id}`)}>
 						<img src={imageUrl} alt={name} />
 						<div className='coffees-item__title'>{name}</div>
 						<div className='coffees-item__sort'>{coffeeType}</div>

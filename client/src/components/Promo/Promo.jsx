@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import coffeeBeansLight from '../../resources/img/icons/beans_light.svg'
 import './promo.scss'
 
@@ -18,7 +19,9 @@ const Promo = () => {
 				We make every day full of energy and taste
 			</h2>
 			<h3 className='promo__title'>Want to try our beans?</h3>
-			<button className='promo__btn'>More</button>
+			<Link to="/OurCoffee">
+				<button className='promo__btn'>More</button>
+			</Link>
 		</section>
 	)
 }

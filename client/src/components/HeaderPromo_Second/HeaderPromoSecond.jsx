@@ -2,11 +2,13 @@
 import Header from '../Header/Header'
 import './headerPromoSecond.scss'
 
-const HeaderPromoSecond = () => {
+const HeaderPromoSecond = (props) => {
+	const { title, backgroundImage } = props
+	
 	return (
-		<div className='headerPromoSecond'>
+		<div className='headerPromoSecond' style={{ background: `url(${backgroundImage}) center center/cover no-repeat` }}>
 			<Header />
-			<CoffeePromo />
+			<CoffeePromo title={title} />
 		</div>
 	)
 }

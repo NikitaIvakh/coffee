@@ -1,14 +1,15 @@
 ﻿import './aboutBeans.scss'
-import AboutBeansImg from '../../resources/img/bg/third_bg.jpeg'
 import BeansBlackImg from '../../resources/img/icons/main_beans_dark.svg'
 
-const AboutBeans = () => {
+const AboutBeans = (props) => {
+	const { title, backgroundImage } = props
+	
 	return (
 		<section className='beans'>
 			<div className='beans__wrapper'>
-				<img src={AboutBeansImg} alt='about beans' />
+				<img src={backgroundImage} alt='about beans' />
 				<div className='beans__text'>
-					<h2 className='beans__title'>About our beans</h2>
+					<h2 className='beans__title'>{title}</h2>
 					<div className='divider-wrapper'>
 						<div className='divider divider--first'></div>
 						<img src={BeansBlackImg} alt='beans img' />

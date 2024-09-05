@@ -5,7 +5,7 @@ import CoffeeBeansBlack from '../../resources/img/icons/main_beans_dark.svg'
 import './details.scss'
 
 const Info = (props) => {
-	const { name, coffeeType, description, price } = props
+	const { name, coffeeType, description, price, path } = props
 	
 	return (
 		<Fragment>
@@ -24,7 +24,7 @@ const Info = (props) => {
 				</div>
 				<div className='details__price'><span>Price:</span> {price}$</div>
 			</div>
-			<Link to='/OurCoffee' className='details__home'>Go back</Link>
+			<Link to={path} className='details__home'>Go back</Link>
 		</Fragment>
 	)
 }

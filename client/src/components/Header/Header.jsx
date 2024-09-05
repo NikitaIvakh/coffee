@@ -8,7 +8,7 @@ const Header = () => {
 				<ul className='header__list'>
 					<NavLink to='/' className='header__item'>Coffee house</NavLink>
 					<NavLink to='/OurCoffee' className='header__item'>Our coffee</NavLink>
-					<li className='header__item'>For your pleasure</li>
+					<NavLink to='/Pleasure' className='header__item'>For your pleasure</NavLink>
 				</ul>
 			</div>
 		</header>
