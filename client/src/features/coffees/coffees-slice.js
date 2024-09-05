@@ -4,13 +4,20 @@ import { LoadCoffees } from './coffees-action'
 const initialState = {
 	status: 'idle',
 	errors: null,
-	list: []
+	list: [],
+	currentPage: 1,
+	pageSize: 6,
+	totalCount: 0
 }
 
 const CoffeesSlice = createSlice({
 	name: '@@coffees',
 	initialState,
-	reducers: {},
+	reducers: {
+		setCurrentPage: (state, action) => {
+			state.currentPage = action.payload
+		}
+	},
 	extraReducers: builder => {
 		builder.addCase(LoadCoffees.pending, (state) => {
 			state.status = 'loading'
@@ -18,13 +25,15 @@ const CoffeesSlice = createSlice({
 		builder.addCase(LoadCoffees.fulfilled, (state, action) => {
 			state.list = action.payload.value
 			state.status = 'confirmed'
+			state.totalCount = action.payload.value.totalCount
 		})
 		builder.addCase(LoadCoffees.rejected, (state, action) => {
-			state.list = action.payload || action.meta.data
+			state.list = []
 			state.status = 'error'
-			state.errors = state.error = `${action.error.code}: ${action.error.message}`
+			state.errors = `${action.error.code}: ${action.error.message}`
 		})
 	}
 })
 
 export const coffeeList = CoffeesSlice.reducer
+export const { setCurrentPage } = CoffeesSlice.actions

@@ -8,29 +8,23 @@ namespace Coffee.Application.Helpers;
 
 public abstract class RecreateCacheAsyncHelper
 {
-    public static async Task RecreateCacheAsync(ICoffeeRepository coffeeRepository, ICacheProvider cacheProvider,
-        CancellationToken token)
+    public static async Task RecreateCacheAsync(ICoffeeRepository coffeeRepository, ICacheProvider cacheProvider, CancellationToken token)
     {
-        var coffeeEntities = (await coffeeRepository.GetAllAsync()).ToArray();
+        var coffeeEntities = coffeeRepository.GetAllAsync().Result.ToArray();
         var filterOptions = GetFilterOptions(coffeeEntities);
 
         var searchOptions = GetSearchOptions(coffeeEntities);
         var searchEnumerable = searchOptions as string[] ?? searchOptions.ToArray();
 
-        var pageSizes = new[] { 10, 20, 50 };
-
         foreach (var filter in filterOptions)
         {
             foreach (var search in searchEnumerable)
             {
-                foreach (var pageSize in pageSizes)
-                {
-                    var cacheKey = GenerateCacheKey(filter, search, pageSize);
-                    var coffeeListDto = GetFilteredAndSearchedCoffeeListDto(coffeeEntities, search, filter);
+                var cacheKey = GenerateCacheKey(filter, search);
+                var coffeeListDto = GetFilteredAndSearchedCoffeeListDto(coffeeEntities, search, filter);
 
-                    var result = Result.Success(coffeeListDto);
-                    await cacheProvider.SetAsync(cacheKey, result, token);
-                }
+                var result = Result.Success(coffeeListDto);
+                await cacheProvider.SetAsync(cacheKey, result, token);
             }
         }
     }
@@ -51,12 +45,13 @@ public abstract class RecreateCacheAsyncHelper
             .Append("no-search");
     }
 
-    private static string GenerateCacheKey(string filter, string search, int pageSize)
+    private static string GenerateCacheKey(string filter, string search)
     {
-        return $"coffees_{filter}_{search}_{pageSize}";
+        return $"coffees_{filter}_{search}";
     }
 
-    private static List<GetCoffeeListDto> GetFilteredAndSearchedCoffeeListDto(CoffeeEntity[] coffeeEntities, string search, string filter)
+    private static List<GetCoffeeListDto> GetFilteredAndSearchedCoffeeListDto(CoffeeEntity[] coffeeEntities,
+        string search, string filter)
     {
         var coffeeListDto = coffeeEntities.Select(coffee =>
             new GetCoffeeListDto(

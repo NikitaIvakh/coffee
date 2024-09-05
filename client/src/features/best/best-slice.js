@@ -16,7 +16,7 @@ const bestSlice = createSlice({
 			state.status = 'loading'
 		})
 		builder.addCase(loadItems.fulfilled, (state, action) => {
-			state.list = action.payload.value
+			state.list = action.payload.value.items
 			state.status = 'confirmed'
 		})
 		builder.addCase(loadItems.rejected, (state, action) => {

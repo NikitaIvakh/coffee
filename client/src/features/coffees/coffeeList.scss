@@ -28,7 +28,6 @@
 	@media (max-width: 575px) {
 		&__wrapper {
 			grid-template-columns: auto;
-			
 		}
 	}
 	
@@ -42,6 +41,7 @@
 		padding: 20px;
 		text-align: center;
 		background-color: rgba(211, 211, 211, .23);
+		text-decoration: none;
 		
 		a {
 			text-decoration: none;
@@ -79,4 +79,46 @@
 			font-weight: var(--fw-bold);
 		}
 	}
+	
+	.pages {
+		margin: 20px 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		.page, .current-page {
+			border: 1px solid lightgray;
+			border-radius: 100%;
+			padding: 5px 10px;
+			margin: 0 10px;
+			cursor: pointer;
+		}
+		
+		.current-page {
+			border: 2px solid gray;
+			font-weight: var(--fw-bold);
+		}
+	}
+}
+
+.animate {
+	transition: opacity 0.3s ease-in-out;
+}
+
+.animate-enter {
+	opacity: 0;
+}
+
+.animate-enter-active {
+	opacity: 1;
+	transition: opacity 200ms;
+}
+
+.animate-exit {
+	opacity: 1;
+}
+
+.animate-exit-active {
+	opacity: 0;
+	transition: opacity 200ms;
 }

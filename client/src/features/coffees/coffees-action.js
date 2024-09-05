@@ -2,8 +2,8 @@
 
 export const LoadCoffees = createAsyncThunk(
 	'@@coffees',
-	async (_, { extra: { client, api } }) => {
-		const response = await client.get(api.ALL_COFFEES)
+	async ({ search, filter, page, pageSize }, { extra: { client, api } }) => {
+		const response = await client.get(api.ALL_COFFEES(search, filter, page, pageSize))
 		return response.data
 	}, {
 		condition: (_, { getState }) => {

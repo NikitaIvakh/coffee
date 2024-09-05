@@ -1,5 +1,6 @@
 ﻿import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { thunk } from 'redux-thunk'
 import * as api from '../config'
 import { bestReducer } from '../features/best/best-slice'
 import { coffeeList } from '../features/coffees/coffees-slice'
@@ -23,7 +24,7 @@ const store = configureStore({
 				api: api
 			}
 		}
-	})
+	}).concat(thunk)
 })
 
 export default store
