@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import ControlDetails from './components/ControlDetails/ControlDetails'
+import ControlDetails from './features/details/ControlDetails'
 import Main from './pages/Main'
 import NotFound from './pages/NotFound'
 import OurCoffee from './pages/OurCoffee'

@@ -22,6 +22,7 @@ const bestSlice = createSlice({
 		builder.addCase(loadItems.rejected, (state, action) => {
 			state.error = action.payload.value || action.meta.data
 			state.status = 'error'
+			state.errors = state.error = `${action.error.code}: ${action.error.message}`
 		})
 	}
 })

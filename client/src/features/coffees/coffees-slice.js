@@ -21,7 +21,8 @@ const CoffeesSlice = createSlice({
 		})
 		builder.addCase(LoadCoffees.rejected, (state, action) => {
 			state.list = action.payload || action.meta.data
-			state.errors = action.payload
+			state.status = 'error'
+			state.errors = state.error = `${action.error.code}: ${action.error.message}`
 		})
 	}
 })

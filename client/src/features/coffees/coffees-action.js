@@ -7,7 +7,7 @@ export const LoadCoffees = createAsyncThunk(
 		return response.data
 	}, {
 		condition: (_, { getState }) => {
-			const { best: { status } } = getState()
+			const { coffees: { status } } = getState()
 			if (status === 'loading') return false
 		}
 	}
