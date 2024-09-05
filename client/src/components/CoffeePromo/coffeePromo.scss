@@ -1,10 +1,15 @@
 ﻿.coffeePromo {
 	text-align: center;
+	
 	&__title {
 		padding-top: 60px;
 		color: var(--color-text);
 		font-size: var(--fs-lg);
 		font-weight: var(--fw-bold);
 		line-height: var(--lh-lg);
+		
+		@media (max-width: 320px) {
+			padding-top: 2rem;
+		}
 	}
 }
