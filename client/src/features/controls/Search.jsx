@@ -2,10 +2,10 @@
 import useSearch from './use-search'
 
 const Search = () => {
-	const [search, handleClick] = useSearch()
+	const [search, isPending, handleClick] = useSearch()
 	
 	return (
-		<form className='searchForm'>
+		<form className='searchForm' style={{opacity: isPending ? 0.7 : 1}}>
 			<label htmlFor='search' className='searchForm__label'>Lookiing for</label>
 			<input
 				className='searchForm__input'

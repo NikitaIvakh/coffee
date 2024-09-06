@@ -2,7 +2,7 @@
 import useFilter from './use-filter'
 
 const Filter = () => {
-	const [filter, handleClick] = useFilter()
+	const [filter, isPending, handleClick] = useFilter()
 	
 	const buttonsData = [
 		{ name: '', label: 'All' },
@@ -33,7 +33,7 @@ const Filter = () => {
 	})
 	
 	return (
-		<form className='filter'>
+		<form className='filter' style={{ opacity: isPending ? 0.7 : 1 }}>
 			<label className='filter__label'>Or filter</label>
 			{buttons}
 		</form>

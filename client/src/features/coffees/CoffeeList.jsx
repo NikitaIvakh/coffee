@@ -7,7 +7,7 @@ import useCoffees from './use-coffees'
 
 const CoffeeList = (props) => {
 	const { path } = props
-	const [coffees, pages, currentPage, { status }, handleClick] = useCoffees()
+	const [coffees, pages, currentPage, isPending, { status }, handleClick] = useCoffees()
 	
 	const renderItems = (coffees) => {
 		const coffeeItems = coffees.map((coffee) => {
@@ -36,7 +36,7 @@ const CoffeeList = (props) => {
 	}, [status, coffees, currentPage])
 	
 	return (
-		<section className='coffees'>
+		<section className='coffees' style={{opacity: isPending ? 0.7 : 1}}>
 			<div className='coffees__container'>
 				{elements}
 				<TransitionGroup className='pages'>
@@ -46,13 +46,12 @@ const CoffeeList = (props) => {
 							timeout={300}
 							classNames='animate'
 						>
-							<button
+							<span
 								className={currentPage === page ? 'current-page' : 'page'}
 								onClick={() => handleClick(page)}
-								type='button'
 							>
 								{page}
-							</button>
+							</span>
 						</CSSTransition>
 					))}
 				</TransitionGroup>
