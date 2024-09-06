@@ -8,10 +8,11 @@ import useCoffees from './use-coffees'
 
 interface CoffeeListProps {
 	path: string
+	showButtons?: boolean
 }
 
 const CoffeeList = (props: CoffeeListProps) => {
-	const { path } = props
+	const { path, showButtons } = props
 	const [coffees, pages, currentPage, isPending, { status }, handleClick] = useCoffees()
 	
 	const renderItems = (coffees: CoffeeItem[]) => {
@@ -24,6 +25,12 @@ const CoffeeList = (props: CoffeeListProps) => {
 						<div className='coffees-item__title'>{name}</div>
 						<div className='coffees-item__sort'>{coffeeType}</div>
 						<div className='coffees-item__price'>{price}$</div>
+						{showButtons && (
+							<div className='buttons__wrapper'>
+								<button>Update</button>
+								<button>Delete</button>
+							</div>
+						)}
 					</Link>
 				</CSSTransition>
 			)

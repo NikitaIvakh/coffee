@@ -1,4 +1,6 @@
-﻿@mixin list-item-styles($color) {
+﻿// header, footer
+
+@mixin list-item-styles($color) {
 	color: $color;
 	font-size: var(--fs-ssm);
 	font-weight: var(--fw-normal);
@@ -42,5 +44,73 @@
 	
 	&:last-child {
 		margin-right: 0;
+	}
+}
+
+// Card
+
+@mixin coffee-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	text-align: center;
+	background-color: rgba(211, 211, 211, .23);
+	text-decoration: none;
+	
+	img {
+		max-width: 100%;
+		min-height: 134px;
+		object-fit: cover;
+		height: auto;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		margin: 0 auto;
+	}
+}
+
+@mixin coffee-title {
+	color: var(--color-text-black);
+	font-size: var(--fs-sm);
+	font-weight: var(--fw-normal);
+	line-height: var(--lh-sm);
+	margin-top: 14px;
+}
+
+@mixin coffee-price {
+	color: var(--color-text-black);
+	font-size: var(--fs-sm);
+	font-weight: var(--fw-bold);
+	line-height: var(--lh-sm);
+	text-align: right;
+	margin-top: 14px;
+}
+
+@mixin coffee-sort {
+	color: var(--color-text-black);
+	font-size: var(--fs-sm);
+	font-weight: var(--fw-normal);
+	line-height: var(--lh-sm);
+	text-align: right;
+	margin-top: 14px;
+}
+
+@mixin button-styles {
+	display: block;
+	padding: 10px;
+	font-size: 16px;
+	color: #fff;
+	border: 0;
+	border-radius: 10px;
+	background-image: linear-gradient(257deg, #f59c07, #f57507);
+	cursor: pointer;
+	transition: background 0.3s ease;
+	
+	&:hover {
+		background-image: linear-gradient(257deg, #ff9e30, #ff7017);
+		outline: none;
 	}
 }

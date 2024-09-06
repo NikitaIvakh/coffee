@@ -7,7 +7,12 @@
 	border-radius: 8px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	
+	h2 {
+		text-align: center;
+	}
+	
 	label {
+		padding-top: 10px;
 		display: block;
 		margin-top: 20px;
 		font-size: 16px;
@@ -35,13 +40,28 @@
 		}
 	}
 	
-	input[type='file'] {
-		padding: 10px;
+	.file-input-wrapper {
+		position: relative;
+	}
+	
+	.file-input {
+		position: absolute;
+		left: -9999px;
+	}
+	
+	.custom-file-label {
+		display: inline-block;
+		padding: 10px 20px;
+		background: linear-gradient(257deg, #f59c07, #f57507);
+		color: white;
+		border-radius: 4px;
 		cursor: pointer;
-		background-color: #f1f1f1;
-		border: none;
-		font-size: 14px;
-		border-radius: 8px;
+		text-align: center;
+		transition: background-color 0.3s ease;
+	}
+	
+	.custom-file-label:hover {
+		background: linear-gradient(257deg, #f59c07, #f57507);
 	}
 	
 	button {

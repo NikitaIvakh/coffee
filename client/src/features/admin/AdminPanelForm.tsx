@@ -1,4 +1,5 @@
 ﻿import { ErrorMessage, Field, Formik, useField } from 'formik'
+import { useState } from 'react'
 import useAdmin from './use-admin'
 import { CoffeeType, MyTextInputProps, MyFormValues } from '../../types'
 import * as Yup from 'yup'
@@ -34,14 +35,15 @@ const prepareFormData = (values: MyFormValues): FormData => {
 
 const showSuccessMessage = () => {
 	Swal.fire({
-		title: 'Отлично',
-		text: 'Данные успешно ушли на сервер!',
+		title: 'Great',
+		text: 'The data has been successfully sent to the server!',
 		icon: 'success'
 	}).then()
 }
 
 const AdminPanelForm = () => {
 	const createCoffee = useAdmin()
+	const [selectedFile, setSelectedFile] = useState<File | null>(null)
 	const initialValues: MyFormValues = { name: '', description: '', price: 0, coffeeType: '', avatar: null }
 	
 	return (
@@ -50,19 +52,19 @@ const AdminPanelForm = () => {
 				initialValues={initialValues}
 				validationSchema={Yup.object({
 					name: Yup.string()
-						.min(5, 'Длина строки должна превышать 5 символов!')
-						.max(1000, 'Длина строки не должна превышать 1000 символов')
-						.required('Поле обязательно для заполнения'),
+						.min(5, 'The length of the string must exceed 5 characters!')
+						.max(1000, 'The length of the string must not exceed 1000 characters!')
+						.required('This field is required!'),
 					
 					description: Yup.string()
-						.min(5, 'Длина строки должна превышать 5 символов!')
-						.max(1000, 'Длина строки не должна превышать 1000 символов')
-						.required('Поле обязательно для заполнения'),
+						.min(5, 'The length of the string must exceed 5 characters!')
+						.max(1000, 'The length of the string must not exceed 1000 characters!')
+						.required('This field is required!'),
 					
 					price: Yup.number()
-						.min(1, 'Стоимость не может быть меньше 1')
-						.max(1000, 'Стоимость не может быть больше 1000')
-						.required('Поле обязательно для заполнения'),
+						.min(1, 'The cost cannot be less than 1')
+						.max(1000, 'The cost cannot be more than 1000!')
+						.required('This field is required!'),
 					
 					coffeeType: Yup.string().required('Поле обязательно для заполнения')
 				})}
@@ -71,38 +73,57 @@ const AdminPanelForm = () => {
 					
 					createCoffee(formData)
 					resetForm()
+					setSelectedFile(null)
 					showSuccessMessage()
 				}}>
 				{({ handleSubmit, setFieldValue, isSubmitting }) => (
 					<form className='form' onSubmit={handleSubmit}>
-						<MyTextInput label='Наименование кофе' id='name' name='name' type='text' />
+						<h2>Add coffee</h2>
+						<MyTextInput label='Coffee name' id='name' name='name' type='text' />
+						<MyTextInput label='Coffee description' id='description' name='description' type='text' />
+						<MyTextInput label='Coffee price' id='price' name='price' type='number' />
 						
-						<MyTextInput label='Описание кофе' id='description' name='description' type='text' />
-						
-						<MyTextInput label='Стоимость кофе' id='price' name='price' type='number' />
-						
-						<label htmlFor='coffeeType'>Тип кофе</label>
+						<label htmlFor='coffeeType'>Coffee type</label>
 						<Field id='coffeeType' name='coffeeType' as='select'>
-							<option value=''>Выберите страну производства</option>
-							<option value={CoffeeType.Brazil}>Бразилия</option>
-							<option value={CoffeeType.Kenya}>Кения</option>
-							<option value={CoffeeType.Columbia}>Колумбия</option>
+							<option value=''>Select the country of manufacture</option>
+							<option value={CoffeeType.Brazil}>Brazil</option>
+							<option value={CoffeeType.Kenya}>Kenya</option>
+							<option value={CoffeeType.Columbia}>Colombia</option>
 						</Field>
 						<ErrorMessage className='error' name='coffeeType' component='div' />
 						
-						<label htmlFor='avatar' className='file-label'>Картинка кофе</label>
-						<input
-							type='file'
-							id='avatar'
-							name='avatar'
-							onChange={(event) => {
-								if (event.currentTarget.files) {
-									setFieldValue('avatar', event.currentTarget.files[0]).then()
-								}
-							}}
-						/>
+						<div className='file-input-wrapper'>
+							<input
+								type='file'
+								id='avatar'
+								name='avatar'
+								className='file-input'
+								onChange={(event) => {
+									if (event.currentTarget.files) {
+										const file = event.currentTarget.files[0]
+										setSelectedFile(file)
+										setFieldValue('avatar', file).then()
+									}
+								}}
+							/>
+							<label htmlFor='avatar' className='custom-file-label'>
+								{selectedFile ? selectedFile.name : 'Upload coffee picture'}
+							</label>
+							{selectedFile && (
+								<button
+									type='button'
+									className='remove-file-button'
+									onClick={() => {
+										setSelectedFile(null)
+										setFieldValue('avatar', null).then()
+									}}
+								>
+									Remove
+								</button>
+							)}
+						</div>
 						
-						<button type='submit' disabled={isSubmitting}>Добавить кофе</button>
+						<button type='submit' disabled={isSubmitting}>Add coffee</button>
 					</form>
 				)}
 			</Formik>

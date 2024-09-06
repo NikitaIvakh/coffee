@@ -5,10 +5,11 @@ import './styles/controls.scss'
 
 interface ControlProps {
 	path: string
+	showButtons?: boolean
 }
 
 const Controls = (props: ControlProps) => {
-	const { path } = props
+	const { path, showButtons } = props
 	
 	return (
 		<>
@@ -16,7 +17,7 @@ const Controls = (props: ControlProps) => {
 				<Search />
 				<Filter />
 			</div>
-			<CoffeeList path={path} />
+			<CoffeeList path={path} showButtons={showButtons}/>
 		</>
 	)
 }

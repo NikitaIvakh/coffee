@@ -1,5 +1,7 @@
-﻿.coffees {
-	padding: 60px 0 70px 0;
+﻿@import '../../styles/mixin';
+
+.coffees {
+	padding: 60px 0 20px 0;
 	
 	&__container {
 		max-width: 800px;
@@ -14,69 +16,36 @@
 		row-gap: 60px;
 		justify-content: center;
 		align-items: stretch;
-	}
-	
-	@media (max-width: 991px) {
-		&__wrapper {
+		
+		@media (max-width: 991px) {
 			grid-template-columns: repeat(2, minmax(200px, 1fr));
 			justify-content: center;
 			align-items: center;
-			padding: 0 10px 0 10px;
+			padding: 0 10px;
 		}
-	}
-	
-	@media (max-width: 575px) {
-		&__wrapper {
+		
+		@media (max-width: 575px) {
 			grid-template-columns: auto;
 		}
 	}
 	
 	&-item {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		border-radius: 8px;
-		border: 1px solid #ccc;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		padding: 20px;
-		text-align: center;
-		background-color: rgba(211, 211, 211, .23);
-		text-decoration: none;
+		@include coffee-item;
 		
 		a {
 			text-decoration: none;
 		}
 		
-		img {
-			max-width: 100%;
-			min-height: 134px;
-			object-fit: cover;
-			height: auto;
-			border-top-left-radius: 8px;
-			border-top-right-radius: 8px;
-			margin: 0 auto;
-		}
-		
 		&__title {
-			color: var(--color-text-black);
-			font-size: var(--fs-sm);
-			font-weight: var(--fw-normal);
-			line-height: var(--lh-sm);
-			margin-top: 14px;
+			@include coffee-title;
 		}
 		
-		&__sort,
-		&__price {
-			color: var(--color-text-black);
-			font-size: var(--fs-sm);
-			font-weight: var(--fw-normal);
-			line-height: var(--lh-sm);
-			text-align: right;
-			margin-top: 14px;
+		&__sort {
+			@include coffee-sort;
 		}
 		
 		&__price {
-			font-weight: var(--fw-bold);
+			@include coffee-price;
 		}
 	}
 	
@@ -97,6 +66,17 @@
 		.current-page {
 			border: 2px solid gray;
 			font-weight: var(--fw-bold);
+		}
+	}
+	
+	.buttons__wrapper {
+		margin-top: 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		
+		button {
+			@include button-styles;
 		}
 	}
 }
