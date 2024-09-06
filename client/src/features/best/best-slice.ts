@@ -2,13 +2,13 @@
 import { CoffeeItem, Status } from '../../types'
 import { loadItems } from './best-actions'
 
-export type BaseSlice = {
+export type BestSliceType = {
 	status: Status,
 	error: string | null
 	list: CoffeeItem[]
 }
 
-const initialState: BaseSlice = {
+const initialState: BestSliceType = {
 	status: 'idle',
 	error: null,
 	list: []

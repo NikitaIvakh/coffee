@@ -1,6 +1,12 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
+import type { Filter } from '../../types'
 
-const initialState = {
+type ControlsSliceType = {
+	search: string
+	filter: Filter
+}
+
+const initialState: ControlsSliceType = {
 	search: '',
 	filter: 'All'
 }

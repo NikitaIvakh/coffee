@@ -11,7 +11,7 @@ const Filter = () => {
 		{ name: 'Columbia', label: 'Columbia' }
 	]
 	
-	const isActive = (name) => {
+	const isActive = (name: string) => {
 		if (name === '') return filter === 'All'
 		return filter === name
 	}

@@ -1,14 +1,14 @@
 ﻿import { createAsyncThunk } from '@reduxjs/toolkit'
 import type { Coffee } from '../../types'
 import type { Extra } from '../../types'
-import { BaseSlice } from './best-slice'
+import { BestSliceType } from './best-slice'
 
 export const loadItems = createAsyncThunk<
 	Coffee,
 	undefined,
 	{
 		extra: Extra
-		state: { best: BaseSlice }
+		state: { best: BestSliceType }
 		rejectedValue: string
 	}
 >(

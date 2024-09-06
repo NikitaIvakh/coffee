@@ -3,7 +3,11 @@ import Filter from './Filters'
 import Search from './Search'
 import './styles/controls.scss'
 
-const Controls = (props) => {
+interface ControlProps {
+	path: string
+}
+
+const Controls = (props: ControlProps) => {
 	const { path } = props
 	
 	return (

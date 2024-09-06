@@ -5,7 +5,7 @@ const Search = () => {
 	const [search, isPending, handleClick] = useSearch()
 	
 	return (
-		<form className='searchForm' style={{opacity: isPending ? 0.7 : 1}}>
+		<form className='searchForm' style={{ opacity: isPending ? 0.7 : 1 }}>
 			<label htmlFor='search' className='searchForm__label'>Lookiing for</label>
 			<input
 				className='searchForm__input'

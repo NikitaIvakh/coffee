@@ -1,14 +1,18 @@
 ﻿import { useTransition } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../store/store'
+import type { Filter } from '../../types'
 import { selectFilters } from './controls-selectors'
 import { setFilter } from './controls-slice'
 
-const UseFilter = () => {
-	const dispatch = useDispatch()
+type onSelect = (filterName: string) => void
+
+const UseFilter = (): [Filter, boolean, onSelect] => {
+	const dispatch = useAppDispatch()
 	const filter = useSelector(selectFilters)
 	const [isPending, startTransition] = useTransition()
 	
-	const handleClick = (filterName) => {
+	const handleClick: onSelect = (filterName) => {
 		startTransition(() => {
 			dispatch(setFilter(filterName === '' ? 'All' : filterName))
 		})
