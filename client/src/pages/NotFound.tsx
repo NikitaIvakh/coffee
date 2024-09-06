@@ -1,4 +1,4 @@
-﻿import PageNotFound from '../components/NotFound/PageNotFound'
+﻿import PageNotFound from 'components/NotFound/PageNotFound'
 
 const NotFound = () => {
 		return (

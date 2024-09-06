@@ -1,5 +1,5 @@
 ﻿import { NavLink } from 'react-router-dom'
-import coffeeBeansDark from '../../resources/img/icons/main_beans_dark.svg'
+import coffeeBeansDark from 'resources/img/icons/main_beans_dark.svg'
 import './footer.scss'
 
 const Footer = () => {

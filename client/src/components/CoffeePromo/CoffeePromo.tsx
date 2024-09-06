@@ -1,6 +1,10 @@
 ﻿import './coffeePromo.scss'
 
-const CoffeePromo = (props) => {
+interface CoffeePromoProps {
+	title: string
+}
+
+const CoffeePromo = (props: CoffeePromoProps) => {
 	const { title } = props
 	
 	return (

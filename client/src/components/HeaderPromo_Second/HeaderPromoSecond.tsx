@@ -2,7 +2,12 @@
 import Header from '../Header/Header'
 import './headerPromoSecond.scss'
 
-const HeaderPromoSecond = (props) => {
+interface HeaderPromoSecondProps {
+	title: string
+	backgroundImage: string
+}
+
+const HeaderPromoSecond = (props: HeaderPromoSecondProps) => {
 	const { title, backgroundImage } = props
 	
 	return (

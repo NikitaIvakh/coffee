@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import coffeeBeansLight from '../../resources/img/icons/beans_light.svg'
+import coffeeBeansLight from 'resources/img/icons/beans_light.svg'
 import './promo.scss'
 
 const Promo = () => {

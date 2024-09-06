@@ -1,6 +1,6 @@
 ﻿import React from 'react'
-import ControlDetails from '../../features/details/ControlDetails'
-import HeaderBgOurCoffee from '../../resources/img/bg/second_bg.jpeg'
+import ControlDetails from 'features/details/ControlDetails'
+import HeaderBgOurCoffee from 'resources/img/bg/second_bg.jpeg'
 
 const ControlsOurCoffee = () => {
 	return (

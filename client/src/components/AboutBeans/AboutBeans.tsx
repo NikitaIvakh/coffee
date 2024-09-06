@@ -1,7 +1,12 @@
 ﻿import './aboutBeans.scss'
-import BeansBlackImg from '../../resources/img/icons/main_beans_dark.svg'
+import BeansBlackImg from 'resources/img/icons/main_beans_dark.svg'
 
-const AboutBeans = (props) => {
+interface AboutBeansProps {
+	title: string,
+	backgroundImage: string
+}
+
+const AboutBeans = (props: AboutBeansProps) => {
 	const { title, backgroundImage } = props
 	
 	return (
