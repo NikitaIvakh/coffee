@@ -1,23 +1,32 @@
 ﻿import './details.scss'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import { type CoffeeById } from '../../types'
 import SetContentList from '../../utils/SetContentList'
 import Info from './Info'
 import useCoffee from './use-coffee'
 
-const Details = (props) => {
+interface DetailsProps {
+	path: string
+}
+
+type RouteParams = {
+	id: string
+}
+
+const Details = (props: DetailsProps) => {
 	const { path } = props
-	const { id } = useParams()
-	const { coffee, status } = useCoffee(id)
+	const { id } = useParams<RouteParams>()
+	const { coffee, status } = useCoffee(id!)
 	
-	const renderItems = (coffee) => {
+	const renderItems = (coffee: CoffeeById) => {
 		return (
 			<Info path={path} {...coffee} />
 		)
 	}
 	
 	const elements = useMemo(() => {
-		return SetContentList(() => renderItems(coffee), status, coffee)
+		return SetContentList(() => renderItems(coffee!), status, coffee)
 	}, [id, status, coffee])
 	
 	return (

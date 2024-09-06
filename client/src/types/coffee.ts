@@ -20,11 +20,11 @@ export type Coffee = {
 }
 
 export type CoffeeById = {
-	"id": string,
-	"name": string,
-	"coffeeType": string,
-	"description": string,
-	"price": number,
-	"imageUrl": string,
-	"imageLocalPath": string
+	id: string,
+	name: string,
+	coffeeType: string,
+	description: string,
+	price: number,
+	imageUrl: string,
+	imageLocalPath: string
 }

@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom'
 import CoffeeImg from '../../resources/img/coffee/coffee_big.jpg'
 import CoffeeBeansBlack from '../../resources/img/icons/main_beans_dark.svg'
 import './details.scss'
+import type { CoffeeById } from '../../types'
 
-const Info = (props) => {
+interface InfoProps extends CoffeeById{
+	path: string
+}
+
+const Info = (props: InfoProps) => {
 	const { name, coffeeType, description, price, path } = props
 	
 	return (

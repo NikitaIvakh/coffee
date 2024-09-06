@@ -2,7 +2,13 @@
 import Footer from '../../components/Footer/Footer'
 import HeaderPromoSecond from '../../components/HeaderPromo_Second/HeaderPromoSecond'
 
-const ControlDetails = (props) => {
+interface ControlDetailsProps {
+	title: string
+	path: string
+	backgroundImage: string
+}
+
+const ControlDetails = (props: ControlDetailsProps) => {
 	const { title, path, backgroundImage } = props
 	return (
 		<>

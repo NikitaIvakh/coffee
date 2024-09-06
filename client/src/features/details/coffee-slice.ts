@@ -1,7 +1,14 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
+import type { CoffeeById, Status } from '../../types'
 import { LoadCoffeeDetails } from './coffee-actions'
 
-const initialState = {
+export type CoffeeSliceType = {
+	status: Status
+	error: string | null
+	coffee: CoffeeById | null
+}
+
+const initialState: CoffeeSliceType = {
 	status: 'idle',
 	error: null,
 	coffee: null
@@ -18,13 +25,12 @@ const CoffeeSlice = createSlice({
 			state.status = 'loading'
 		})
 		builder.addCase(LoadCoffeeDetails.fulfilled, (state, action) => {
-			state.coffee = action.payload.value
+			state.coffee = action.payload
 			state.status = 'confirmed'
 		})
 		builder.addCase(LoadCoffeeDetails.rejected, (state, action) => {
-			state.coffee = action.payload || action.meta.data
+			state.status = 'rejected'
 			state.error = `${action.error.code}: ${action.error.message}`
-			state.status = 'error'
 		})
 		builder.addDefaultCase(() => {
 		})

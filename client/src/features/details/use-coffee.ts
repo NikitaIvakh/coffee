@@ -1,11 +1,12 @@
 ﻿import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../store/store'
 import { LoadCoffeeDetails } from './coffee-actions'
 import { selectCoffee } from './coffee-selectors'
-import { clearDetails } from './coffee-slice'
+import { clearDetails, CoffeeSliceType } from './coffee-slice'
 
-const useCoffee = (id) => {
-	const dispatch = useDispatch()
+const useCoffee = (id: string): CoffeeSliceType => {
+	const dispatch = useAppDispatch()
 	const coffee = useSelector(selectCoffee)
 	
 	useEffect(() => {
