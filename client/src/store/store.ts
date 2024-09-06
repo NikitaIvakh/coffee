@@ -1,5 +1,6 @@
 ﻿import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { thunk } from 'redux-thunk'
 import * as api from '../config'
 import { bestReducer } from '../features/best/best-slice'
@@ -14,7 +15,7 @@ const rootReducers = combineReducers({
 	coffeeDetails: coffeeDetailsReducer
 })
 
-const store = configureStore({
+export const store = configureStore({
 	reducer: rootReducers,
 	devTools: process.env.NODE_ENV !== 'production',
 	middleware: getDefaultMiddleware => getDefaultMiddleware({
@@ -27,4 +28,6 @@ const store = configureStore({
 	}).concat(thunk)
 })
 
-export default store
+export type RootState = ReturnType<typeof rootReducers>
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch

@@ -1,10 +1,12 @@
 ﻿import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../store/store'
+import { CoffeeItem } from '../../types'
 import { loadItems } from './best-actions'
-import { selectAllCoffees, selectBestInfo } from './best-slice'
+import { selectAllCoffees, selectBestInfo } from './best-selectors'
 
-export const useBase = () => {
-	const dispatch = useDispatch()
+export const useBase = (): [CoffeeItem[], ReturnType<typeof selectBestInfo>] => {
+	const dispatch = useAppDispatch()
 	const coffees = useSelector(selectAllCoffees)
 	const { status, error, qty } = useSelector(selectBestInfo)
 	

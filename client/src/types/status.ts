@@ -1,0 +1,1 @@
+﻿export type Status = "idle" | "loading" | "confirmed" | "rejected"

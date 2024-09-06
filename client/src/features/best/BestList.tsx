@@ -1,5 +1,6 @@
 ﻿import { useMemo } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import type { CoffeeItem } from '../../types'
 import SetContentList from '../../utils/SetContentList'
 import { useBase } from './use-base'
 import './bestList.scss'
@@ -7,7 +8,7 @@ import './bestList.scss'
 const BestList = () => {
 	const [coffees, { status }] = useBase()
 	
-	const renderItems = (coffees) => {
+	const renderItems = (coffees: CoffeeItem[]) => {
 		const coffeeItems = coffees.map((coffee, i) => {
 			const duration = 300
 			const { name, price, imageUrl } = coffee
