@@ -1,4 +1,4 @@
-﻿export function createPages(totalCount, pageSize, currentPage) {
+﻿export function createPages(totalCount: number, pageSize: number, currentPage: number) {
 	const pagesCount = Math.ceil(totalCount / pageSize)
 	const pages = []
 	

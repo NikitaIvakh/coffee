@@ -7,7 +7,8 @@ import './styles/style.scss'
 import store from './store/store'
 import './styles/mixin.scss'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const rootElement = document.getElementById('root') as HTMLDivElement
+const root = ReactDOM.createRoot(rootElement)
 root.render(
 	<StrictMode>
 		<Provider store={store}>
