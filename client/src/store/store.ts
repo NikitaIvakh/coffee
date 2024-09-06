@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { thunk } from 'redux-thunk'
 import * as api from '../config'
+import { admin } from '../features/admin/admin-slice'
 import { bestReducer } from '../features/best/best-slice'
 import { coffeeList } from '../features/coffees/coffees-slice'
 import { controlsReducer } from '../features/controls/controls-slice'
@@ -12,7 +13,8 @@ const rootReducers = combineReducers({
 	best: bestReducer,
 	controls: controlsReducer,
 	coffees: coffeeList,
-	coffeeDetails: coffeeDetailsReducer
+	coffeeDetails: coffeeDetailsReducer,
+	adminPanel: admin
 })
 
 export const store = configureStore({

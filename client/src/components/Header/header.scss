@@ -5,7 +5,7 @@
 	
 	&__wrapper {
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
 	}
 	
 	&__list {
@@ -19,6 +19,16 @@
 		
 		&:first-child::before {
 			background-image: url('../../resources/img/icons/beans_light.svg');
+		}
+	}
+	
+	&__admin {
+		.header__item {
+			cursor: pointer;
+			&::before {
+				width: 0;
+				background-image: none;
+			}
 		}
 	}
 	

@@ -1,9 +1,7 @@
 ﻿import PageNotFound from 'components/NotFound/PageNotFound'
 
-const NotFound = () => {
+export const NotFound = () => {
 		return (
 			<PageNotFound />
 		)
 }
-
-export default NotFound

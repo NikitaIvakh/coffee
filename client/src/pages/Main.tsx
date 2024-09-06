@@ -3,7 +3,7 @@ import Footer from 'components/Footer/Footer'
 import HeaderPromoMain from 'components/HeaderPromo_Main/HeaderPromoMain'
 import BestList from 'features/best/BestList'
 
-const Main = () => {
+export const Main = () => {
 	return (
 		(
 			<>
@@ -15,5 +15,3 @@ const Main = () => {
 		)
 	)
 }
-
-export default Main

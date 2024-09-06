@@ -1,13 +1,8 @@
 import React, { useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
-import ControlsOurCoffee from './pages/Controls/ControlsOurCoffee'
-import ControlsOurPleasure from './pages/Controls/ControlsOurPleasure'
-import Main from './pages/Main'
-import NotFound from './pages/NotFound'
-import OurCoffee from './pages/OurCoffee'
-import Pleasure from './pages/Pleasure'
 import './styles/app.scss'
+import { AdminPanel, ControlsOurCoffee, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
 
 const AnimatedRoutes = () => {
 	const location = useLocation()
@@ -30,6 +25,7 @@ const AnimatedRoutes = () => {
 						<Route path='/OurCoffee/:id' element={<ControlsOurCoffee />} />
 						<Route path='/Pleasure' element={<Pleasure />} />
 						<Route path='/Pleasure/:id' element={<ControlsOurPleasure />} />
+						<Route path='/AdminPanel' element={<AdminPanel />} />
 						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</div>
