@@ -30,6 +30,7 @@ public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
             
             await coffeeRepository.DeleteAsync(coffee);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+            await cacheProvider.RemoveByPrefixAsync("coffees_", cancellationToken);
             await RecreateCacheAsyncHelper.RecreateCacheAsync(coffeeRepository, cacheProvider, cancellationToken);
 
             return Result.Success(Unit.Value);

@@ -69,6 +69,7 @@ public class UpdateCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
 
             await coffeeRepository.UpdateAsync(coffeeUpdate.Value);
             await unitOfWork.SaveChangesAsync(cancellationToken);
+            await cacheProvider.RemoveByPrefixAsync("coffees_", cancellationToken);
             await RecreateCacheAsyncHelper.RecreateCacheAsync(coffeeRepository, cacheProvider, cancellationToken);
             
             return Result.Success(Unit.Value);

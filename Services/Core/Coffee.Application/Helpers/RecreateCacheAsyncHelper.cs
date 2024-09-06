@@ -50,8 +50,7 @@ public abstract class RecreateCacheAsyncHelper
         return $"coffees_{filter}_{search}";
     }
 
-    private static List<GetCoffeeListDto> GetFilteredAndSearchedCoffeeListDto(CoffeeEntity[] coffeeEntities,
-        string search, string filter)
+    private static List<GetCoffeeListDto> GetFilteredAndSearchedCoffeeListDto(CoffeeEntity[] coffeeEntities, string search, string filter)
     {
         var coffeeListDto = coffeeEntities.Select(coffee =>
             new GetCoffeeListDto(
