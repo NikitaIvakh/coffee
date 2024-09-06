@@ -88,6 +88,7 @@ const AdminPanelForm = () => {
 							<option value={CoffeeType.Kenya}>Кения</option>
 							<option value={CoffeeType.Columbia}>Колумбия</option>
 						</Field>
+						<ErrorMessage className='error' name='coffeeType' component='div' />
 						
 						<label htmlFor='avatar' className='file-label'>Картинка кофе</label>
 						<input
