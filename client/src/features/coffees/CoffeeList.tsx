@@ -2,14 +2,19 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import type { CoffeeItem } from '../../types'
 import SetContentList from '../../utils/SetContentList'
 import useCoffees from './use-coffees'
 
-const CoffeeList = (props) => {
+interface CoffeeListProps {
+	path: string
+}
+
+const CoffeeList = (props: CoffeeListProps) => {
 	const { path } = props
 	const [coffees, pages, currentPage, isPending, { status }, handleClick] = useCoffees()
 	
-	const renderItems = (coffees) => {
+	const renderItems = (coffees: CoffeeItem[]) => {
 		const coffeeItems = coffees.map((coffee) => {
 			const { id, imageUrl, name, coffeeType, price } = coffee
 			return (
@@ -36,7 +41,7 @@ const CoffeeList = (props) => {
 	}, [status, coffees, currentPage])
 	
 	return (
-		<section className='coffees' style={{opacity: isPending ? 0.7 : 1}}>
+		<section className='coffees' style={{ opacity: isPending ? 0.7 : 1 }}>
 			<div className='coffees__container'>
 				{elements}
 				<TransitionGroup className='pages'>

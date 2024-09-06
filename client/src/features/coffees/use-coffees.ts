@@ -1,29 +1,29 @@
 ﻿import { useEffect, useTransition } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../store/store'
+import { CoffeeItem } from '../../types'
+import { createPages } from '../../utils/createPages'
 import { selectControls } from '../controls/controls-selectors'
 import { LoadCoffees } from './coffees-action'
-import {
-	selectCoffeeInfo,
-	selectCurrentPage,
-	selectVisibleCoffees,
-	selectPageSize,
-	selectTotalCount
-} from './coffees-selectors'
+import { selectCoffeeInfo, selectCurrentPage, selectPageSize, selectTotalCount, selectVisibleCoffees } from './coffees-selectors'
 import { setCurrentPage } from './coffees-slice'
-import { createPages } from '../../utils/createPages'
 
-const useCoffees = () => {
-	const dispatch = useDispatch()
+type onSelect = (page: number) => void
+
+const useCoffees = (): [CoffeeItem[], number[], number, boolean, ReturnType<typeof selectCoffeeInfo>, onSelect
+] => {
+	const dispatch = useAppDispatch()
 	const controls = useSelector(selectControls)
 	const { search, filter } = controls
+	
 	const currentPage = useSelector(selectCurrentPage)
 	const pageSize = useSelector(selectPageSize)
 	const totalCount = useSelector(selectTotalCount)
-	const coffees = useSelector((state) => selectVisibleCoffees(state, search, filter))
+	
+	const coffees = useSelector(state => selectVisibleCoffees(state, search, filter))
 	const { status, error, qty } = useSelector(selectCoffeeInfo)
 	const [isPending, startTransition] = useTransition()
 	
-	// Загрузка данных с учетом фильтров и текущей страницы
 	useEffect(() => {
 		startTransition(() => {
 			dispatch(setCurrentPage(1))
@@ -37,7 +37,7 @@ const useCoffees = () => {
 		})
 	}, [currentPage, search, filter, pageSize, dispatch])
 	
-	const handleClick = (page) => {
+	const handleClick: onSelect = page => {
 		startTransition(() => {
 			dispatch(setCurrentPage(page))
 		})
