@@ -21,9 +21,8 @@ public sealed class DeleteCoffeeCommandHandlerTests
         // Arrange
         var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
-
-        var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
-        var command = new DeleteCoffeeCommand(deleteCoffeeDto);
+        
+        var command = new DeleteCoffeeCommand(coffee.Id);
         var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act
@@ -40,9 +39,8 @@ public sealed class DeleteCoffeeCommandHandlerTests
         // Arrange
         var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
-
-        var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
-        var command = new DeleteCoffeeCommand(deleteCoffeeDto);
+        
+        var command = new DeleteCoffeeCommand(coffee.Id);
         var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act
@@ -58,9 +56,8 @@ public sealed class DeleteCoffeeCommandHandlerTests
         // Arrange
         var coffee = CoffeeEntity.Create("testName", "testDescription", 23.90m, CoffeeType.Columbia).Value;
         _coffeeRepositoryMock.Setup(key => key.GetCoffeeEntityAsync(It.IsAny<Guid>())).ReturnsAsync(coffee);
-
-        var deleteCoffeeDto = new DeleteCoffeeDto(coffee.Id);
-        var command = new DeleteCoffeeCommand(deleteCoffeeDto);
+        
+        var command = new DeleteCoffeeCommand(coffee.Id);
         var handler = new DeleteCoffeeCommandHandler(_coffeeRepositoryMock.Object, _unitOfWorkMock.Object, _cacheProvider.Object);
 
         // Act

@@ -18,7 +18,8 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     private readonly ISender _sender = sender;
 
     [HttpGet(nameof(GetCoffeeList))]
-    public async Task<ActionResult<ResultT<PaginationList<GetCoffeeListDto>>>> GetCoffeeList(string? search, string? filter, int page, int pageSize, int? limit = null)
+    public async Task<ActionResult<ResultT<PaginationList<GetCoffeeListDto>>>> GetCoffeeList(string? search,
+        string? filter, int page, int pageSize, int? limit = null)
     {
         var query = await _sender.Send(new GetCoffeeQuery(search, filter, page, pageSize, limit));
         return query.IsSuccess ? Ok(query) : HandleFailure<PaginationList<GetCoffeeListDto>>(query);
@@ -35,9 +36,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     public async Task<ActionResult<ResultT<Guid>>> CreateCoffee([FromForm] CreateCoffeeDto createCoffeeDto)
     {
         var command = await _sender.Send(new CreateCoffeeCommand(createCoffeeDto));
-        return command.IsSuccess
-            ? CreatedAtAction(nameof(CreateCoffee), new { Id = command.Value }, command.Value)
-            : HandleFailure<Guid>(command);
+        return command.IsSuccess ? CreatedAtAction(nameof(CreateCoffee), new { Id = command.Value }, command.Value) : HandleFailure<Guid>(command);
     }
 
     [HttpPatch($"{nameof(UpdateCoffee)}/" + "{id}")]
@@ -48,9 +47,9 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     }
 
     [HttpDelete($"{nameof(DeleteCoffee)}/" + "{id}")]
-    public async Task<ActionResult<ResultT<Unit>>> DeleteCoffee(Guid id, [FromBody] DeleteCoffeeDto deleteCoffeeDto)
+    public async Task<ActionResult<ResultT<Unit>>> DeleteCoffee(Guid id)
     {
-        var command = await _sender.Send(new DeleteCoffeeCommand(deleteCoffeeDto));
+        var command = await _sender.Send(new DeleteCoffeeCommand(id));
         return command.IsSuccess ? Ok(command) : HandleFailure<Unit>(command);
     }
 }

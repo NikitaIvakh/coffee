@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Coffee.Application.Coffees.Handlers.Delete;
 
-public record DeleteCoffeeCommand(DeleteCoffeeDto DeleteCoffeeDto): IRequest<ResultT<Unit>>;
+public record DeleteCoffeeCommand(Guid Id): IRequest<ResultT<Unit>>;

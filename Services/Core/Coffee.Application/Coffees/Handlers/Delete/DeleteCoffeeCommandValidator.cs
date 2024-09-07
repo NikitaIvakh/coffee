@@ -6,7 +6,7 @@ public class DeleteCoffeeCommandValidator : AbstractValidator<DeleteCoffeeComman
 {
     public DeleteCoffeeCommandValidator()
     {
-        RuleFor(key => key.DeleteCoffeeDto.Id)
+        RuleFor(key => key.Id)
             .NotNull()
             .NotEmpty();
     }

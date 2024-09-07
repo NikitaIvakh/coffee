@@ -2,7 +2,6 @@ using System.Collections.Concurrent;
 using Coffee.Application.Providers;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Coffee.Infrastructure.Providers;
 

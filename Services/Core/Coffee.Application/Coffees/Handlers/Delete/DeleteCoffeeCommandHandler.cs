@@ -14,7 +14,7 @@ public class DeleteCoffeeCommandHandler(ICoffeeRepository coffeeRepository, IUni
     {
         try
         {
-            var coffee = await coffeeRepository.GetCoffeeEntityAsync(request.DeleteCoffeeDto.Id);
+            var coffee = await coffeeRepository.GetCoffeeEntityAsync(request.Id);
 
             if (!string.IsNullOrEmpty(coffee.ImageLocalPath))
             {
