@@ -14,4 +14,11 @@
 			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
 		}
 	}
+	
+	@media (max-width: 991px) {
+		.admin_btn {
+			justify-content: center;
+			margin: 25px auto 0 auto;
+		}
+	}
 }
