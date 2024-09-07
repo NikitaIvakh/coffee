@@ -1,7 +1,6 @@
 {
   "Routes": [
     {
-      // Coffee.API: https://localhost:8081
       "DownstreamPathTemplate": "/api/coffee/GetCoffeeList",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -14,10 +13,17 @@
       "UpstreamHttpMethod": [
         "GET"
       ],
+      "FileCacheOptions": {
+        "TtlSeconds": 10
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 1000
+      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
-      // Coffee.API: https://localhost:8081
       "DownstreamPathTemplate": "/api/coffee/GetCoffee/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -30,10 +36,17 @@
       "UpstreamHttpMethod": [
         "GET"
       ],
+      "FileCacheOptions": {
+        "TtlSeconds": 10
+      },
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 1000
+      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
-      // Coffee.API: https://localhost:8081
       "DownstreamPathTemplate": "/api/coffee/CreateCoffee",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -46,10 +59,14 @@
       "UpstreamHttpMethod": [
         "POST"
       ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 1000
+      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
-      // Coffee.API: https://localhost:8081
       "DownstreamPathTemplate": "/api/coffee/UpdateCoffee/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -62,10 +79,14 @@
       "UpstreamHttpMethod": [
         "PATCH"
       ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 1000
+      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
-      // Coffee.API: https://localhost:8081
       "DownstreamPathTemplate": "/api/coffee/DeleteCoffee/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -78,10 +99,15 @@
       "UpstreamHttpMethod": [
         "DELETE"
       ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 30,
+        "TimeoutValue": 1000
+      },
       "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
-  
+
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:9020"
   }

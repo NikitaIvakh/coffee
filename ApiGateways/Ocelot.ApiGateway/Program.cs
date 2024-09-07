@@ -2,6 +2,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +27,7 @@ builder.Configuration.AddJsonFile("ocelot.json", optional: true, reloadOnChange:
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddOcelot();
+builder.Services.AddOcelot().AddPolly();
 
 var app = builder.Build();
 
@@ -41,5 +42,5 @@ app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.MapControllers();
 
-app.UseOcelot().GetAwaiter().GetResult();
+app.UseOcelot().Wait();
 app.Run();
