@@ -1,5 +1,5 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
-import { createNewCoffee, updateCoffee } from './admin-action'
+import { createNewCoffee, deleteCoffee, updateCoffee } from './admin-action'
 
 export type AdminSliceType = {
 	status: 'idle' | 'loading' | 'confirmed' | 'rejected',
@@ -20,28 +20,37 @@ const AdminSlice = createSlice({
 		clearForm: () => initialState
 	},
 	extraReducers: builder => {
-		builder
-			.addCase(createNewCoffee.pending, state => {
-				state.status = 'loading'
-			})
-			.addCase(createNewCoffee.fulfilled, (state, action) => {
-				state.coffeeId = action.payload
-				state.status = 'confirmed'
-			})
-			.addCase(createNewCoffee.rejected, (state, action) => {
-				state.error = action.payload || 'Unknown error'
-				state.status = 'rejected'
-			})
-			.addCase(updateCoffee.pending, state => {
-				state.status = 'loading'
-			})
-			.addCase(updateCoffee.fulfilled, state => {
-				state.status = 'confirmed'
-			})
-			.addCase(updateCoffee.rejected, (state, action) => {
-				state.error = action.payload || 'Unknown error'
-				state.status = 'rejected'
-			})
+		builder.addCase(createNewCoffee.pending, state => {
+			state.status = 'loading'
+		})
+		builder.addCase(createNewCoffee.fulfilled, (state, action) => {
+			state.coffeeId = action.payload
+			state.status = 'confirmed'
+		})
+		builder.addCase(createNewCoffee.rejected, (state, action) => {
+			state.error = action.payload || 'Unknown error'
+			state.status = 'rejected'
+		})
+		builder.addCase(updateCoffee.pending, state => {
+			state.status = 'loading'
+		})
+		builder.addCase(updateCoffee.fulfilled, state => {
+			state.status = 'confirmed'
+		})
+		builder.addCase(updateCoffee.rejected, (state, action) => {
+			state.error = action.payload || 'Unknown error'
+			state.status = 'rejected'
+		})
+		builder.addCase(deleteCoffee.pending, state => {
+			state.status = 'loading'
+		})
+		builder.addCase(deleteCoffee.fulfilled, (state) => {
+			state.status = 'confirmed'
+		})
+		builder.addCase(deleteCoffee.rejected, (state, action) => {
+			state.error = action.payload || 'Unknown error'
+			state.status = 'rejected'
+		})
 	}
 })
 

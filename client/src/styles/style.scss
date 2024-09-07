@@ -97,3 +97,19 @@ select {
 		margin-left: 25px;
 	}
 }
+
+.swal2-actions {
+	display: flex;
+	align-content: space-around;
+	justify-content: space-around;
+	align-items: flex-end;
+	width: 100%;
+	
+	button {
+		color: black;
+	}
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
+	background: rgba(211, 211, 211, .9);
+}

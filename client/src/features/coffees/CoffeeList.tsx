@@ -1,6 +1,7 @@
 ﻿import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import useAdmin from '../admin/use-admin'
 import ModalWindow from '../modal/ModalWindow'
 import type { CoffeeItem } from '../../types'
 import SetContentList from '../../utils/SetContentList'
@@ -16,12 +17,17 @@ interface CoffeeListProps {
 const CoffeeList = (props: CoffeeListProps) => {
 	const { path, showButtons } = props
 	const [coffeeIsOpen, coffeeOpenModalWindow, coffeeCloseModalWindow] = useCoffeesModal()
+	const [, , handleDeleteCoffee] = useAdmin()
 	const [selectedCoffee, setSelectedCoffee] = useState<CoffeeItem | null>(null)
 	const [coffees, pages, currentPage, isPending, { status }, handleClick] = useCoffees()
 	
 	const handleUpdateClick = (coffee: CoffeeItem) => {
 		setSelectedCoffee(coffee)
 		coffeeOpenModalWindow()
+	}
+	
+	const handleDeleteClick = (coffee: CoffeeItem) => {
+		handleDeleteCoffee(coffee.id)
 	}
 	
 	const renderItems = (coffees: CoffeeItem[]) => {
@@ -38,8 +44,8 @@ const CoffeeList = (props: CoffeeListProps) => {
 						</Link>
 						{showButtons && (
 							<div className='buttons__wrapper'>
-								<button onClick={() => handleUpdateClick(coffee)} className="btn btn__filter">Update</button>
-								<button className="btn btn__filter">Delete</button>
+								<button onClick={() => handleUpdateClick(coffee)} className='btn btn__filter'>Update</button>
+								<button onClick={() => handleDeleteClick(coffee)} className='btn btn__filter'>Delete</button>
 							</div>
 						)}
 					</div>

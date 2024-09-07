@@ -50,5 +50,38 @@ export const updateCoffee = createAsyncThunk<
 			
 			return rejectWithValue('Unknown error')
 		}
+	}, {
+		condition: (_, { getState }) => {
+			const { adminPanel: { status } } = getState()
+			if (status === 'loading') return false
+		}
+	}
+)
+
+export const deleteCoffee = createAsyncThunk<
+	void,
+	string,
+	{
+		extra: Extra,
+		state: { adminPanel: AdminSliceType },
+		rejectValue: string
+	}
+>(
+	'@@admin/delete',
+	async (id, { extra: { client, api }, rejectWithValue }) => {
+		try {
+			const response = await client.delete(api.URL_DELETE_COFFEE(id))
+			return response.data
+		} catch (e) {
+			if (e instanceof Error)
+				return rejectWithValue(e.message)
+			
+			return rejectWithValue('Unknown error')
+		}
+	}, {
+		condition: (_, { getState }) => {
+			const { adminPanel: { status } } = getState()
+			if (status === 'loading') return false
+		}
 	}
 )

@@ -1,10 +1,10 @@
 ﻿import { ErrorMessage, Field, Formik, useField } from 'formik'
 import { useState } from 'react'
-import Swal from 'sweetalert2'
 import * as Yup from 'yup'
 import { CoffeeItem, CoffeeType, MyFormValues, MyTextInputProps } from '../../types'
+import { showSuccessMessage } from '../../utils'
 import useAdmin from './use-admin'
-import "./styles/adminlForm.scss"
+import './styles/adminlForm.scss'
 
 const MyTextInput = ({ label, ...props }: MyTextInputProps) => {
 	const [field, meta] = useField(props)
@@ -33,14 +33,6 @@ const prepareFormData = (values: MyFormValues): FormData => {
 		formData.append('avatar', values.avatar)
 	}
 	return formData
-}
-
-const showSuccessMessage = () => {
-	Swal.fire({
-		title: 'Great',
-		text: 'The data has been successfully sent to the server!',
-		icon: 'success'
-	}).then()
 }
 
 interface AdminFormProps {
@@ -87,6 +79,7 @@ const AdminForm = (props: AdminFormProps) => {
 			})}
 			onSubmit={(values, { resetForm }) => {
 				const formData = prepareFormData(values)
+				
 				if (coffee) {
 					handleUpdateCoffee(values.id!, formData)
 					resetForm()
@@ -147,7 +140,7 @@ const AdminForm = (props: AdminFormProps) => {
 						)}
 					</div>
 					
-					<button type='submit' disabled={isSubmitting} className="form_btn form_btn__filter">{title}</button>
+					<button type='submit' disabled={isSubmitting} className='form_btn form_btn__filter'>{title}</button>
 				</form>
 			)}
 		</Formik>
