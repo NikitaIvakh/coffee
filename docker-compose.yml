@@ -5,7 +5,7 @@ services:
     container_name: coffee_api
     build:
       context: .
-      dockerfile: Services/Presentation/Coffee.WebAPI/Dockerfile
+      dockerfile: Services/Coffees/Presentation/Coffee.WebAPI/Dockerfile
     ports:
       - "8080:8080"
       - "8081:8081"
