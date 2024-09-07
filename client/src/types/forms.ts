@@ -1,6 +1,7 @@
 ﻿import { CoffeeType } from './coffeeEnum'
 
 export interface MyFormValues {
+	id?: string | undefined
 	name: string
 	description: string
 	price: number

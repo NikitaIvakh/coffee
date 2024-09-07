@@ -2,6 +2,7 @@
 	id: string,
 	name: string,
 	coffeeType: string,
+	description: string,
 	price: number,
 	createdAt: string,
 	imageUrl: string,

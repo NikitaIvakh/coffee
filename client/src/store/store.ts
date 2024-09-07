@@ -8,13 +8,15 @@ import { bestReducer } from '../features/best/best-slice'
 import { coffeeList } from '../features/coffees/coffees-slice'
 import { controlsReducer } from '../features/controls/controls-slice'
 import { coffeeDetailsReducer } from '../features/details/coffee-slice'
+import { modal } from '../features/modal/modal-slice'
 
 const rootReducers = combineReducers({
 	best: bestReducer,
 	controls: controlsReducer,
 	coffees: coffeeList,
 	coffeeDetails: coffeeDetailsReducer,
-	adminPanel: admin
+	adminPanel: admin,
+	modal: modal
 })
 
 export const store = configureStore({

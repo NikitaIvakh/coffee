@@ -1,9 +1,8 @@
-﻿.filter {
+﻿@import "../../../styles/buttons";
+
+.filter {
 	&__label {
-		color: var(--color-text-black);
-		font-size: var(--fs-sm);
-		font-weight: var(--fw-normal);
-		line-height: var(--lh-sm);
+		@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-sm));
 		padding-right: 35px;
 		
 		@media (max-width: 575px) {
@@ -18,36 +17,14 @@
 }
 
 .btn {
-	border-radius: 4px;
-	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
-	background: var(--color-text);
-	color: var(--color-text);
-	padding: 10px 20px;
-	text-align: center;
-	cursor: pointer;
-	border: none;
-	transition: background 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, transform 0.2s ease;
-	
-	&:hover {
-		filter: brightness(85%);
-		box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.3);
-	}
-	
-	&:active {
-		filter: brightness(75%);
-		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
-		transform: translateY(2px);
-	}
+	@include button-styles(var(--color-text), var(--color-text));
 	
 	& + .btn {
 		margin-left: 5px;
 	}
 	
 	&__filter {
-		color: var(--color-text-black);
-		font-size: var(--fs-sm);
-		font-weight: var(--fw-normal);
-		line-height: var(--lh-ss);
+		@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
 	}
 	
 	&-light {
@@ -62,25 +39,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.2);
 	}
 	
-	@media (max-width: 320px) {
-		width: 100%;
-		padding: 12px 0;
-		margin: 5px 0;
-		box-shadow: none;
-		text-align: center;
-		
-		& + .btn {
-			margin-left: 0;
-		}
-		
-		&:first-child {
-			margin-top: 0;
-		}
-		
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
+	@include responsive-btn;
 }
 
 @media (max-width: 991px) {

@@ -57,6 +57,7 @@ public abstract class RecreateCacheAsyncHelper
                 coffee.Id,
                 coffee.Name,
                 CoffeeTypeHelper.GetDescription(coffee.CoffeeType),
+                coffee.Description,
                 coffee.Price,
                 coffee.CreatedAt,
                 coffee.ImageUrl,

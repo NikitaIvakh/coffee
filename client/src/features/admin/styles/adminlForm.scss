@@ -1,0 +1,102 @@
+﻿@import "../../../styles/buttons";
+
+.form {
+	padding: 35px;
+	width: 100%;
+	min-height: 500px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	
+	h2 {
+		text-align: center;
+	}
+	
+	label {
+		padding-top: 10px;
+		display: block;
+		margin-top: 20px;
+		font-size: 16px;
+		font-weight: 600;
+		color: #333;
+	}
+	
+	input,
+	select {
+		width: 100%;
+		height: 50px;
+		margin-top: 10px;
+		padding: 10px 15px;
+		background: #f9f9f9;
+		border: 1px solid #ccc;
+		color: #333;
+		border-radius: 8px;
+		font-size: 16px;
+		transition: all 0.3s ease;
+		
+		&:focus {
+			outline: none;
+			border-color: #f57507;
+			box-shadow: 0 0 5px rgba(245, 117, 7, 0.5);
+		}
+	}
+	
+	.file-input-wrapper {
+		position: relative;
+	}
+	
+	.file-input {
+		position: absolute;
+		left: -9999px;
+	}
+	
+	.custom-file-label {
+		display: inline-block;
+		@include button-styles(var(--color-text), var(--color-text));
+		
+		&__filter{
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+		}
+		
+		&:hover {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			outline: none;
+		}
+	}
+	
+	.form_btn {
+		margin-top: 25px;
+		@include button-styles(var(--color-text), var(--color-text));
+		
+		&__filter {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+		}
+		
+		&:hover {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			outline: none;
+		}
+	}
+	
+	.error {
+		color: #e53e3e;
+		font-size: 14px;
+		margin-top: 5px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.error::before {
+		content: '⚠';
+		margin-right: 8px;
+	}
+	
+	.file-label {
+		margin-top: 20px;
+		font-size: 16px;
+		font-weight: 600;
+		display: inline-block;
+		color: #333;
+		cursor: pointer;
+	}
+}

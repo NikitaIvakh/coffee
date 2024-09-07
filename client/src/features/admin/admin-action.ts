@@ -11,7 +11,7 @@ export const createNewCoffee = createAsyncThunk<
 		rejectValue: string
 	}
 >(
-	'@@admin',
+	'@@admin/create',
 	async (data, { extra: { client, api }, rejectWithValue }) => {
 		try {
 			const response = await client.post(api.URL_CREATE_COFFEE, data)
@@ -26,6 +26,29 @@ export const createNewCoffee = createAsyncThunk<
 		condition: (_, { getState }) => {
 			const { adminPanel: { status } } = getState()
 			if (status === 'loading') return false
+		}
+	}
+)
+
+export const updateCoffee = createAsyncThunk<
+	void,
+	{ id: string, data: FormData },
+	{
+		extra: Extra,
+		state: { adminPanel: AdminSliceType },
+		rejectValue: string
+	}
+>(
+	'@@admin/update',
+	async ({ id, data }, { extra: { client, api }, rejectWithValue }) => {
+		try {
+			const response = await client.patch(api.URL_UPDATE_COFFEE(id), data)
+			return response.data
+		} catch (e) {
+			if (e instanceof Error)
+				return rejectWithValue(e.message)
+			
+			return rejectWithValue('Unknown error')
 		}
 	}
 )

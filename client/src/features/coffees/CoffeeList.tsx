@@ -1,37 +1,48 @@
-﻿import './coffeeList.scss'
-import { useMemo } from 'react'
+﻿import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import ModalWindow from '../modal/ModalWindow'
 import type { CoffeeItem } from '../../types'
 import SetContentList from '../../utils/SetContentList'
+import useCoffeesModal from '../modal/use-coffeesModal'
 import useCoffees from './use-coffees'
+import './coffeeList.scss'
 
 interface CoffeeListProps {
-	path: string
-	showButtons?: boolean
+	path: string;
+	showButtons?: boolean;
 }
 
 const CoffeeList = (props: CoffeeListProps) => {
 	const { path, showButtons } = props
+	const [coffeeIsOpen, coffeeOpenModalWindow, coffeeCloseModalWindow] = useCoffeesModal()
+	const [selectedCoffee, setSelectedCoffee] = useState<CoffeeItem | null>(null)
 	const [coffees, pages, currentPage, isPending, { status }, handleClick] = useCoffees()
+	
+	const handleUpdateClick = (coffee: CoffeeItem) => {
+		setSelectedCoffee(coffee)
+		coffeeOpenModalWindow()
+	}
 	
 	const renderItems = (coffees: CoffeeItem[]) => {
 		const coffeeItems = coffees.map((coffee) => {
 			const { id, imageUrl, name, coffeeType, price } = coffee
 			return (
 				<CSSTransition timeout={500} key={id} className='coffees-item animate'>
-					<Link to={`/${path}/${id}`}>
-						<img src={imageUrl} alt={name} />
-						<div className='coffees-item__title'>{name}</div>
-						<div className='coffees-item__sort'>{coffeeType}</div>
-						<div className='coffees-item__price'>{price}$</div>
+					<div>
+						<Link to={`/${path}/${id}`}>
+							<img src={imageUrl} alt={name} />
+							<div className='coffees-item__title'>{name}</div>
+							<div className='coffees-item__sort'>{coffeeType}</div>
+							<div className='coffees-item__price'>{price}$</div>
+						</Link>
 						{showButtons && (
 							<div className='buttons__wrapper'>
-								<button>Update</button>
-								<button>Delete</button>
+								<button onClick={() => handleUpdateClick(coffee)} className="btn btn__filter">Update</button>
+								<button className="btn btn__filter">Delete</button>
 							</div>
 						)}
-					</Link>
+					</div>
 				</CSSTransition>
 			)
 		})
@@ -51,8 +62,11 @@ const CoffeeList = (props: CoffeeListProps) => {
 		<section className='coffees' style={{ opacity: isPending ? 0.7 : 1 }}>
 			<div className='coffees__container'>
 				{elements}
+				{coffeeIsOpen && (
+					<ModalWindow title='Update Coffee' isVisible={coffeeIsOpen} onClose={coffeeCloseModalWindow} coffee={selectedCoffee} />
+				)}
 				<TransitionGroup className='pages'>
-					{pages.map((page, i) => (
+					{pages.map((page) => (
 						<CSSTransition
 							key={page}
 							timeout={300}
@@ -61,8 +75,7 @@ const CoffeeList = (props: CoffeeListProps) => {
 							<span
 								className={currentPage === page ? 'current-page' : 'page'}
 								onClick={() => handleClick(page)}
-							>
-								{page}
+							>{page}
 							</span>
 						</CSSTransition>
 					))}

@@ -1,16 +1,24 @@
 ﻿import { useAppDispatch } from '../../store/store'
-import { createNewCoffee } from './admin-action'
+import { createNewCoffee, updateCoffee } from './admin-action'
 import { clearForm } from './admin-slice'
 
-type onSubmit = (data: FormData) => void
+type onSubmitCreate = (data: FormData) => void
+type onSubmitUpdate = (id: string, data: FormData) => void
 
-const useAdmin = (): onSubmit => {
+const useAdmin = (): [onSubmitCreate, onSubmitUpdate] => {
 	const dispatch = useAppDispatch()
 	
-	return (data) => {
+	const handleCreateCoffee: onSubmitCreate = (data) => {
 		dispatch(createNewCoffee(data))
-		clearForm()
+		dispatch(clearForm())
 	}
+	
+	const handleUpdateCoffee: onSubmitUpdate = (id, data) => {
+		dispatch(updateCoffee({ id, data }))
+		dispatch(clearForm())
+	}
+	
+	return [handleCreateCoffee, handleUpdateCoffee]
 }
 
 export default useAdmin

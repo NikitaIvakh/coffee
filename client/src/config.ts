@@ -7,3 +7,4 @@ export const ALL_COFFEES_WITH_SEARCH = (name: string) => `${BASE_URL}?search=${n
 export const GET__COFFEE_BY_ID = (id: string) => BASE_URL_ID + `/${id}`
 
 export const URL_CREATE_COFFEE = "https://localhost:8081/api/coffee/CreateCoffee"
+export const URL_UPDATE_COFFEE = (id: string) =>  `https://localhost:8081/api/coffee/UpdateCoffee/${id}`

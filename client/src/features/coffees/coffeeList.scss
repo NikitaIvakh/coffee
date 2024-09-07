@@ -1,4 +1,5 @@
 ﻿@import '../../styles/mixin';
+@import "../../styles/buttons";
 
 .coffees {
 	padding: 60px 0 20px 0;
@@ -75,8 +76,13 @@
 		justify-content: space-between;
 		align-items: center;
 		
-		button {
-			@include button-styles;
+		.btn__filter {
+			width: 80px;
+			display: flex;
+			text-align: center;
+			align-content: center;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }
