@@ -20,6 +20,27 @@ services:
       - redis
     networks:
       - my_network
+    
+  ocelot.ApiGateway:
+    image: thinkco/ocelot:latest
+    container_name: ocelot.ApiGateway
+    restart: always
+    build:
+      context: .
+      dockerfile: ApiGateways/Ocelot.ApiGateway/Dockerfile
+    ports:
+      - "9010:9010"
+      - "9020:9020"
+    volumes:
+      - ./ApiGateways/Ocelot.ApiGateway/ocelot.json:/app/ocelot.json
+      - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
+    depends_on:
+      - postgres
+      - pgadmin
+      - redis
+      - coffee
+    networks:
+      - my_network
   
   postgres:
     image: postgres:latest
@@ -66,3 +87,5 @@ volumes:
 networks:
   my_network:
     driver: bridge
+
+ 

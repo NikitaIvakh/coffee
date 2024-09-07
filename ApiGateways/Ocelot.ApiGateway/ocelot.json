@@ -1,0 +1,88 @@
+{
+  "Routes": [
+    {
+      // Coffee.API: https://localhost:8081
+      "DownstreamPathTemplate": "/api/coffee/GetCoffeeList",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "coffee",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coffee/GetCoffeeList",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      // Coffee.API: https://localhost:8081
+      "DownstreamPathTemplate": "/api/coffee/GetCoffee/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "coffee",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coffee/GetCoffee/{id}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      // Coffee.API: https://localhost:8081
+      "DownstreamPathTemplate": "/api/coffee/CreateCoffee",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "coffee",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coffee/CreateCoffee",
+      "UpstreamHttpMethod": [
+        "POST"
+      ],
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      // Coffee.API: https://localhost:8081
+      "DownstreamPathTemplate": "/api/coffee/UpdateCoffee/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "coffee",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coffee/UpdateCoffee/{id}",
+      "UpstreamHttpMethod": [
+        "PATCH"
+      ],
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      // Coffee.API: https://localhost:8081
+      "DownstreamPathTemplate": "/api/coffee/DeleteCoffee/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "coffee",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/coffee/DeleteCoffee/{id}",
+      "UpstreamHttpMethod": [
+        "DELETE"
+      ],
+      "DangerousAcceptAnyServerCertificateValidator": true
+    }
+  ],
+  
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:9020"
+  }
+}
