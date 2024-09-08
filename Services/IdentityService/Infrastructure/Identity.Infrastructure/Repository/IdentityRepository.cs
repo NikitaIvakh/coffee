@@ -20,7 +20,7 @@ public class IdentityRepository(ApplicationDbContext context) : IIdentityReposit
 
     public async Task LogoutAsync(Guid id)
     {
-        var userToken = await context.ApplicationUserTokens.FirstOrDefaultAsync(key => key.Id == id);
+        var userToken = await context.ApplicationUserTokens.FirstOrDefaultAsync(key => key.ApplicationUserId == id);
 
         if (userToken is not null)
             context.ApplicationUserTokens.Remove(userToken);
