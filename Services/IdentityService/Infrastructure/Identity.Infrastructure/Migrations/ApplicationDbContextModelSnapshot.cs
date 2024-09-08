@@ -96,8 +96,8 @@ namespace Identity.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("RefreshTokenExpiresTime")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("RefreshTokenExpiresTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

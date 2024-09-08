@@ -43,13 +43,13 @@ public sealed class RegisterRequestHandler(
             return Result.Failure<Guid>(DomainErrors.ApplicationUser.UserCanNotRegister($"{user.Error.Code}: {user.Error.Message}"));
 
         var userRole = UserRole.Create(Role.User);
-        var applicationUserRole = ApplicationUserRole.Create(user.Value.Id, userRole.Id);
+        var applicationUserRole = ApplicationUserRole.Create(user.Value.Id, userRole.Value.Id);
 
         try
         {
             await userRepository.RegisterAsync(user.Value);
-            await roleRepository.Create(applicationUserRole);
-            await roleRepository.Create(userRole);
+            await roleRepository.Create(applicationUserRole.Value);
+            await roleRepository.Create(userRole.Value);
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }
         

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240908155533_AddRefreshTokenExpiresTime")]
-    partial class AddRefreshTokenExpiresTime
+    [Migration("20240908171936_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,8 +99,8 @@ namespace Identity.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("RefreshTokenExpiresTime")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("RefreshTokenExpiresTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

@@ -16,12 +16,30 @@ public static class DomainErrors
             new Error("user.already.exists", $"{userName} is already exists");
 
         public static readonly Func<string, Error> UserCanNotRegister = (error) =>
-            new Error("user.ca.not.register", $"{error}");
+            new Error("user.can.not.register", $"{error}");
 
         public static readonly Func<string, Error> PasswordsIsNotConfirmed = (property) =>
             new Error("passwords.is.not.confirmed", "Passwords is not confirmed");
 
         public static readonly Func<string, Error> UserNotFound = (property) =>
             new Error("user.not.found", $"user with email {property} not found");
+
+        public static readonly Func<string, Error> InvalidLength = (property) =>
+            new Error("invalid.length", $"{property}: length is invalid");
+
+        public static readonly Func<string, Error> InvalidEmailAddress = (property) =>
+            new Error("email.address.is.invalid", $"{property} is invalid email address");
+    }
+
+    public static class ApplicationUserToken
+    {
+        public static readonly Func<string, Error> InvalidLength = (property) =>
+            new Error("invalid.length", $"{property}: length is invalid");
+    }
+
+    public static class UserRole
+    {
+        public static readonly Func<string, Error> InvalidValue = (property) =>
+            new Error("value.is.invalid", $"{property} is invalid");
     }
 }

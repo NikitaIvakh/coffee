@@ -31,9 +31,8 @@ public class LoginRequestHandler(
 
         var accessToken = tokenService.CreateToken(user);
         var refreshToken = configuration.GenerateRefreshToken();
-        var refreshTokenExpiresTime = int.Parse(configuration.GetSection("Jwt:RefreshTokenValidityInDays").Value!);
+        var refreshTokenExpiresTime = DateTime.UtcNow.AddDays(int.Parse(configuration.GetSection("Jwt:RefreshTokenValidityInDays").Value!));
         var userWithToken = ApplicationUserToken.Create(user.Id, refreshToken, refreshTokenExpiresTime);
-
         var loginResponse = new LoginResponse(accessToken, refreshToken, user.UserName, user.EmailAddress);
 
         try
@@ -41,10 +40,10 @@ public class LoginRequestHandler(
             var userById = await userRepository.GetAllUsers().FirstOrDefaultAsync(key => key.Id == user.Id, cancellationToken);
             
             if (userById is null)
-                await tokenRepository.Create(userWithToken);
+                await tokenRepository.Create(userWithToken.Value);
 
             else
-                await tokenRepository.Update(userWithToken);
+                await tokenRepository.Update(userWithToken.Value);
 
             await unitOfWork.SaveChangesAsync(cancellationToken);
         }

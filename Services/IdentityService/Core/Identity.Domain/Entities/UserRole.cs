@@ -1,5 +1,7 @@
+using Identity.Domain.Common;
 using Identity.Domain.Enums;
 using Identity.Domain.Primitives;
+using Identity.Domain.Shared;
 
 namespace Identity.Domain.Entities;
 
@@ -16,8 +18,12 @@ public class UserRole : Entity
 
     public Role Role { get; private set; }
 
-    public static UserRole Create(Role role)
+    public static ResultT<UserRole> Create(Role role)
     {
-        return new UserRole(Guid.NewGuid(), role);
+        if (string.IsNullOrEmpty(role.ToString()))
+            return Result.Failure<UserRole>(DomainErrors.UserRole.InvalidValue(nameof(role)));
+        
+        var userRole = new UserRole(Guid.NewGuid(), role);
+        return Result.Create(userRole);
     }
 }
