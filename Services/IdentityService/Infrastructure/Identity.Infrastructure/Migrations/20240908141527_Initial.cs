@@ -30,22 +30,15 @@ namespace Identity.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApplicationUserRoles",
+                name: "UserRoles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ApplicationUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserRoleId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUserRoles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationUserRoles_ApplicationUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "ApplicationUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,20 +61,26 @@ namespace Identity.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "ApplicationUserRoles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ApplicationUserRoleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: false)
+                    ApplicationUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserRoleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.PrimaryKey("PK_ApplicationUserRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRoles_ApplicationUserRoles_ApplicationUserRoleId",
-                        column: x => x.ApplicationUserRoleId,
-                        principalTable: "ApplicationUserRoles",
+                        name: "FK_ApplicationUserRoles_ApplicationUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "ApplicationUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserRoles_UserRoles_UserRoleId",
+                        column: x => x.UserRoleId,
+                        principalTable: "UserRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -93,15 +92,15 @@ namespace Identity.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApplicationUserTokens_ApplicationUserId",
-                table: "ApplicationUserTokens",
-                column: "ApplicationUserId",
+                name: "IX_ApplicationUserRoles_UserRoleId",
+                table: "ApplicationUserRoles",
+                column: "UserRoleId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_ApplicationUserRoleId",
-                table: "UserRoles",
-                column: "ApplicationUserRoleId",
+                name: "IX_ApplicationUserTokens_ApplicationUserId",
+                table: "ApplicationUserTokens",
+                column: "ApplicationUserId",
                 unique: true);
         }
 
@@ -109,13 +108,13 @@ namespace Identity.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ApplicationUserRoles");
+
+            migrationBuilder.DropTable(
                 name: "ApplicationUserTokens");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationUserRoles");
 
             migrationBuilder.DropTable(
                 name: "ApplicationUsers");

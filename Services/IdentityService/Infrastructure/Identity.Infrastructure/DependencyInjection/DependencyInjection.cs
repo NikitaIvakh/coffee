@@ -17,24 +17,27 @@ public static class DependencyInjection
 
     private static void RegisterRepositories(IServiceCollection services)
     {
-        services.AddScoped<IIdentityRepository, IdentityRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
     private static void RegisterDatabase(IServiceCollection services, IConfiguration configuration)
     {
         const string connectionString = "DefaultConnection";
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddDbContext<ApplicationDbContext>((options) =>
         {
             options.UseNpgsql(configuration.GetConnectionString(connectionString));
         });
     }
 
+
     private static void ApplyMigration(IServiceCollection services)
     {
         var scope = services.BuildServiceProvider();
-        var serviceProvider = scope.CreateScope();
-        using var db = serviceProvider.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        using var serviceProvider = scope.CreateScope();
+        var db = serviceProvider.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         if (db.Database.GetPendingMigrations().Any())
             db.Database.Migrate();

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240908113002_Initial")]
+    [Migration("20240908141527_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -80,6 +80,9 @@ namespace Identity.Infrastructure.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
+                    b.HasIndex("UserRoleId")
+                        .IsUnique();
+
                     b.ToTable("ApplicationUserRoles");
                 });
 
@@ -110,16 +113,11 @@ namespace Identity.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ApplicationUserRoleId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserRoleId")
-                        .IsUnique();
 
                     b.ToTable("UserRoles");
                 });
@@ -132,7 +130,15 @@ namespace Identity.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Identity.Domain.Entities.UserRole", "UserRole")
+                        .WithOne()
+                        .HasForeignKey("Identity.Domain.Entities.ApplicationUserRole", "UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("Identity.Domain.Entities.ApplicationUserToken", b =>
@@ -144,22 +150,6 @@ namespace Identity.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("Identity.Domain.Entities.UserRole", b =>
-                {
-                    b.HasOne("Identity.Domain.Entities.ApplicationUserRole", "ApplicationUserRole")
-                        .WithOne("UserRole")
-                        .HasForeignKey("Identity.Domain.Entities.UserRole", "ApplicationUserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUserRole");
-                });
-
-            modelBuilder.Entity("Identity.Domain.Entities.ApplicationUserRole", b =>
-                {
-                    b.Navigation("UserRole");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,7 +9,6 @@ public class UserRoleConfiguration: IEntityTypeConfiguration<UserRole>
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
         builder.HasKey(key => key.Id);
-        builder.HasOne(key => key.ApplicationUserRole).WithOne(key => key.UserRole).HasForeignKey<UserRole>(key => key.ApplicationUserRoleId);
         builder.Property(key => key.Role).HasConversion<string>();
     }
 }

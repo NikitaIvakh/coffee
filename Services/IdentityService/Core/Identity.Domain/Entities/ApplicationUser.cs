@@ -1,4 +1,5 @@
 using Identity.Domain.Primitives;
+using Identity.Domain.Shared;
 
 namespace Identity.Domain.Entities;
 
@@ -11,7 +12,6 @@ public class ApplicationUser : Entity, IAuditableData
     private ApplicationUser(Guid id, string firstName, string lastName, string userName, string emailAddress,
         string password, string passwordConfirm) : base(id)
     {
-        Id = id;
         FirstName = firstName;
         LastName = lastName;
         UserName = userName;
@@ -19,8 +19,6 @@ public class ApplicationUser : Entity, IAuditableData
         Password = password;
         PasswordConfirm = passwordConfirm;
     }
-
-    public new Guid Id { get; private set; }
 
     public string FirstName { get; private set; }
 
@@ -36,9 +34,10 @@ public class ApplicationUser : Entity, IAuditableData
 
     public DateTimeOffset CreatedAt { get; set; }
 
-    public static ApplicationUser Create(string firstName, string lastName, string userName, string emailAddress,
+    public static ResultT<ApplicationUser> Create(string firstName, string lastName, string userName, string emailAddress,
         string password, string passwordConfirm)
     {
-        return new ApplicationUser(Guid.NewGuid(), firstName, lastName, userName, emailAddress, password, passwordConfirm);
+        var user = new ApplicationUser(Guid.NewGuid(), firstName, lastName, userName, emailAddress, password, passwordConfirm);
+        return Result.Create(user);
     }
 }

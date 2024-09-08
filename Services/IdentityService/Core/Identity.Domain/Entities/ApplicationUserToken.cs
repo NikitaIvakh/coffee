@@ -10,12 +10,9 @@ public class ApplicationUserToken : Entity
 
     private ApplicationUserToken(Guid id, Guid applicationUserId, string refreshToken) : base(id)
     {
-        Id = id;
         ApplicationUserId = applicationUserId;
         RefreshToken = refreshToken;
     }
-
-    public new Guid Id { get; private set; }
 
     public ApplicationUser? ApplicationUser { get; private set; }
 

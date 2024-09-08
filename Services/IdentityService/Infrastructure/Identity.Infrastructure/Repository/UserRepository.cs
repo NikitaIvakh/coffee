@@ -4,8 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastructure.Repository;
 
-public class IdentityRepository(ApplicationDbContext context) : IIdentityRepository
+public class UserRepository(ApplicationDbContext context) : IUserRepository
 {
+    public IQueryable<ApplicationUser> GetAllUsers()
+    {
+        return context.ApplicationUsers.AsNoTracking().AsQueryable();
+    }
+
     public async Task<bool> LoginAsync(string userName, string password)
     {
         var user = await context.ApplicationUsers.FirstOrDefaultAsync(key => key.UserName == userName);
@@ -23,6 +28,6 @@ public class IdentityRepository(ApplicationDbContext context) : IIdentityReposit
         var userToken = await context.ApplicationUserTokens.FirstOrDefaultAsync(key => key.ApplicationUserId == id);
 
         if (userToken is not null)
-            context.ApplicationUserTokens.Remove(userToken);
+            context.Remove(userToken);
     }
 }

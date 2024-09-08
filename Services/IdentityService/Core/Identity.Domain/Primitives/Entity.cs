@@ -6,7 +6,7 @@ public abstract class Entity : IEquatable<Entity>
     {
     }
 
-    protected Entity(Guid id) => id = id;
+    protected Entity(Guid id) => Id = id;
 
     public Guid Id { get; }
 
