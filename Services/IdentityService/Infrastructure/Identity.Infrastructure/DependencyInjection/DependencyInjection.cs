@@ -1,4 +1,5 @@
 using Identity.Application.Abstractors.Interfaces;
+using Identity.Infrastructure.Interceptors;
 using Identity.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ public static class DependencyInjection
     public static void ConfigureInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         RegisterRepositories(services);
+        RegisterInterceptors(services);
         RegisterDatabase(services, configuration);
         ApplyMigration(services);
     }
@@ -23,13 +25,19 @@ public static class DependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
+    private static void RegisterInterceptors(IServiceCollection services)
+    {
+        services.AddScoped<RegisterUserInterceptor>();
+    }
+
     private static void RegisterDatabase(IServiceCollection services, IConfiguration configuration)
     {
         const string connectionString = "DefaultConnection";
 
-        services.AddDbContext<ApplicationDbContext>((options) =>
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.UseNpgsql(configuration.GetConnectionString(connectionString));
+            var registerUserInterceptor = sp.GetRequiredService<RegisterUserInterceptor>();
+            options.UseNpgsql(configuration.GetConnectionString(connectionString)).AddInterceptors(registerUserInterceptor);
         });
     }
 

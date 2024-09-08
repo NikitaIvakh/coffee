@@ -20,17 +20,17 @@ public partial class ApplicationUser : Entity, IAuditableData
         PasswordConfirm = passwordConfirm;
     }
 
-    public string FirstName { get; private set; }
+    public string FirstName { get; private set; } = string.Empty;
 
-    public string LastName { get; private set; }
+    public string LastName { get; private set; } = string.Empty;
 
-    public string UserName { get; private set; }
+    public string UserName { get; private set; } = string.Empty;
 
-    public string EmailAddress { get; private set; }
+    public string EmailAddress { get; private set; } = string.Empty;
 
-    public string Password { get; private set; }
+    public string Password { get; private set; } = string.Empty;
 
-    public string PasswordConfirm { get; private set; }
+    public string PasswordConfirm { get; private set; } = string.Empty;
 
     public DateTimeOffset CreatedAt { get; set; }
 
