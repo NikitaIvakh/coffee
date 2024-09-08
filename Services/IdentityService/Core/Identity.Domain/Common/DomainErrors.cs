@@ -20,5 +20,8 @@ public static class DomainErrors
 
         public static readonly Func<string, Error> PasswordsIsNotConfirmed = (property) =>
             new Error("passwords.is.not.confirmed", "Passwords is not confirmed");
+
+        public static readonly Func<string, Error> UserNotFound = (property) =>
+            new Error("user.not.found", $"user with email {property} not found");
     }
 }

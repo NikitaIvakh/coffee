@@ -12,7 +12,7 @@ namespace Identity.Application.Extensions;
 
 public static class JwtBearerExtensions
 {
-    public static IEnumerable<Claim> CreateClaims(this ApplicationUser user, string role)
+    public static IEnumerable<Claim> CreateClaims(this ApplicationUser user)
     {
         var claims = new List<Claim>
         {

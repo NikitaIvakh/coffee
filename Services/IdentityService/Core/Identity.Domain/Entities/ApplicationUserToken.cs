@@ -8,7 +8,7 @@ public class ApplicationUserToken : Entity
     {
     }
 
-    private ApplicationUserToken(Guid id, Guid applicationUserId, string refreshToken) : base(id)
+    private ApplicationUserToken(Guid id, Guid applicationUserId, string refreshToken, int refreshTokenExpiresTime) : base(id)
     {
         ApplicationUserId = applicationUserId;
         RefreshToken = refreshToken;
@@ -19,9 +19,11 @@ public class ApplicationUserToken : Entity
     public Guid ApplicationUserId { get; private set; }
 
     public string RefreshToken { get; private set; }
+    
+    public int RefreshTokenExpiresTime { get; private set; }
 
-    public static ApplicationUserToken Create(Guid applicationUserId, string refreshToken)
+    public static ApplicationUserToken Create(Guid applicationUserId, string refreshToken, int refreshTokenExpiresTime)
     {
-        return new ApplicationUserToken(Guid.NewGuid(), applicationUserId, refreshToken);
+        return new ApplicationUserToken(Guid.NewGuid(), applicationUserId, refreshToken, refreshTokenExpiresTime);
     }
 }
