@@ -1,5 +1,5 @@
 ﻿import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { CoffeeById, Extra } from '../../types'
+import type { CoffeeById, Extra } from 'types'
 import type { CoffeeSliceType } from './coffee-slice'
 
 export const LoadCoffeeDetails = createAsyncThunk<
@@ -23,7 +23,7 @@ export const LoadCoffeeDetails = createAsyncThunk<
 			return rejectWithValue('Unknown error')
 		}
 	}, {
-		condition: (id, { getState }) => {
+		condition: (_, { getState }) => {
 			const { coffeeDetails: { status } } = getState()
 			if (status === 'loading') return false
 		}

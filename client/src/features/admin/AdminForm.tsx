@@ -1,8 +1,8 @@
 ﻿import { ErrorMessage, Field, Formik, useField } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
-import { CoffeeItem, CoffeeType, MyFormValues, MyTextInputProps } from '../../types'
-import { showSuccessMessage } from '../../utils'
+import { CoffeeItem, CoffeeType, MyFormValues, MyTextInputProps } from 'types'
+import { showSuccessMessage } from 'utils'
 import useAdmin from './use-admin'
 import './styles/adminlForm.scss'
 

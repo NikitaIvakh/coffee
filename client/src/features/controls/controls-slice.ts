@@ -1,5 +1,5 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
-import type { Filter } from '../../types'
+import type { Filter } from 'types'
 
 type ControlsSliceType = {
 	search: string

@@ -1,10 +1,10 @@
-﻿import React, { useTransition } from 'react'
+﻿import { ChangeEventHandler, useTransition } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../store/store'
+import { useAppDispatch } from 'store/store'
 import { selectSearch } from './controls-selectors'
 import { setSearch } from './controls-slice'
 
-type onSearch = React.ChangeEventHandler<HTMLInputElement>
+type onSearch = ChangeEventHandler<HTMLInputElement>
 
 const UseSearch = (): [string, boolean, onSearch] => {
 	const dispatch = useAppDispatch()

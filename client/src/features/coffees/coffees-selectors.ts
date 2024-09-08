@@ -1,6 +1,6 @@
 ﻿import { createSelector } from '@reduxjs/toolkit'
-import type { RootState } from '../../store/store'
-import type { CoffeeItem } from '../../types'
+import type { RootState } from 'store/store'
+import type { CoffeeItem } from 'types'
 
 export const selectCoffeeInfo = createSelector(
 	(state: RootState) => state.coffees.status,
@@ -19,7 +19,7 @@ export const selectVisibleCoffees = createSelector(
 		
 		return coffeeItems
 			.filter(coffee => coffee.name.toLowerCase().includes(search.toLowerCase()))
-			.filter(coffee => filter === 'All' ||  coffee.coffeeType.toLowerCase() === filter.toLowerCase())
+			.filter(coffee => filter === 'All' || coffee.coffeeType.toLowerCase() === filter.toLowerCase())
 	}
 )
 

@@ -1,1 +1,1 @@
-﻿export type Status = "idle" | "loading" | "confirmed" | "rejected"
+﻿export type Status = 'idle' | 'loading' | 'confirmed' | 'rejected'

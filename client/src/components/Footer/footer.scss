@@ -22,7 +22,7 @@
 		@include list-item-styles(var(--color-text-black));
 		
 		&:first-child::before {
-			background-image: url('../../resources/img/icons/beans_dark.svg');
+			background-image: url('resources/img/icons/beans_dark.svg');
 		}
 	}
 	

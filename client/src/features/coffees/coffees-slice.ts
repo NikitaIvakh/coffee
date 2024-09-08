@@ -1,5 +1,5 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
-import { type CoffeeItem, Status } from '../../types'
+import { type CoffeeItem, Status } from 'types'
 import { LoadCoffees } from './coffees-action'
 
 export type CoffeesSliceType = {

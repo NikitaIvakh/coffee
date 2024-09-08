@@ -54,7 +54,7 @@
 		display: inline-block;
 		@include button-styles(var(--color-text), var(--color-text));
 		
-		&__filter{
+		&__filter {
 			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
 		}
 		

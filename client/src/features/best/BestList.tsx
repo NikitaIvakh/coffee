@@ -1,7 +1,7 @@
 ﻿import { useMemo } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import type { CoffeeItem } from '../../types'
-import SetContentList from '../../utils/SetContentList'
+import type { CoffeeItem } from 'types'
+import SetContentList from 'utils/SetContentList'
 import { useBase } from './use-base'
 import './bestList.scss'
 

@@ -1,5 +1,5 @@
 ﻿import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Extra } from '../../types'
+import { Extra } from 'types'
 import { AdminSliceType } from './admin-slice'
 
 export const createNewCoffee = createAsyncThunk<

@@ -1,12 +1,12 @@
-﻿import React from 'react'
-import ErrorMessage from 'errors/ErrorMessage'
+﻿import ErrorMessage from 'errors/ErrorMessage'
 import Spinner from 'components/Spinner/Spinner'
+import { type ComponentType } from 'react'
 
 type DataProps = {
 	data: unknown
 }
 
-type ComponentTypeWithProps = React.ComponentType<DataProps>;
+type ComponentTypeWithProps = ComponentType<DataProps>;
 
 const SetContentList = (Component: ComponentTypeWithProps, process: string, data: unknown) => {
 	switch (process) {

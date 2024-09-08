@@ -1,11 +1,17 @@
 ﻿import { useEffect, useTransition } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../store/store'
-import { CoffeeItem } from '../../types'
-import { createPages } from '../../utils/createPages'
+import { useAppDispatch } from 'store/store'
+import { CoffeeItem } from 'types'
+import { createPages } from 'utils'
 import { selectControls } from '../controls/controls-selectors'
 import { LoadCoffees } from './coffees-action'
-import { selectCoffeeInfo, selectCurrentPage, selectPageSize, selectTotalCount, selectVisibleCoffees } from './coffees-selectors'
+import {
+	selectCoffeeInfo,
+	selectCurrentPage,
+	selectPageSize,
+	selectTotalCount,
+	selectVisibleCoffees
+} from './coffees-selectors'
 import { setCurrentPage } from './coffees-slice'
 
 type onSelect = (page: number) => void

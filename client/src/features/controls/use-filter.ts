@@ -1,7 +1,7 @@
 ﻿import { useTransition } from 'react'
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../store/store'
-import type { Filter } from '../../types'
+import { useAppDispatch } from 'store/store'
+import type { Filter } from 'types'
 import { selectFilters } from './controls-selectors'
 import { setFilter } from './controls-slice'
 

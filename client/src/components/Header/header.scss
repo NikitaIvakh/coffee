@@ -18,7 +18,7 @@
 		@include list-item-styles(var(--color-text));
 		
 		&:first-child::before {
-			background-image: url('../../resources/img/icons/beans_light.svg');
+			background-image: url('resources/img/icons/beans_light.svg');
 		}
 	}
 	

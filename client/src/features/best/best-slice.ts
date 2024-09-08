@@ -1,5 +1,5 @@
 ﻿import { createSlice } from '@reduxjs/toolkit'
-import { CoffeeItem, Status } from '../../types'
+import { CoffeeItem, Status } from 'types'
 import { loadItems } from './best-actions'
 
 export type BestSliceType = {

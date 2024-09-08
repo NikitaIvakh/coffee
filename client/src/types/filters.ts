@@ -1,1 +1,1 @@
-﻿export type Filter = "All" | "Brazil" | "Kenya" | "Columbia"
+﻿export type Filter = 'All' | 'Brazil' | 'Kenya' | 'Columbia'

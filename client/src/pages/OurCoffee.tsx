@@ -10,7 +10,7 @@ export const OurCoffee = () => {
 		<>
 			<HeaderPromoSecond title='Our Coffee' backgroundImage={HeaderBgOurCoffee} />
 			<AboutBeans title='About our beans' backgroundImage={AboutBeansOurCoffee} />
-			<Controls path="OurCoffee"/>
+			<Controls path='OurCoffee' />
 			<Footer />
 		</>
 	)

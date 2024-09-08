@@ -1,4 +1,4 @@
-﻿import coffeeBeansDark from '../../resources/img/icons/main_beans_dark.svg'
+﻿import coffeeBeansDark from 'resources/img/icons/main_beans_dark.svg'
 import './about.scss'
 
 const About = () => {

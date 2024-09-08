@@ -1,6 +1,5 @@
 ﻿import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { Coffee } from '../../types'
-import type { Extra } from '../../types'
+import { Coffee, Extra } from 'types'
 import { BestSliceType } from './best-slice'
 
 export const loadItems = createAsyncThunk<

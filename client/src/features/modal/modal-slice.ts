@@ -30,4 +30,4 @@ const ModalSlice = createSlice({
 })
 
 export const modal = ModalSlice.reducer
-export const {coffeeOpenModal, coffeeCloseModal, adminOpenModal, adminCloseModal} = ModalSlice.actions
+export const { coffeeOpenModal, coffeeCloseModal, adminOpenModal, adminCloseModal } = ModalSlice.actions

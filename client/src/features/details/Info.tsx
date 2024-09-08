@@ -1,11 +1,11 @@
 ﻿import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import CoffeeImg from '../../resources/img/coffee/coffee_big.jpg'
-import CoffeeBeansBlack from '../../resources/img/icons/main_beans_dark.svg'
+import CoffeeImg from 'resources/img/coffee/coffee_big.jpg'
+import CoffeeBeansBlack from 'resources/img/icons/main_beans_dark.svg'
 import './details.scss'
 import type { CoffeeById } from '../../types'
 
-interface InfoProps extends CoffeeById{
+interface InfoProps extends CoffeeById {
 	path: string
 }
 

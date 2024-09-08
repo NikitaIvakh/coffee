@@ -1,5 +1,5 @@
 ﻿import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../store/store'
+import { useAppDispatch } from 'store/store'
 import { coffeeModalSelector } from './modal-selectors'
 import { coffeeOpenModal, coffeeCloseModal } from './modal-slice'
 
