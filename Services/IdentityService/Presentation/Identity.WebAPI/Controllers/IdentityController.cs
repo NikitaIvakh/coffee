@@ -3,7 +3,6 @@ using Identity.Application.Handlers.Logout;
 using Identity.Domain.DTOs;
 using Identity.Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using LoginRequest = Identity.Application.Handlers.Login.LoginRequest;
 using RegisterRequest = Identity.Application.Handlers.Register.RegisterRequest;

@@ -101,8 +101,65 @@
       ],
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 5,
-        "DurationOfBreak": 30,
-        "TimeoutValue": 1000
+        "DurationOfBreak": 10,
+        "TimeoutValue": 500
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/Register",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamHttpMethod": ["POST"],
+      "UpstreamPathTemplate": "/api/identity/Register",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 100,
+        "TimeoutValue": 500
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamHttpMethod": ["POST"],
+      "UpstreamPathTemplate": "/api/identity/Login",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 500
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/Logout/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamHttpMethod": ["DELETE"],
+      "UpstreamPathTemplate": "/api/identity/Logout/{id}",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 5,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 500
       },
       "DangerousAcceptAnyServerCertificateValidator": true
     }

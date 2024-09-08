@@ -39,6 +39,27 @@ services:
       - pgadmin
       - redis
       - coffee
+      - identity
+    networks:
+      - my_network
+      
+  identity:
+    container_name: identity_api
+    build:
+      context: .
+      dockerfile: Services/IdentityService/Presentation/Identity.WebAPI/Dockerfile
+    ports:
+      - "8090:8090"
+      - "8091:8091"
+    environment:
+      - ASPNETCORE_URLS=http://+:8090;https://+:8091
+    volumes:
+      - .:/usr/src/app/
+      - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
+    depends_on:
+      - postgres
+      - pgadmin
+      - redis
     networks:
       - my_network
   
@@ -88,4 +109,3 @@ networks:
   my_network:
     driver: bridge
 
- 

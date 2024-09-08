@@ -5,7 +5,6 @@ using Identity.Domain.Common;
 using Identity.Domain.Entities;
 using Identity.Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
