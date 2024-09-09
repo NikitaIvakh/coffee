@@ -22,7 +22,7 @@ public static class DomainErrors
             new Error("passwords.is.not.confirmed", "Passwords is not confirmed");
 
         public static readonly Func<string, Error> UserNotFound = (property) =>
-            new Error("user.not.found", $"user with email {property} not found");
+            new Error("user.not.found", $"user {property} not found");
 
         public static readonly Func<string, Error> InvalidLength = (property) =>
             new Error("invalid.length", $"{property}: length is invalid");
