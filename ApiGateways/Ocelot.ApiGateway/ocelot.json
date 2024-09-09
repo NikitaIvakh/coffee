@@ -147,6 +147,34 @@
       "UpstreamHttpMethod": ["DELETE"],
       "UpstreamPathTemplate": "/api/identity/Logout/{id}",
       "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/RevokeToken/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamHttpMethod": ["DELETE"],
+      "UpstreamPathTemplate": "/api/identity/RevokeToken/{id}",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/RefreshToken",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/RefreshToken",
+      "UpstreamHttpMethod": ["PATCH"],
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
 

@@ -1,9 +1,12 @@
 using Identity.Application.Handlers.Login;
 using Identity.Application.Handlers.Logout;
+using Identity.Application.Handlers.RefreshToken;
+using Identity.Application.Handlers.RevokeToken;
 using Identity.Domain.DTOs;
 using Identity.Domain.Shared;
 using Identity.WebAPI.Abstractors;
 using MediatR;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using LoginRequest = Identity.Application.Handlers.Login.LoginRequest;
 using RegisterRequest = Identity.Application.Handlers.Register.RegisterRequest;
@@ -35,5 +38,19 @@ public class IdentityController(ISender sender) : ApiController(sender)
     {
         var result = await _sender.Send(new LogoutRequest(id));
         return result.IsSuccess ? Ok(result) : HandleFailure<Unit>(result);
+    }
+
+    [HttpDelete($"{nameof(RevokeToken)}/" + "{id}")]
+    public async Task<ActionResult<ResultT<Unit>>> RevokeToken(Guid id)
+    {
+        var result = await _sender.Send(new RevokeTokenRequest(id));
+        return result.IsSuccess ? Ok(result) : HandleFailure<Unit>(result);
+    }
+
+    [HttpPatch(nameof(RefreshToken))]
+    public async Task<ActionResult<ResultT<ObjectResult>>> RefreshToken([FromBody] TokenModelDto tokenModel)
+    {
+        var result = await _sender.Send(new RefreshTokenRequest(tokenModel));
+        return result.IsSuccess ? Ok(result) : HandleFailure<ObjectResult>(result);
     }
 }

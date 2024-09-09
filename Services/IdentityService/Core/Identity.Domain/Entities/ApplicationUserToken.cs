@@ -31,4 +31,16 @@ public class ApplicationUserToken
         var applicationUserToken = new ApplicationUserToken(Guid.NewGuid(), userId, refreshToken, refreshTokenExpiryDate);
         return Result.Create(applicationUserToken);
     }
+
+    public static ResultT<ApplicationUserToken> Update(ApplicationUserToken applicationUserToken, string newRefreshToken)
+    {
+        ArgumentNullException.ThrowIfNull(applicationUserToken);
+        applicationUserToken.Update(newRefreshToken);
+        return Result.Success(applicationUserToken);
+    }
+    
+    private void Update(string newRefreshToken)
+    {
+        RefreshToken = newRefreshToken;
+    }
 }
