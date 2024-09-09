@@ -1,4 +1,6 @@
 using System.Reflection;
+using FluentValidation;
+using Identity.Application.Behaviors;
 using Identity.Application.Service;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,11 @@ public static class DependencyInjection
 
     private static void RegisterInits(IServiceCollection services)
     {
-        services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+        });
     }
 }

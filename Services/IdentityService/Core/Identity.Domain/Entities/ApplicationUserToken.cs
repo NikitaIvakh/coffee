@@ -20,7 +20,7 @@ public class ApplicationUserToken : Entity
 
     public Guid ApplicationUserId { get; private set; }
 
-    public string RefreshToken { get; private set; }
+    public string RefreshToken { get; private set; } = string.Empty;
     
     public DateTime RefreshTokenExpiresTime { get; private set; }
 
