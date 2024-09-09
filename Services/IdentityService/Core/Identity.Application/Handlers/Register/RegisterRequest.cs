@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Identity.Application.Handlers.Register;
 
-public record RegisterRequest(RegisterRequestDto RegisterRequestDto): IRequest<ResultT<Guid>>;
+public record RegisterRequest(RegisterRequestDto RegisterRequestDto): IRequest<ResultT<RegisterResponse>>;

@@ -1,35 +1,34 @@
-using Identity.Domain.Common;
-using Identity.Domain.Primitives;
 using Identity.Domain.Shared;
 
 namespace Identity.Domain.Entities;
 
-public class ApplicationUserToken : Entity
+public class ApplicationUserToken
 {
     private ApplicationUserToken()
     {
     }
 
-    private ApplicationUserToken(Guid id, Guid applicationUserId, string refreshToken, DateTime refreshTokenExpiresTime) : base(id)
+    private ApplicationUserToken(Guid id, string userId, string refreshToken, DateTime refreshTokenExpiryDate)
     {
-        ApplicationUserId = applicationUserId;
+        Id = id;
+        UserId = userId;
         RefreshToken = refreshToken;
+        RefreshTokenExpiryDate = refreshTokenExpiryDate;
     }
 
-    public ApplicationUser? ApplicationUser { get; private set; }
-
-    public Guid ApplicationUserId { get; private set; }
-
-    public string RefreshToken { get; private set; } = string.Empty;
+    public Guid Id { get; private set; }
     
-    public DateTime RefreshTokenExpiresTime { get; private set; }
-
-    public static ResultT<ApplicationUserToken> Create(Guid applicationUserId, string refreshToken, DateTime refreshTokenExpiresTime)
+    public string UserId { get; private set; } = string.Empty;
+    
+    public string RefreshToken { get; private set; }= string.Empty;
+    
+    public DateTime RefreshTokenExpiryDate { get; private set; }
+    
+    public virtual ApplicationUser? User { get; private set; }
+    
+    public static ResultT<ApplicationUserToken> Create(string userId, string refreshToken, DateTime refreshTokenExpiryDate)
     {
-        if (refreshToken.Length is > Constraints.MaxRefreshTokenMaxLength or < Constraints.MinRefreshTokenMaxLength)
-            return Result.Failure<ApplicationUserToken>(DomainErrors.ApplicationUserToken.InvalidLength(nameof(refreshToken)));
-
-        var applicationUserToken = new ApplicationUserToken(Guid.NewGuid(), applicationUserId, refreshToken, refreshTokenExpiresTime);
+        var applicationUserToken = new ApplicationUserToken(Guid.NewGuid(), userId, refreshToken, refreshTokenExpiryDate);
         return Result.Create(applicationUserToken);
     }
 }

@@ -118,11 +118,6 @@
       ],
       "UpstreamHttpMethod": ["POST"],
       "UpstreamPathTemplate": "/api/identity/Register",
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 5,
-        "DurationOfBreak": 100,
-        "TimeoutValue": 500
-      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
 
@@ -137,11 +132,6 @@
       ],
       "UpstreamHttpMethod": ["POST"],
       "UpstreamPathTemplate": "/api/identity/Login",
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 5,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 500
-      },
       "DangerousAcceptAnyServerCertificateValidator": true
     },
 
@@ -156,11 +146,6 @@
       ],
       "UpstreamHttpMethod": ["DELETE"],
       "UpstreamPathTemplate": "/api/identity/Logout/{id}",
-      "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 5,
-        "DurationOfBreak": 10,
-        "TimeoutValue": 500
-      },
       "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],

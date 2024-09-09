@@ -12,15 +12,16 @@ namespace Identity.Application.Extensions;
 
 public static class JwtBearerExtensions
 {
-    public static IEnumerable<Claim> CreateClaims(this ApplicationUser user)
+    public static IEnumerable<Claim> CreateClaims(this ApplicationUser user, IEnumerable<string> role)
     {
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iat, EpochTime.GetIntDate(DateTime.Now).ToString(CultureInfo.CurrentCulture), ClaimValueTypes.Integer64),
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(ClaimTypes.Name, user.UserName),
-            new(ClaimTypes.Email, user.EmailAddress),
+            new(ClaimTypes.Name, user.UserName!),
+            new(ClaimTypes.Email, user.Email!),
+            new(ClaimTypes.Role, string.Join(", ", role))
         };
 
         return claims;

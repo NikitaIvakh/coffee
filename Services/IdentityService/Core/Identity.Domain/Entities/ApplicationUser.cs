@@ -2,64 +2,70 @@ using System.Text.RegularExpressions;
 using Identity.Domain.Common;
 using Identity.Domain.Primitives;
 using Identity.Domain.Shared;
+using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Domain.Entities;
 
-public partial class ApplicationUser : Entity, IAuditableData
+public partial class ApplicationUser : IdentityUser<string>, IAuditableData
 {
-    private ApplicationUser() {}
-
-    private ApplicationUser(Guid id, string firstName, string lastName, string userName, string emailAddress,
-        string password, string passwordConfirm) : base(id)
+    private ApplicationUser()
     {
+    }
+
+    private ApplicationUser(string id, string firstName, string lastName, string userName, string? normalizedUserName,
+        string? email, string? normalizedEmail, string? passwordHash, string? securityStamp)
+    {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         UserName = userName;
-        EmailAddress = emailAddress;
-        Password = password;
-        PasswordConfirm = passwordConfirm;
+        NormalizedUserName = normalizedUserName;
+        Email = email;
+        NormalizedEmail = normalizedEmail;
+        PasswordHash = passwordHash;
+        SecurityStamp = securityStamp;
     }
+
+    public sealed override string Id { get; set; } = string.Empty;
 
     public string FirstName { get; private set; } = string.Empty;
 
     public string LastName { get; private set; } = string.Empty;
 
-    public string UserName { get; private set; } = string.Empty;
+    public sealed override string? UserName { get; set; } = string.Empty;
 
-    public string EmailAddress { get; private set; } = string.Empty;
+    public sealed override string? NormalizedUserName { get; set; } = string.Empty;
 
-    public string Password { get; private set; } = string.Empty;
+    public sealed override string? Email { get; set; } = string.Empty;
 
-    public string PasswordConfirm { get; private set; } = string.Empty;
+    public sealed override string? NormalizedEmail { get; set; } = string.Empty;
+
+    public sealed override string? PasswordHash { get; set; } = string.Empty;
+
+    public sealed override string? SecurityStamp { get; set; }= string.Empty;
 
     public DateTimeOffset CreatedAt { get; set; }
 
-    public static ResultT<ApplicationUser> Create(string firstName, string lastName, string userName, string emailAddress, string password, string passwordConfirm)
+    public static ResultT<ApplicationUser> Create(string id, string firstName, string lastName, string userName, string email, string? passwordHash, string? securityStamp)
     {
         const string emailRegex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
-        
+
         if (firstName.Length is > Constraints.MaxLength or < Constraints.MinLength)
             return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(firstName)));
 
         if (lastName.Length is > Constraints.MaxLength or < Constraints.MinLength)
             return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(lastName)));
-        
+
         if (userName.Length is > Constraints.MaxLength or < Constraints.MinLength)
             return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(userName)));
 
-        if (emailAddress.Length is > Constraints.MaxLength or < Constraints.MinLength)
+        if (email.Length is > Constraints.MaxLength or < Constraints.MinLength)
             return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(userName)));
 
-        if (!MyEmailRegex().IsMatch(emailAddress))
-            return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidEmailAddress(nameof(emailAddress)));
+        if (!MyEmailRegex().IsMatch(email))
+            return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidEmailAddress(nameof(email)));
 
-        if (password.Length is > Constraints.MaxPasswordLenght or < Constraints.MinPasswordLenght)
-            return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(password)));
-        
-        if(passwordConfirm.Length is > Constraints.MaxPasswordLenght or < Constraints.MinPasswordLenght)
-            return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidLength(nameof(passwordConfirm)));
-        
-        var user = new ApplicationUser(Guid.NewGuid(), firstName, lastName, userName, emailAddress, password, passwordConfirm);
+        var user = new ApplicationUser(id, firstName, lastName, userName, userName.ToUpper(), email, email.ToUpper(), passwordHash, securityStamp);
         return Result.Create(user);
     }
 

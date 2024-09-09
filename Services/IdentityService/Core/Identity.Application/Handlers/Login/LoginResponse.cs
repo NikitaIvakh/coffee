@@ -1,3 +1,10 @@
 namespace Identity.Application.Handlers.Login;
 
-public record LoginResponse(string AccessToken, string RefreshToken, string UserName, string EmailAddress);
+public record LoginResponse(
+    string FirstName,
+    string LastName,
+    string UserName,
+    string EmailAddress,
+    string JwtToken,
+    string RefreshToken
+);

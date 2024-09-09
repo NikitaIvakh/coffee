@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Identity.Infrastructure.Configurations;
 
-public class ApplicationUserTokenConfiguration : IEntityTypeConfiguration<ApplicationUserToken>
+public class ApplicationUserTokenConfiguration: IEntityTypeConfiguration<ApplicationUserToken>
 {
     public void Configure(EntityTypeBuilder<ApplicationUserToken> builder)
     {
         builder.HasKey(key => key.Id);
-        builder.HasOne(key => key.ApplicationUser).WithOne().HasForeignKey<ApplicationUserToken>(key => key.ApplicationUserId);
+        builder.Ignore(key => key.User);
+        
+        builder.HasOne(key => key.User).WithOne().HasForeignKey<ApplicationUserToken>(key => key.UserId);
     }
 }

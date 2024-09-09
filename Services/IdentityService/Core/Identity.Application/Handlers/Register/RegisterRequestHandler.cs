@@ -1,63 +1,70 @@
+using System.Security.Claims;
 using Identity.Application.Abstractors.Interfaces;
-using Identity.Application.Helpers;
 using Identity.Domain.Common;
 using Identity.Domain.Entities;
 using Identity.Domain.Enums;
 using Identity.Domain.Shared;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Application.Handlers.Register;
 
-public sealed class RegisterRequestHandler(
-    IUserRepository userRepository,
-    IRoleRepository roleRepository,
-    IUnitOfWork unitOfWork)
-    : IRequestHandler<RegisterRequest, ResultT<Guid>>
+public sealed class RegisterRequestHandler(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
+    : IRequestHandler<RegisterRequest, ResultT<RegisterResponse>>
 {
-    public async Task<ResultT<Guid>> Handle(RegisterRequest request, CancellationToken cancellationToken)
+    public async Task<ResultT<RegisterResponse>> Handle(RegisterRequest request, CancellationToken cancellationToken)
     {
-        var dto = request.RegisterRequestDto;
-
-        var existingUser = await userRepository.GetAllUsers()
-            .FirstOrDefaultAsync(u => u.UserName == dto.UserName || u.EmailAddress == dto.EmailAddress, cancellationToken);
-
-        if (existingUser != null)
-            return Result.Failure<Guid>(DomainErrors.ApplicationUser.AlreadyExists($"{(existingUser.UserName == dto.UserName ? dto.UserName : dto.EmailAddress)}"));
-
-        if (dto.Password != dto.PasswordConform)
-            return Result.Failure<Guid>(DomainErrors.ApplicationUser.PasswordsIsNotConfirmed("Passwords do not match"));
-
-        HashPasswordHelper.HashPassword(dto.Password, out var salt);
-
-        var user = ApplicationUser.Create(
-            dto.FirstName,
-            dto.LastName,
-            dto.UserName,
-            dto.EmailAddress,
-            Convert.ToHexString(salt),
-            Convert.ToHexString(salt)
-        );
-
-        if (user.IsFailure)
-            return Result.Failure<Guid>(DomainErrors.ApplicationUser.UserCanNotRegister($"{user.Error.Code}: {user.Error.Message}"));
-
-        var userRole = UserRole.Create(Role.User);
-        var applicationUserRole = ApplicationUserRole.Create(user.Value.Id, userRole.Value.Id);
-
         try
         {
-            await userRepository.RegisterAsync(user.Value);
-            await roleRepository.Create(applicationUserRole.Value);
-            await roleRepository.Create(userRole.Value);
+            var userExistsByUserName = await userManager.FindByNameAsync(request.RegisterRequestDto.UserName);
+            if (userExistsByUserName != null)
+                return Result.Failure<RegisterResponse>(DomainErrors.ApplicationUser.AlreadyExists($"{request.RegisterRequestDto.UserName}"));
+
+            var userExistsByEmail = await userManager.FindByEmailAsync(request.RegisterRequestDto.EmailAddress);
+            if (userExistsByEmail != null)
+                return Result.Failure<RegisterResponse>(DomainErrors.ApplicationUser.AlreadyExists($"{request.RegisterRequestDto.EmailAddress}"));
+
+            if (request.RegisterRequestDto.Password != request.RegisterRequestDto.PasswordConform)
+                return Result.Failure<RegisterResponse>(DomainErrors.ApplicationUser.PasswordsIsNotConfirmed($"{nameof(request.RegisterRequestDto.UserName)}"));
+
+            var correctUserResult = ApplicationUser.Create(
+                id: Guid.NewGuid().ToString(),
+                firstName: request.RegisterRequestDto.FirstName,
+                lastName: request.RegisterRequestDto.LastName,
+                userName: request.RegisterRequestDto.UserName,
+                email: request.RegisterRequestDto.EmailAddress,
+                passwordHash: new PasswordHasher<ApplicationUser>().HashPassword(null, request.RegisterRequestDto.Password),
+                securityStamp: Guid.NewGuid().ToString()
+            );
+
+            if (correctUserResult.IsFailure)
+                return Result.Failure<RegisterResponse>(DomainErrors.ApplicationUser.UserCanNotRegister($"{correctUserResult.Error.Code}: {correctUserResult.Error.Message}"));
+
+            var correctUser = correctUserResult.Value;
+            var result = await userManager.CreateAsync(correctUser, request.RegisterRequestDto.Password);
+
+            if (!result.Succeeded)
+                return Result.Failure<RegisterResponse>(DomainErrors.ApplicationUser.UserCanNotRegister($"{correctUserResult.Error.Code}: {correctUserResult.Error.Message}"));
+            
+            await userManager.AddToRoleAsync(correctUser, nameof(Role.User)); 
+
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.Name, correctUser.UserName!),
+                new(ClaimTypes.Email, correctUser.Email!),
+            };
+            
+            await userManager.AddClaimsAsync(correctUser, claims);
+            await userManager.UpdateAsync(correctUser);
             await unitOfWork.SaveChangesAsync(cancellationToken);
-        }
-        
-        catch (Exception ex)
-        {
-            return Result.Failure<Guid>(DomainErrors.ErrorException.Errors($"Registration failed: {ex.Message}"));
+
+            var registerResponse = new RegisterResponse(correctUser.Id);
+            return Result.Create(registerResponse);
         }
 
-        return Result.Create(user.Value.Id);
+        catch (Exception exception)
+        {
+            return Result.Failure<RegisterResponse>(DomainErrors.ErrorException.Errors(exception.Message));
+        }
     }
 }
