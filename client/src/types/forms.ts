@@ -15,3 +15,8 @@ export interface MyTextInputProps {
 	name: string
 	type: string
 }
+
+export interface MtAuthFormValues {
+	emailAddress: string
+	password: string
+}

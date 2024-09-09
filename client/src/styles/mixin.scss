@@ -1,5 +1,4 @@
 ﻿// header, footer
-
 @mixin list-item-styles($color) {
 	color: $color;
 	font-size: var(--fs-ssm);
@@ -113,4 +112,135 @@
 		background-image: linear-gradient(257deg, #ff9e30, #ff7017);
 		outline: none;
 	}
+}
+
+// form
+
+@mixin form-container($padding, $min-height: null, $max-height: null) {
+	padding: $padding;
+	width: 100%;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	min-height: $min-height;
+	max-height: $max-height;
+	
+	h2 {
+		text-align: center;
+	}
+	
+	label {
+		padding-top: 10px;
+		display: block;
+		margin-top: 20px;
+		font-size: 16px;
+		font-weight: 600;
+		color: #333;
+	}
+}
+
+@mixin input-styles {
+	width: 100%;
+	height: 50px;
+	margin-top: 10px;
+	padding: 10px 15px;
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+	color: #333;
+	border-radius: 8px;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	
+	&:focus {
+		outline: none;
+		border-color: #f57507;
+		box-shadow: 0 0 5px rgba(245, 117, 7, 0.5);
+	}
+}
+
+@mixin file-input-wrapper {
+	position: relative;
+	
+	.file-input {
+		position: absolute;
+		left: -9999px;
+	}
+}
+
+@mixin error-message {
+	color: #e53e3e;
+	font-size: 14px;
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+	
+	&::before {
+		content: '⚠';
+		margin-right: 8px;
+	}
+}
+
+
+
+// Миксин для кнопок
+@mixin button-styles($background, $color) {
+	border-radius: 4px;
+	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+	background: $background;
+	color: $color;
+	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	transition: background 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, transform 0.2s ease;
+	
+	&:hover {
+		filter: brightness(85%);
+		box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.3);
+	}
+	
+	&:active {
+		filter: brightness(75%);
+		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+		transform: translateY(2px);
+	}
+}
+
+@mixin text-styles($color, $font-size, $font-weight, $line-height) {
+	color: $color;
+	font-size: $font-size;
+	font-weight: $font-weight;
+	line-height: $line-height;
+}
+
+@mixin responsive-btn {
+	@media (max-width: 320px) {
+		width: 100%;
+		padding: 12px 0;
+		margin: 5px 0;
+		box-shadow: none;
+		text-align: center;
+		
+		& + .btn {
+			margin-left: 0;
+		}
+		
+		&:first-child {
+			margin-top: 0;
+		}
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+@mixin file-label {
+	margin-top: 20px;
+	font-size: 16px;
+	font-weight: 600;
+	display: inline-block;
+	color: #333;
+	cursor: pointer;
 }

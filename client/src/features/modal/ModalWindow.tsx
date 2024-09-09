@@ -2,7 +2,9 @@
 import type { MouseEventHandler } from 'react'
 import type { CoffeeItem } from '../../types'
 import AdminForm from '../admin/AdminForm'
+import AuthModal from '../auth/AuthModal.tsx'
 import useAdminModal from './use-adminModal'
+import useAuthModal from './use-authModal.ts'
 import useCoffeesModal from './use-coffeesModal'
 import './modalWindow.scss'
 
@@ -17,10 +19,12 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 	const modalRef = useRef<HTMLDivElement | null>(null)
 	const [adminIsOpen, , adminCloseModalWindow] = useAdminModal()
 	const [coffeeIsOpen, , coffeeCloseModalWindow] = useCoffeesModal()
+	const [authIsOpen, , handleCloseAuthModal] = useAuthModal()
 	
 	const closeModal = () => {
 		adminCloseModalWindow()
 		coffeeCloseModalWindow()
+		handleCloseAuthModal()
 	}
 	
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -33,7 +37,7 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 		if (modalRef.current) {
 			modalRef.current.focus()
 		}
-	}, [adminIsOpen, coffeeIsOpen])
+	}, [adminIsOpen, coffeeIsOpen, authIsOpen])
 	
 	return (
 		<div
@@ -45,7 +49,17 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 			<div className='modal__dialog'>
 				<div className='modal__content'>
 					<div className='modal__close' onClick={onClose}>&times;</div>
-					<AdminForm title={title} coffee={coffee} />
+					{coffeeIsOpen && (
+						<AdminForm title={title} coffee={coffee} />
+					)}
+					
+					{adminIsOpen && (
+						<AdminForm title={title} coffee={coffee} />
+					)}
+					
+					{authIsOpen && (
+						<AuthModal title={title}/>
+					)}
 				</div>
 			</div>
 		</div>

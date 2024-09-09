@@ -1,7 +1,7 @@
-﻿@import "../../../styles/mixin";
+﻿@import "../../styles/mixin";
 
-.admin-form {
-	@include form-container(35px, 500px);
+.auth-form {
+	@include form-container(35px, null, 500px);
 	
 	input,
 	select {
@@ -26,20 +26,6 @@
 	}
 	
 	.form_btn {
-		margin-top: 25px;
-		@include button-styles(var(--color-text), var(--color-text));
-		
-		&__filter {
-			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
-		}
-		
-		&:hover {
-			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
-			outline: none;
-		}
-	}
-	
-	.remove-file-button {
 		margin-top: 25px;
 		@include button-styles(var(--color-text), var(--color-text));
 		

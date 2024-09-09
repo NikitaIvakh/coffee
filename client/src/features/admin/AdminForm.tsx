@@ -94,7 +94,7 @@ const AdminForm = (props: AdminFormProps) => {
 			}}
 		>
 			{({ handleSubmit, setFieldValue, isSubmitting }) => (
-				<form className='form' onSubmit={handleSubmit}>
+				<form className='admin-form' onSubmit={handleSubmit}>
 					<h2>{title}</h2>
 					<MyTextInput label='Coffee name' id='name' name='name' type='text' />
 					<MyTextInput label='Coffee description' id='description' name='description' type='text' />
@@ -129,7 +129,7 @@ const AdminForm = (props: AdminFormProps) => {
 						{selectedFile && (
 							<button
 								type='button'
-								className='remove-file-button'
+								className='remove-file-button remove-file-button__filter'
 								onClick={() => {
 									setSelectedFile(null)
 									setFieldValue('avatar', null).then()
