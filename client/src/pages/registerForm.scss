@@ -1,7 +1,7 @@
-﻿@import "../../styles/mixin";
+﻿@import "../styles/mixin";
 
-.auth-form {
-	@include form-container(35px, null, 500px);
+.register-form {
+	@include form-container(20px, 500px);
 	
 	input,
 	select {

@@ -4,12 +4,14 @@ export type ModalSliceType = {
 	coffeesIsOpen: boolean
 	adminIsOpen: boolean
 	authIsOpen: boolean
+	registerIsOpen: boolean
 }
 
 const initialState: ModalSliceType = {
 	coffeesIsOpen: false,
 	adminIsOpen: false,
 	authIsOpen: false,
+	registerIsOpen: false
 }
 
 const ModalSlice = createSlice({
@@ -33,9 +35,24 @@ const ModalSlice = createSlice({
 		},
 		authCloseModal: (state) => {
 			state.authIsOpen = false
+		},
+		registerOpenModal: (state) => {
+			state.registerIsOpen = true
+		},
+		registerCloseModal: (state) => {
+			state.registerIsOpen = false
 		}
 	}
 })
 
 export const modal = ModalSlice.reducer
-export const { coffeeOpenModal, coffeeCloseModal, adminOpenModal, adminCloseModal, authOpenModal, authCloseModal } = ModalSlice.actions
+export const {
+	coffeeOpenModal,
+	coffeeCloseModal,
+	adminOpenModal,
+	adminCloseModal,
+	authOpenModal,
+	authCloseModal,
+	registerOpenModal,
+	registerCloseModal
+} = ModalSlice.actions

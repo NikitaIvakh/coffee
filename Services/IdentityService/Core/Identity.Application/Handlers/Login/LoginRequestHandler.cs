@@ -45,6 +45,7 @@ public sealed class LoginRequestHandler(
 
             var loginResponse = new LoginResponse
             (
+                user.Id,
                 user.FirstName, 
                 user.LastName, 
                 user.UserName!, 

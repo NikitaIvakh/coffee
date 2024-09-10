@@ -5,3 +5,5 @@ export * from './Pleasure'
 export * from './Main'
 export * from './NotFound'
 export * from './OurCoffee'
+export * from './Auth'
+export * from "./Register.tsx"

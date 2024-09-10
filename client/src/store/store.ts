@@ -9,6 +9,8 @@ import { coffeeList } from 'features/coffees/coffees-slice'
 import { controlsReducer } from 'features/controls/controls-slice'
 import { coffeeDetailsReducer } from 'features/details/coffee-slice'
 import { modal } from 'features/modal/modal-slice'
+import { auth } from '../features/auth/auth-slice.ts'
+import { authApi } from '../service/authApi.ts'
 
 const rootReducers = combineReducers({
 	best: bestReducer,
@@ -16,20 +18,21 @@ const rootReducers = combineReducers({
 	coffees: coffeeList,
 	coffeeDetails: coffeeDetailsReducer,
 	adminPanel: admin,
-	modal: modal
+	modal: modal,
+	auth: auth,
+	[authApi.reducerPath]: authApi.reducer
 })
 
 export const store = configureStore({
 	reducer: rootReducers,
-	devTools: process.env.NODE_ENV !== 'production',
-	middleware: getDefaultMiddleware => getDefaultMiddleware({
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
 		thunk: {
 			extraArgument: {
 				client: axios,
 				api: api
 			}
 		}
-	}).concat(thunk)
+	}).concat(thunk).concat(authApi.middleware)
 })
 
 export type RootState = ReturnType<typeof rootReducers>

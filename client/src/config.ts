@@ -9,3 +9,5 @@ export const GET__COFFEE_BY_ID = (id: string) => BASE_URL_ID + `/${id}`
 export const URL_CREATE_COFFEE = 'https://localhost:8081/api/coffee/CreateCoffee'
 export const URL_UPDATE_COFFEE = (id: string) => `https://localhost:8081/api/coffee/UpdateCoffee/${id}`
 export const URL_DELETE_COFFEE = (id: string) => `https://localhost:8081/api/coffee/DeleteCoffee/${id}`
+
+export const URL_LOGIN = 'https://localhost:9020/api/identity/Login'
