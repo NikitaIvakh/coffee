@@ -2,7 +2,9 @@
 import type { MouseEventHandler } from 'react'
 import type { CoffeeItem } from '../../types'
 import AdminForm from '../admin/AdminForm'
+import Auth from '../auth/Auth.tsx'
 import useAdminModal from './use-adminModal'
+import useAuthModal from './use-authModal.ts'
 import useCoffeesModal from './use-coffeesModal'
 import './modalWindow.scss'
 
@@ -17,10 +19,12 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 	const modalRef = useRef<HTMLDivElement | null>(null)
 	const [adminIsOpen, , adminCloseModalWindow] = useAdminModal()
 	const [coffeeIsOpen, , coffeeCloseModalWindow] = useCoffeesModal()
+	const [authIsOpen, , authCloseModalWindow] = useAuthModal()
 	
 	const closeModal = () => {
 		adminCloseModalWindow()
 		coffeeCloseModalWindow()
+		authCloseModalWindow()
 	}
 	
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -33,7 +37,7 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 		if (modalRef.current) {
 			modalRef.current.focus()
 		}
-	}, [adminIsOpen, coffeeIsOpen])
+	}, [adminIsOpen, coffeeIsOpen, authIsOpen])
 	
 	return (
 		<div
@@ -51,6 +55,10 @@ const ModalWindow = ({ onClose, title, isVisible, coffee }: ModalWindowProps) =>
 					
 					{adminIsOpen && (
 						<AdminForm title={title} coffee={coffee} />
+					)}
+					
+					{authIsOpen && (
+						<Auth />
 					)}
 				</div>
 			</div>

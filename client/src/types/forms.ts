@@ -10,10 +10,11 @@ export interface MyFormValues {
 }
 
 export interface MyTextInputProps {
-	label: string
-	id: string
-	name: string
-	type: string
+	label: string,
+	id: string,
+	name: string,
+	type: string,
+	value?: string
 }
 
 export interface MtAuthFormValues {

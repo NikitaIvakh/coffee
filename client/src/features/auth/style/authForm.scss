@@ -1,0 +1,92 @@
+﻿@import "../../../styles/mixin";
+
+.auth-form {
+	@include form-container(15px, 400px);
+	
+	input,
+	select {
+		@include input-styles;
+	}
+	
+	.file-input-wrapper {
+		@include file-input-wrapper;
+	}
+	
+	.custom-file-label {
+		@include button-styles(var(--color-text), var(--color-text));
+		
+		&__filter {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+		}
+		
+		&:hover {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			outline: none;
+		}
+	}
+	
+	.form_btn {
+		margin-top: 15px;
+		@include button-styles(var(--color-text), var(--color-text));
+		
+		&__filter {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			width: 100%;
+		}
+		
+		&:hover {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			outline: none;
+		}
+	}
+	
+	.remove-file-button {
+		margin-top: 25px;
+		@include button-styles(var(--color-text), var(--color-text));
+		
+		&__filter {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+		}
+		
+		&:hover {
+			@include text-styles(var(--color-text-black), var(--fs-sm), var(--fw-normal), var(--lh-ss));
+			outline: none;
+		}
+	}
+	
+	.error {
+		@include error-message;
+		margin-top: 5px;
+	}
+	
+	.file-label {
+		@include file-label;
+	}
+}
+
+.form__footer {
+	padding: 10px;
+	font-size: var(--fs-sm);
+}
+
+.form__footer-text {
+	margin: 0;
+	font-size: var(--fs-sm);
+	color: var(--color-text-dark);
+}
+
+.form__footer-no-account,
+.form__footer-has-account {
+	font-size: var(--fs-xs);
+	cursor: pointer;
+}
+
+.form__footer-no-account, .form__footer-has-account {
+	color: #007bff;
+}
+
+.form__footer-no-account:hover,
+.form__footer-has-account:hover {
+	color: var(--color-text-dark);
+	text-decoration: underline;
+}

@@ -4,14 +4,12 @@ export type ModalSliceType = {
 	coffeesIsOpen: boolean
 	adminIsOpen: boolean
 	authIsOpen: boolean
-	registerIsOpen: boolean
 }
 
 const initialState: ModalSliceType = {
 	coffeesIsOpen: false,
 	adminIsOpen: false,
-	authIsOpen: false,
-	registerIsOpen: false
+	authIsOpen: false
 }
 
 const ModalSlice = createSlice({
@@ -35,12 +33,6 @@ const ModalSlice = createSlice({
 		},
 		authCloseModal: (state) => {
 			state.authIsOpen = false
-		},
-		registerOpenModal: (state) => {
-			state.registerIsOpen = true
-		},
-		registerCloseModal: (state) => {
-			state.registerIsOpen = false
 		}
 	}
 })
@@ -52,7 +44,5 @@ export const {
 	adminOpenModal,
 	adminCloseModal,
 	authOpenModal,
-	authCloseModal,
-	registerOpenModal,
-	registerCloseModal
+	authCloseModal
 } = ModalSlice.actions

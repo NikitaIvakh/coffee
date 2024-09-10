@@ -1,22 +1,12 @@
 import './header.scss'
-import { useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { selectAuthUser } from '../../features/auth/auth-Selectors.ts'
-import { setLogout } from '../../features/auth/auth-slice.ts'
-import { useLogoutMutation } from '../../service/authApi.ts'
-import { useAppDispatch } from '../../store/store.ts'
+import { NavLink } from 'react-router-dom'
+import useLogout from '../../features/auth/use-logout.ts'
+import ModalWindow from '../../features/modal/ModalWindow.tsx'
+import useAuthModal from '../../features/modal/use-authModal.ts'
 
 const Header = () => {
-	const { id, userName } = useSelector(selectAuthUser)
-	const navigate = useNavigate()
-	const dispatch = useAppDispatch()
-	const [logout] = useLogoutMutation()
-	
-	const handleLogout = async () => {
-		dispatch(setLogout())
-		await logout(id!).unwrap()
-		navigate('/Auth')
-	}
+	const [userName, handleLogout] = useLogout()
+	const [authIsOpen, authOpenModalWindow, authCloseModalWindow] = useAuthModal()
 	
 	return (
 		<header className='header'>
@@ -27,8 +17,20 @@ const Header = () => {
 					<NavLink to='/Pleasure' className='header__item'>For your pleasure</NavLink>
 				</ul>
 				<ul className='header__admin'>
-					<li>Welcome, {userName}</li>
-					<button type='button' onClick={handleLogout}>Logout</button>
+					{userName && (
+						<>
+							<li className="header__userName">Welcome, {userName}</li>
+							<button type='button' onClick={handleLogout} className=" btn btn__filter header__button">Logout</button>
+						</>
+					)}
+					
+					{!userName && (
+						<button onClick={authOpenModalWindow} className='btn btn__filter header__button'>Login</button>
+					)}
+					
+					{authIsOpen && (
+						<ModalWindow onClose={authCloseModalWindow} title='Login' isVisible={authIsOpen} />
+					)}
 					<NavLink to='/AdminPanel' className='header__item'>Admin panel</NavLink>
 				</ul>
 			</div>

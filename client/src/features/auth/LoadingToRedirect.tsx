@@ -1,8 +1,9 @@
 ﻿import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import "./style/loadingRedirect.scss"
 
 const LoadingToRedirect = () => {
-	const [count, setCount] = useState(5)
+	const [count, setCount] = useState(15)
 	const navigate = useNavigate()
 	
 	useEffect(() => {
@@ -10,14 +11,21 @@ const LoadingToRedirect = () => {
 			setCount((currentCount) => currentCount - 1)
 		}, 1000)
 		
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-		count === 0 && navigate('/Auth')
+		if (count === 0) {
+			navigate('/')
+		}
+		
 		return () => clearInterval(interval)
 	}, [count, navigate])
 	
 	return (
-		<div>
-			<p>Redirecting your in {count} sec</p>
+		<div className="loading-container">
+			<div className="loading-content">
+				<h1>Redirecting...</h1>
+				<p>You will be redirected in <span>{count}</span> seconds.</p>
+				<p className="info">If you are not redirected, <a href="/">click here</a> to go to the homepage.</p>
+				<p className="warning">You are not authorized to view this page.</p>
+			</div>
 		</div>
 	)
 }

@@ -20,22 +20,39 @@ export const authApi = createApi({
 			query: (id: string) => {
 				return {
 					url: `/Logout/${id}`,
-					method: "DELETE",
+					method: 'DELETE',
 					body: id
 				}
 			}
 		}),
 		
 		register: builder.mutation({
-			query: (body: {firstName: string, lastName: string, userName: string, emailAddress: string, password: string, passwordConform: string }) => {
+			query: (body: {
+				firstName: string,
+				lastName: string,
+				userName: string,
+				emailAddress: string,
+				password: string,
+				passwordConform: string
+			}) => {
 				return {
 					url: '/Register',
 					method: 'POST',
 					body: body
 				}
 			}
+		}),
+		
+		refreshToken: builder.mutation({
+			query: (body: { refreshToken: string }) => {
+				return {
+					url: '/RefreshToken',
+					method: 'PATCH',
+					body: body
+				}
+			}
 		})
 	})
-});
+})
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation } = authApi
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useRefreshTokenMutation } = authApi

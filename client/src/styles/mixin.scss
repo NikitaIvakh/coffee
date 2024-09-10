@@ -141,14 +141,14 @@
 
 @mixin input-styles {
 	width: 100%;
-	height: 50px;
-	margin-top: 10px;
-	padding: 10px 15px;
+	height: 40px;
+	margin-top: 8px;
+	padding: 8px 12px;
 	background: #f9f9f9;
 	border: 1px solid #ccc;
 	color: #333;
-	border-radius: 8px;
-	font-size: 16px;
+	border-radius: 4px;
+	font-size: 14px;
 	transition: all 0.3s ease;
 	
 	&:focus {
@@ -180,15 +180,12 @@
 	}
 }
 
-
-
-// Миксин для кнопок
 @mixin button-styles($background, $color) {
 	border-radius: 4px;
-	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
 	background: $background;
 	color: $color;
-	padding: 10px 20px;
+	padding: 8px 16px;
 	text-align: center;
 	cursor: pointer;
 	border: none;
@@ -196,13 +193,13 @@
 	
 	&:hover {
 		filter: brightness(85%);
-		box-shadow: 6px 6px 30px rgba(0, 0, 0, 0.3);
+		box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
 	}
 	
 	&:active {
 		filter: brightness(75%);
-		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
-		transform: translateY(2px);
+		box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+		transform: translateY(1px);
 	}
 }
 

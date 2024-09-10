@@ -23,12 +23,28 @@
 	}
 	
 	&__admin {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		flex-direction: row;
+		li {
+			color: white;
+			padding-right: 20px;
+		}
+		
+		
 		.header__item {
 			cursor: pointer;
 			&::before {
 				width: 0;
 				background-image: none;
 			}
+		}
+		
+		.header__button {
+			margin-right: 20px;
 		}
 	}
 	
