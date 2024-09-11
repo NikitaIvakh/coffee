@@ -51,6 +51,10 @@ const Auth = () => {
 		emailAddress: Yup.string()
 			.min(5, 'The length of the string must exceed 5 characters!')
 			.max(1000, 'The length of the string must exceed 1000 characters!')
+			.matches(
+				/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]{2,}(?:\.[a-zA-Z0-9-]{2,})?$/,
+				'Email address does not match the required format'
+			)
 			.email('Invalid email address')
 			.required('This field is required!'),
 		password: Yup.string()

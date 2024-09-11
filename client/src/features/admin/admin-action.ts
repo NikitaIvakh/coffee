@@ -14,7 +14,13 @@ export const createNewCoffee = createAsyncThunk<
 	'@@admin/create',
 	async (data, { extra: { client, api }, rejectWithValue }) => {
 		try {
-			const response = await client.post(api.URL_CREATE_COFFEE, data)
+			const user = JSON.parse(localStorage.getItem('user') as '{}')
+			if (!user) return rejectWithValue('User data is missing')
+			const response = await client.post(api.URL_CREATE_COFFEE, data, {
+				headers: {
+					'Authorization': `Bearer ${user.jwtToken}`
+				}
+			})
 			return await response.data
 		} catch (e) {
 			if (e instanceof Error)
@@ -42,7 +48,13 @@ export const updateCoffee = createAsyncThunk<
 	'@@admin/update',
 	async ({ id, data }, { extra: { client, api }, rejectWithValue }) => {
 		try {
-			const response = await client.patch(api.URL_UPDATE_COFFEE(id), data)
+			const user = JSON.parse(localStorage.getItem('user') as '{}')
+			if (!user) return rejectWithValue('User data is missing')
+			const response = await client.patch(api.URL_UPDATE_COFFEE(id), data, {
+				headers: {
+					'Authorization': `Bearer ${user.jwtToken}`
+				}
+			})
 			return response.data
 		} catch (e) {
 			if (e instanceof Error)
@@ -70,7 +82,13 @@ export const deleteCoffee = createAsyncThunk<
 	'@@admin/delete',
 	async (id, { extra: { client, api }, rejectWithValue }) => {
 		try {
-			const response = await client.delete(api.URL_DELETE_COFFEE(id))
+			const user = JSON.parse(localStorage.getItem('user') as '{}')
+			if (!user) return rejectWithValue('User data is missing')
+			const response = await client.delete(api.URL_DELETE_COFFEE(id), {
+				headers: {
+					'Authorization': `Bearer ${user.jwtToken}`
+				}
+			})
 			return response.data
 		} catch (e) {
 			if (e instanceof Error)

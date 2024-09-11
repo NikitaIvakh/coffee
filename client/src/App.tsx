@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import './styles/app.scss'
-import { setUser } from './features/auth/auth-slice.ts'
+import { setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
 import PrivateRoute from './features/auth/PrivateRoute.tsx'
 import { AdminPanel, ControlsOurCoffee, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
 import { useAppDispatch } from './store/store.ts'
@@ -30,9 +30,11 @@ const AnimatedRoutes = () => {
 			dispatch(setUser({
 				id: user.id,
 				userName: user.userName,
+				role: user.role,
 				jwtToken: user.jwtToken,
 				refreshToken: user.refreshToken
 			}))
+			dispatch(setUserAuthenticated())
 		}
 	}, [dispatch, user])
 	
@@ -47,13 +49,12 @@ const AnimatedRoutes = () => {
 			>
 				<div ref={nodeRef}>
 					<Routes location={location}>
-						{/* <Route path='/' element={<PrivateRoute><Main /></PrivateRoute>} /> */}
 						<Route path='/' element={<Main />} />
 						<Route path='/OurCoffee' element={<PrivateRoute><OurCoffee /></PrivateRoute>} />
 						<Route path='/OurCoffee/:id' element={ <PrivateRoute><ControlsOurCoffee /></PrivateRoute> } />
 						<Route path='/Pleasure' element={<PrivateRoute><Pleasure /></PrivateRoute> } />
 						<Route path='/Pleasure/:id' element={ <PrivateRoute><ControlsOurPleasure /></PrivateRoute> } />
-						<Route path='/AdminPanel' element={ <PrivateRoute><AdminPanel /></PrivateRoute> } />
+						<Route path='/AdminPanel' element={ <PrivateRoute restricted={true}><AdminPanel /></PrivateRoute> } />
 						<Route path='*' element={<NotFound />} />
 					</Routes>
 				</div>

@@ -6,6 +6,7 @@ public record LoginResponse(
     string LastName,
     string UserName,
     string EmailAddress,
+    string Role,
     string JwtToken,
     string RefreshToken
 );

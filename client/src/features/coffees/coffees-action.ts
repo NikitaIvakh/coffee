@@ -15,7 +15,13 @@ export const LoadCoffees = createAsyncThunk<
 	'@@coffees',
 	async ({ search, filter, page, pageSize }, { extra: { client, api }, rejectWithValue }) => {
 		try {
-			const response = await client.get(api.ALL_COFFEES(search, filter, page, pageSize))
+			const user = JSON.parse(localStorage.getItem('user') as '{}')
+			if (!user) return rejectWithValue('User data is missing')
+			const response = await client.get(api.ALL_COFFEES(search, filter, page, pageSize), {
+				headers: {
+					'Authorization': `Bearer ${user.jwtToken}`
+				}
+			})
 			return response.data
 		} catch (e) {
 			if (e instanceof Error)

@@ -7,6 +7,7 @@ import useAuthModal from '../../features/modal/use-authModal.ts'
 const Header = () => {
 	const [userName, handleLogout] = useLogout()
 	const [authIsOpen, authOpenModalWindow, authCloseModalWindow] = useAuthModal()
+	const user = JSON.parse(localStorage.getItem('user') as '{}')
 	
 	return (
 		<header className='header'>
@@ -19,8 +20,8 @@ const Header = () => {
 				<ul className='header__admin'>
 					{userName && (
 						<>
-							<li className="header__userName">Welcome, {userName}</li>
-							<button type='button' onClick={handleLogout} className=" btn btn__filter header__button">Logout</button>
+							<li className='header__userName'>Welcome, {userName}</li>
+							<button type='button' onClick={handleLogout} className=' btn btn__filter header__button'>Logout</button>
 						</>
 					)}
 					
@@ -31,7 +32,10 @@ const Header = () => {
 					{authIsOpen && (
 						<ModalWindow onClose={authCloseModalWindow} title='Login' isVisible={authIsOpen} />
 					)}
-					<NavLink to='/AdminPanel' className='header__item'>Admin panel</NavLink>
+					
+					{(user?.role && user?.role === 'Administrator') && (
+						<NavLink to='/AdminPanel' className='header__item'>Admin panel</NavLink>
+					)}
 				</ul>
 			</div>
 		</header>

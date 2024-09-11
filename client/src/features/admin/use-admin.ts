@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { useAppDispatch } from 'store/store'
-import { showDeleteMessage } from 'utils'
+import { successCreate, successDelete, successUpdate } from 'utils'
 import { LoadCoffees } from '../coffees/coffees-action'
 import { selectCurrentPage, selectPageSize } from '../coffees/coffees-selectors'
 import { selectControls } from '../controls/controls-selectors'
@@ -34,34 +34,57 @@ const useAdmin = (): [onSubmitCreate, onSubmitUpdate, onSubmitDelete] => {
 	}
 	
 	const handleCreateCoffee: onSubmitCreate = (data) => {
-		dispatch(createNewCoffee(data))
-		dispatch(clearForm())
-		onCloseModalWindows()
+		successCreate().then((result) => {
+			if (result.isConfirmed) {
+				dispatch(createNewCoffee(data))
+				Swal.fire('Saved!', 'Your data has been saved.', 'success').then(() => {
+					dispatch(clearForm())
+				})
+			} else if (result.isDenied) {
+				Swal.fire('New data are not saved', '', 'info').then(() => {
+					dispatch(clearForm())
+				})
+			}
+			
+			dispatch(clearForm())
+			onCloseModalWindows()
+		})
 	}
 	
 	const handleUpdateCoffee: onSubmitUpdate = (id, data) => {
-		dispatch(updateCoffee({ id, data }))
-		dispatch(clearForm())
-		onCloseModalWindows()
+		successUpdate().then((result) => {
+			if (result.isConfirmed) {
+				dispatch(updateCoffee({ id, data }))
+				Swal.fire('Saved!', 'Your data has been updated and saved.', 'success').then(() => {
+					dispatch(clearForm())
+				})
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info').then(() => {
+					dispatch(clearForm())
+				})
+			}
+			
+			dispatch(clearForm())
+			onCloseModalWindows()
+		})
 	}
 	
 	const handleDeleteCoffee: onSubmitDelete = (id) => {
-		showDeleteMessage().then((result) => {
+		successDelete().then((result) => {
 			if (result.isConfirmed) {
 				dispatch(deleteCoffee(id))
-				Swal.fire({
-					title: 'Deleted!',
-					text: 'Your file has been deleted.',
-					icon: 'success'
-				}).then(() => dispatch(clearForm()))
-			} else if (result.dismiss === Swal.DismissReason.cancel) {
-				Swal.fire({
-					title: 'Cancelled',
-					text: 'Your imaginary file is safe :)',
-					icon: 'error'
-				}).then(() => dispatch(clearForm()))
+				Swal.fire({ title: 'Deleted!', text: 'Your file has been deleted.', icon: 'success' }).then(() => {
+					dispatch(clearForm())
+				})
+			} else if (result.isDenied) {
+				Swal.fire('Changes are not saved', '', 'info').then(() => {
+					dispatch(clearForm())
+				})
 			}
 		})
+		
+		dispatch(clearForm())
+		onCloseModalWindows()
 	}
 	
 	useEffect(() => {

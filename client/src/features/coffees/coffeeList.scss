@@ -71,6 +71,11 @@
 			border: 2px solid gray;
 			font-weight: var(--fw-bold);
 		}
+		
+		span {
+			font-size: var(--fs-sm);
+			color: var(--color-text-black);
+		}
 	}
 	
 	.buttons__wrapper {

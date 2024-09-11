@@ -98,18 +98,10 @@ select {
 	}
 }
 
-.swal2-actions {
-	display: flex;
-	align-content: space-around;
-	justify-content: space-around;
-	align-items: flex-end;
-	width: 100%;
-	
-	button {
-		color: black;
-	}
+.swal2-success-line-tip, .swal2-success-line-long {
+	font-size: 16px !important;
 }
 
-div:where(.swal2-container) button:where(.swal2-styled):not([disabled]) {
-	background: rgba(211, 211, 211, .9);
+.swal2-x-mark-line-right, .swal2-x-mark-line-left {
+	font-size: 16px !important;
 }

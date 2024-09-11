@@ -55,8 +55,8 @@
 	}
 	
 	.error {
-		@include error-message;
 		margin-top: 5px;
+		@include error-message;
 	}
 	
 	.file-label {

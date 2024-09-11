@@ -5,7 +5,7 @@ import { loadItems } from './best-actions'
 export type BestSliceType = {
 	status: Status,
 	error: string | null
-	list: CoffeeItem[]
+	list: CoffeeItem[],
 }
 
 const initialState: BestSliceType = {
@@ -17,7 +17,11 @@ const initialState: BestSliceType = {
 const bestSlice = createSlice({
 	name: '@@coffees',
 	initialState,
-	reducers: {},
+	reducers: {
+		clearItems: (state) => {
+			state.list = initialState.list
+		}
+	},
 	extraReducers: builder => {
 		builder.addCase(loadItems.pending, (state) => {
 			state.status = 'loading'
@@ -34,3 +38,4 @@ const bestSlice = createSlice({
 })
 
 export const bestReducer = bestSlice.reducer
+export const { clearItems } = bestSlice.actions

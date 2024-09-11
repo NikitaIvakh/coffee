@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import * as Yup from 'yup'
 import { CoffeeItem, CoffeeType, MyFormValues, MyTextInputProps } from 'types'
-import { showSuccessMessage } from 'utils'
 import useAdmin from './use-admin'
 import './styles/adminlForm.scss'
 
@@ -84,12 +83,10 @@ const AdminForm = (props: AdminFormProps) => {
 					handleUpdateCoffee(values.id!, formData)
 					resetForm()
 					setSelectedFile(null)
-					showSuccessMessage()
 				} else {
 					handleCreateCoffee(formData)
 					resetForm()
 					setSelectedFile(null)
-					showSuccessMessage()
 				}
 			}}
 		>

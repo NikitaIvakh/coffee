@@ -6,7 +6,7 @@ import { useBase } from './use-base'
 import './bestList.scss'
 
 const BestList = () => {
-	const [coffees, { status }] = useBase()
+	const [coffees, isAuthUser, { status }] = useBase()
 	
 	const renderItems = (coffees: CoffeeItem[]) => {
 		const coffeeItems = coffees.map((coffee, i) => {
@@ -36,8 +36,24 @@ const BestList = () => {
 	
 	return (
 		<section className='our-best'>
-			<h2 className='our-best__header'>Our best</h2>
-			{elements}
+			{!isAuthUser ? (
+					<>
+						<h2 className='our-best__header-restricted'>Our best</h2>
+						<p className='our-best__not-auth'>
+							<span className='our-best__not-auth-title'>Access Restricted</span>
+							<span className='our-best__not-auth-message'>
+                Please log in to view our exclusive collection of top picks.
+                We can't wait to share them with you!
+					</span>
+						</p>
+					</>
+				
+				) :
+				(
+					<>
+						<h2 className='our-best__header'>Our best</h2>
+						{elements}
+					</>)}
 		</section>
 	)
 }

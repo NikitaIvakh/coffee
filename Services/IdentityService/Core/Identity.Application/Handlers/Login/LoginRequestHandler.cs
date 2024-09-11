@@ -50,6 +50,7 @@ public sealed class LoginRequestHandler(
                 user.LastName, 
                 user.UserName!, 
                 user.Email!, 
+                roles[0],
                 accessToken,
                 refreshToken
             );

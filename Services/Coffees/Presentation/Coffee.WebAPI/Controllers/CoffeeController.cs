@@ -6,11 +6,15 @@ using Coffee.Application.Coffees.Queries.CoffeeList;
 using Coffee.Domain.DTOs;
 using Coffee.Domain.Shared;
 using Coffee.WebAPI.Abstractors;
+using Coffee.WebAPI.Utils;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Coffee.WebAPI.Utils.StaticDetails;
 
 namespace Coffee.WebAPI.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/coffee")]
 public class CoffeeController(ISender sender) : ApiController(sender)
@@ -18,6 +22,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     private readonly ISender _sender = sender;
 
     [HttpGet(nameof(GetCoffeeList))]
+    [Authorize(Roles = AdministratorOrUser)]
     public async Task<ActionResult<ResultT<PaginationList<GetCoffeeListDto>>>> GetCoffeeList(string? search,
         string? filter, int page, int pageSize, int? limit = null)
     {
@@ -26,6 +31,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     }
 
     [HttpGet(nameof(GetCoffee) + "/{id}")]
+    [Authorize(Roles = AdministratorOrUser)]
     public async Task<ActionResult<ResultT<GetCoffeeDto>>> GetCoffee(Guid id)
     {
         var query = await _sender.Send(new GetCoffeeByIdQuery(id));
@@ -33,6 +39,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     }
 
     [HttpPost(nameof(CreateCoffee))]
+    [Authorize(Roles = RoleAdministrator)]
     public async Task<ActionResult<ResultT<Guid>>> CreateCoffee([FromForm] CreateCoffeeDto createCoffeeDto)
     {
         var command = await _sender.Send(new CreateCoffeeCommand(createCoffeeDto));
@@ -40,6 +47,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     }
 
     [HttpPatch($"{nameof(UpdateCoffee)}/" + "{id}")]
+    [Authorize(Roles = RoleAdministrator)]
     public async Task<ActionResult<ResultT<Unit>>> UpdateCoffee(Guid id, [FromForm] UpdateCoffeeDto updateCoffeeDto)
     {
         var command = await _sender.Send(new UpdateCoffeeCommand(updateCoffeeDto));
@@ -47,6 +55,7 @@ public class CoffeeController(ISender sender) : ApiController(sender)
     }
 
     [HttpDelete($"{nameof(DeleteCoffee)}/" + "{id}")]
+    [Authorize(Roles = RoleAdministrator)]
     public async Task<ActionResult<ResultT<Unit>>> DeleteCoffee(Guid id)
     {
         var command = await _sender.Send(new DeleteCoffeeCommand(id));

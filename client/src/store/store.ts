@@ -1,7 +1,6 @@
 ﻿import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { thunk } from 'redux-thunk'
 import * as api from '../config'
 import { admin } from 'features/admin/admin-slice'
 import { bestReducer } from 'features/best/best-slice'
@@ -9,8 +8,8 @@ import { coffeeList } from 'features/coffees/coffees-slice'
 import { controlsReducer } from 'features/controls/controls-slice'
 import { coffeeDetailsReducer } from 'features/details/coffee-slice'
 import { modal } from 'features/modal/modal-slice'
+import { authApi } from '../features/auth/auth-apiSlice.ts'
 import { auth } from '../features/auth/auth-slice.ts'
-import { authApi } from '../service/authApi.ts'
 
 const rootReducers = combineReducers({
 	best: bestReducer,
@@ -19,8 +18,8 @@ const rootReducers = combineReducers({
 	coffeeDetails: coffeeDetailsReducer,
 	adminPanel: admin,
 	modal: modal,
+	[authApi.reducerPath]: authApi.reducer,
 	auth: auth,
-	[authApi.reducerPath]: authApi.reducer
 })
 
 export const store = configureStore({
@@ -32,7 +31,8 @@ export const store = configureStore({
 				api: api
 			}
 		}
-	}).concat(thunk).concat(authApi.middleware)
+	}).concat(authApi.middleware),
+	devTools: true
 })
 
 export type RootState = ReturnType<typeof rootReducers>

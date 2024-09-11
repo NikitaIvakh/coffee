@@ -1,9 +1,13 @@
 ﻿import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import "./style/loadingRedirect.scss"
+import { NavLink, useNavigate } from 'react-router-dom'
+import './style/loadingRedirect.scss'
 
-const LoadingToRedirect = () => {
-	const [count, setCount] = useState(15)
+type LoadingToRedirectProps = {
+	message: string
+}
+
+const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
+	const [count, setCount] = useState(5)
 	const navigate = useNavigate()
 	
 	useEffect(() => {
@@ -19,12 +23,12 @@ const LoadingToRedirect = () => {
 	}, [count, navigate])
 	
 	return (
-		<div className="loading-container">
-			<div className="loading-content">
+		<div className='loading-container'>
+			<div className='loading-content'>
 				<h1>Redirecting...</h1>
+				<p>{message}</p>
 				<p>You will be redirected in <span>{count}</span> seconds.</p>
-				<p className="info">If you are not redirected, <a href="/">click here</a> to go to the homepage.</p>
-				<p className="warning">You are not authorized to view this page.</p>
+				<p className='info'>If you are not redirected, <NavLink to='/'>click here</NavLink> to go to the homepage.</p>
 			</div>
 		</div>
 	)

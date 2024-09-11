@@ -37,6 +37,10 @@
 		flex-wrap: wrap;
 		align-content: center;
 		justify-content: center;
+		span {
+			font-size: var(--fs-sm);
+			color: var(--color-text-black);
+		}
 	}
 	
 	@media (max-width: 575px) {

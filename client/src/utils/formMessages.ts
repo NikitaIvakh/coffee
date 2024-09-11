@@ -1,30 +1,33 @@
 ﻿import Swal from 'sweetalert2'
 
-export const showSuccessMessage = () => {
-	Swal.fire({
-		title: 'Great',
-		text: 'The data has been successfully sent to the server!',
-		icon: 'success'
-	}).then()
-}
-
-export const showDeleteMessage = () => {
-	const swalWithBootstrapButtons = Swal.mixin({
-		customClass: {
-			confirmButton: 'btn btn-success',
-			cancelButton: 'btn btn-danger'
-		},
-		buttonsStyling: false
-	})
-	
-	return swalWithBootstrapButtons.fire({
-		title: 'Are you sure?',
-		text: 'You won\'t be able to revert this!',
-		icon: 'warning',
+export const successCreate = () => {
+	return Swal.fire({
+		title: "Do you want to save the changes?",
+		showDenyButton: true,
 		showCancelButton: true,
-		confirmButtonText: 'Yes, delete it!',
-		cancelButtonText: 'No, cancel!',
-		reverseButtons: true
+		confirmButtonText: "Save",
+		denyButtonText: `Don't save`
 	})
 }
 
+export const successDelete = () => {
+	return Swal.fire({
+		title: "Are you sure?",
+		text: "You won't be able to revert this!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes, delete it!"
+	})
+}
+
+export const successUpdate = () => {
+	return Swal.fire({
+		title: "Do you want to save the changes?",
+		showDenyButton: true,
+		showCancelButton: true,
+		confirmButtonText: "Save",
+		denyButtonText: `Don't save`
+	});
+};
