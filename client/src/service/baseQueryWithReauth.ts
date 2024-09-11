@@ -34,7 +34,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
 	if (result.error && result.error.status === 401) {
 		const refreshResult = await baseQuery({
 			url: '/RefreshToken',
-			method: 'POST',
+			method: 'PATCH',
 			body: { jwtToken, refreshToken }
 		}, api, extraOptions) as BaseQueryResult
 		

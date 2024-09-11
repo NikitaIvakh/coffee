@@ -9,5 +9,7 @@ public interface IApplicationDbContext
     
     DbSet<ApplicationUserToken> ApplicationUserTokens { get; set; }
     
+    DbSet<EmailVerificationToken> EmailVerificationTokens { get; set; }
+    
     Task<int> SaveChangesAsync(CancellationToken token);
 }

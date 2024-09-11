@@ -23,7 +23,8 @@ public class ApplicationUserConfiguration: IEntityTypeConfiguration<ApplicationU
             userName: "user@localhost.com",
             email: "user@localhost.com",
             passwordHash: hasher.HashPassword(null, "P@ssword1"),
-            securityStamp: Guid.NewGuid().ToString()
+            securityStamp: Guid.NewGuid().ToString(),
+            emailConfirmed: true
         );
 
         var data2 = ApplicationUser.Create(
@@ -33,7 +34,8 @@ public class ApplicationUserConfiguration: IEntityTypeConfiguration<ApplicationU
             userName: "admin@localhost.com",
             email: "admin@localhost.com",
             passwordHash: hasher.HashPassword(null, "P@ssword1"),
-            securityStamp: Guid.NewGuid().ToString()
+            securityStamp: Guid.NewGuid().ToString(),
+            emailConfirmed: true
         );
         
         builder.HasData(data1.Value, data2.Value);

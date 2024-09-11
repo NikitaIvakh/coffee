@@ -15,7 +15,8 @@ builder.WebHost.ConfigureKestrel(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.ConfigureApplicationServices();
+builder.Services.AddHttpContextAccessor();
+builder.Services.ConfigureApplicationServices(builder.Configuration);
 builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",

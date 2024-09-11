@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240909162334_Initial")]
-    partial class Initial
+    [Migration("20240911172305_addNewTable")]
+    partial class addNewTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,7 @@ namespace Identity.Infrastructure.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ba43acf4-10fa-4963-9cb6-72bd5d83b0a0",
+                            ConcurrencyStamp = "dbc6bd7b-293d-4648-924a-ad536b224381",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "user@localhost.com",
                             EmailConfirmed = false,
@@ -113,9 +113,9 @@ namespace Identity.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE5AJciUxTzHEEf7xvagM1JnwesQgkcbkBii8a4ofFSBDQ3r0PIlusKE7Hq6/SjXPQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC3lTDck8OmTX/uJ5AWKaTW60F7000iprlbMR5rovhlQs2Pozyf1p+orNTVWrnsrVA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "00cf4434-9179-4bfe-b413-acb325365589",
+                            SecurityStamp = "704fbd57-4b32-4f88-baf6-0758c79a76af",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         },
@@ -123,7 +123,7 @@ namespace Identity.Infrastructure.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d8f04349-d462-4e6b-bf91-a63ce0a68b09",
+                            ConcurrencyStamp = "d4fecf8d-d1b9-439c-9017-84cd1b83a19c",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
@@ -132,9 +132,9 @@ namespace Identity.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOvkaz0PwrUqHz78ayqn9iknwAjJlx9Yfw6QX8Krxlv5B961HgnijDL8euwwzOXSng==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIhiQmj3e4ZqG0SpjcpSlo3GNCfRapMwFXswLOqj/1YafYs7zSgODWOo/cesUEh/8A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "98521484-3795-4ae2-8516-329a7fb804c1",
+                            SecurityStamp = "f5334493-4663-4bba-9060-352b720a3961",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -163,6 +163,29 @@ namespace Identity.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ApplicationUserTokens");
+                });
+
+            modelBuilder.Entity("Identity.Domain.Entities.EmailVerificationToken", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("EmailVerificationTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
@@ -328,14 +351,14 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            ConcurrencyStamp = "a4adfddf-ac1b-4694-82d0-71a088cd0a13",
+                            ConcurrencyStamp = "c92d3174-c286-438e-9d63-1343204a8d5a",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            ConcurrencyStamp = "492e25c0-ca3f-4e8c-9fa8-537b2fca3031",
+                            ConcurrencyStamp = "b028e932-b577-4324-b4a3-211121b03873",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -346,6 +369,17 @@ namespace Identity.Infrastructure.Migrations
                     b.HasOne("Identity.Domain.Entities.ApplicationUser", "User")
                         .WithOne()
                         .HasForeignKey("Identity.Domain.Entities.ApplicationUserToken", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Identity.Domain.Entities.EmailVerificationToken", b =>
+                {
+                    b.HasOne("Identity.Domain.Entities.ApplicationUser", "User")
+                        .WithOne()
+                        .HasForeignKey("Identity.Domain.Entities.EmailVerificationToken", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

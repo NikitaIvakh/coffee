@@ -13,7 +13,7 @@ public partial class ApplicationUser : IdentityUser<string>, IAuditableData
     }
 
     private ApplicationUser(string id, string firstName, string lastName, string userName, string? normalizedUserName,
-        string? email, string? normalizedEmail, string? passwordHash, string? securityStamp)
+        string? email, string? normalizedEmail, string? passwordHash, string? securityStamp, bool emailConfirmed)
     {
         Id = id;
         FirstName = firstName;
@@ -24,6 +24,7 @@ public partial class ApplicationUser : IdentityUser<string>, IAuditableData
         NormalizedEmail = normalizedEmail;
         PasswordHash = passwordHash;
         SecurityStamp = securityStamp;
+        EmailConfirmed = emailConfirmed;
     }
 
     public sealed override string Id { get; set; } = string.Empty;
@@ -42,11 +43,14 @@ public partial class ApplicationUser : IdentityUser<string>, IAuditableData
 
     public sealed override string? PasswordHash { get; set; } = string.Empty;
 
-    public sealed override string? SecurityStamp { get; set; }= string.Empty;
+    public sealed override string? SecurityStamp { get; set; } = string.Empty;
+
+    public sealed override bool EmailConfirmed { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
-    public static ResultT<ApplicationUser> Create(string id, string firstName, string lastName, string userName, string email, string? passwordHash, string? securityStamp)
+    public static ResultT<ApplicationUser> Create(string id, string firstName, string lastName, string userName,
+        string email, string? passwordHash, string? securityStamp, bool emailConfirmed)
     {
         const string emailRegex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
 
@@ -65,7 +69,7 @@ public partial class ApplicationUser : IdentityUser<string>, IAuditableData
         if (!MyEmailRegex().IsMatch(email))
             return Result.Failure<ApplicationUser>(DomainErrors.ApplicationUser.InvalidEmailAddress(nameof(email)));
 
-        var user = new ApplicationUser(id, firstName, lastName, userName, userName.ToUpper(), email, email.ToUpper(), passwordHash, securityStamp);
+        var user = new ApplicationUser(id, firstName, lastName, userName, userName.ToUpper(), email, email.ToUpper(), passwordHash, securityStamp, false);
         return Result.Create(user);
     }
 

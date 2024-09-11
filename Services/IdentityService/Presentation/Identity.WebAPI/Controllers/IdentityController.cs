@@ -2,6 +2,7 @@ using Identity.Application.Handlers.Login;
 using Identity.Application.Handlers.Logout;
 using Identity.Application.Handlers.RefreshToken;
 using Identity.Application.Handlers.RevokeToken;
+using Identity.Application.Handlers.VerifyEmail;
 using Identity.Domain.DTOs;
 using Identity.Domain.Shared;
 using Identity.WebAPI.Abstractors;
@@ -18,7 +19,15 @@ namespace Identity.WebAPI.Controllers;
 public class IdentityController(ISender sender) : ApiController(sender)
 {
     private readonly ISender _sender = sender;
+    public const string VerifyEmail = "VerifyEmail";
 
+    [HttpGet("VerifyEmailToken")]
+    public async Task<ActionResult<ResultT<bool>>> VerifyEmailToken([FromQuery] string token)
+    {
+        var result = await _sender.Send(new VerifyEmailRequest(token));
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
+    
     [HttpPost(nameof(Login))]
     public async Task<ActionResult<ResultT<LoginResponse>>> Login([FromBody] LoginRequestDto loginRequestDto)
     {

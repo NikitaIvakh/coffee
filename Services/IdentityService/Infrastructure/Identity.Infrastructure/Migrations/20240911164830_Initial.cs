@@ -42,8 +42,8 @@ namespace Identity.Infrastructure.Migrations
                     NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(type: "text", nullable: true),
                     SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
@@ -188,8 +188,8 @@ namespace Identity.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "cac43a6e-f7bb-4448-baaf-1add431ccbbf", "a4adfddf-ac1b-4694-82d0-71a088cd0a13", "IdentityRole", "User", "USER" },
-                    { "cbc43a8e-f7bb-4445-baaf-1add431ffbbf", "492e25c0-ca3f-4e8c-9fa8-537b2fca3031", "IdentityRole", "Administrator", "ADMINISTRATOR" }
+                    { "cac43a6e-f7bb-4448-baaf-1add431ccbbf", "b4a58da7-191e-4601-8601-e35241d87a0a", "IdentityRole", "User", "USER" },
+                    { "cbc43a8e-f7bb-4445-baaf-1add431ffbbf", "0db7d32c-9d72-429b-9360-9edf51b66711", "IdentityRole", "Administrator", "ADMINISTRATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -197,8 +197,8 @@ namespace Identity.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "d8f04349-d462-4e6b-bf91-a63ce0a68b09", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", false, "System", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEOvkaz0PwrUqHz78ayqn9iknwAjJlx9Yfw6QX8Krxlv5B961HgnijDL8euwwzOXSng==", null, false, "98521484-3795-4ae2-8516-329a7fb804c1", false, "admin@localhost.com" },
-                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, "ba43acf4-10fa-4963-9cb6-72bd5d83b0a0", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "user@localhost.com", false, "System", "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEE5AJciUxTzHEEf7xvagM1JnwesQgkcbkBii8a4ofFSBDQ3r0PIlusKE7Hq6/SjXPQ==", null, false, "00cf4434-9179-4bfe-b413-acb325365589", false, "user@localhost.com" }
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "875f9a3b-b67b-44c9-ab6f-b91007a617bb", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", false, "System", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEFQyb2lmELa8axUZfJvvXxtD97oEBQnC5cSZ7m2dPWtSoKgbNRQz9UzM7NB/Y8qapg==", null, false, "02f2bbef-7f53-4699-887c-19ab9da19553", false, "admin@localhost.com" },
+                    { "9e224968-33e4-4652-b7b7-8574d048cdb9", 0, "7bd8fcec-1039-43ca-9f17-1046ee166289", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "user@localhost.com", false, "System", "User", false, null, "USER@LOCALHOST.COM", "USER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEJz29aDPMyjGzvDLdiXa2aJg0tYvBLuHAMo5KIJ7Pk0vMaYAUD+LO4yyB5o+pGxVuw==", null, false, "0d165b62-6db8-4a8a-9aaf-a852028faa51", false, "user@localhost.com" }
                 });
 
             migrationBuilder.InsertData(

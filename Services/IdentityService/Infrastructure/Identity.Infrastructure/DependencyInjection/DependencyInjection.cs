@@ -48,6 +48,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IApplicationUserTokenRepository, ApplicationUserTokenRepository>();
+        services.AddScoped<IEmailVerificationTokenRepository, EmailVerificationTokenRepository>();
     }
 
     private static void RegisterInterceptors(IServiceCollection services)

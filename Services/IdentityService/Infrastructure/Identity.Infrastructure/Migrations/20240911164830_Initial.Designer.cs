@@ -3,6 +3,7 @@ using System;
 using Identity.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Identity.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911164830_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +104,7 @@ namespace Identity.Infrastructure.Migrations
                         {
                             Id = "9e224968-33e4-4652-b7b7-8574d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dbc6bd7b-293d-4648-924a-ad536b224381",
+                            ConcurrencyStamp = "7bd8fcec-1039-43ca-9f17-1046ee166289",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "user@localhost.com",
                             EmailConfirmed = false,
@@ -110,9 +113,9 @@ namespace Identity.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "USER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC3lTDck8OmTX/uJ5AWKaTW60F7000iprlbMR5rovhlQs2Pozyf1p+orNTVWrnsrVA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJz29aDPMyjGzvDLdiXa2aJg0tYvBLuHAMo5KIJ7Pk0vMaYAUD+LO4yyB5o+pGxVuw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "704fbd57-4b32-4f88-baf6-0758c79a76af",
+                            SecurityStamp = "0d165b62-6db8-4a8a-9aaf-a852028faa51",
                             TwoFactorEnabled = false,
                             UserName = "user@localhost.com"
                         },
@@ -120,7 +123,7 @@ namespace Identity.Infrastructure.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d4fecf8d-d1b9-439c-9017-84cd1b83a19c",
+                            ConcurrencyStamp = "875f9a3b-b67b-44c9-ab6f-b91007a617bb",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
@@ -129,9 +132,9 @@ namespace Identity.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIhiQmj3e4ZqG0SpjcpSlo3GNCfRapMwFXswLOqj/1YafYs7zSgODWOo/cesUEh/8A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFQyb2lmELa8axUZfJvvXxtD97oEBQnC5cSZ7m2dPWtSoKgbNRQz9UzM7NB/Y8qapg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f5334493-4663-4bba-9060-352b720a3961",
+                            SecurityStamp = "02f2bbef-7f53-4699-887c-19ab9da19553",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });
@@ -160,29 +163,6 @@ namespace Identity.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ApplicationUserTokens");
-                });
-
-            modelBuilder.Entity("Identity.Domain.Entities.EmailVerificationToken", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("EmailVerificationTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
@@ -348,14 +328,14 @@ namespace Identity.Infrastructure.Migrations
                         new
                         {
                             Id = "cac43a6e-f7bb-4448-baaf-1add431ccbbf",
-                            ConcurrencyStamp = "c92d3174-c286-438e-9d63-1343204a8d5a",
+                            ConcurrencyStamp = "b4a58da7-191e-4601-8601-e35241d87a0a",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "cbc43a8e-f7bb-4445-baaf-1add431ffbbf",
-                            ConcurrencyStamp = "b028e932-b577-4324-b4a3-211121b03873",
+                            ConcurrencyStamp = "0db7d32c-9d72-429b-9360-9edf51b66711",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -366,17 +346,6 @@ namespace Identity.Infrastructure.Migrations
                     b.HasOne("Identity.Domain.Entities.ApplicationUser", "User")
                         .WithOne()
                         .HasForeignKey("Identity.Domain.Entities.ApplicationUserToken", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Identity.Domain.Entities.EmailVerificationToken", b =>
-                {
-                    b.HasOne("Identity.Domain.Entities.ApplicationUser", "User")
-                        .WithOne()
-                        .HasForeignKey("Identity.Domain.Entities.EmailVerificationToken", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
