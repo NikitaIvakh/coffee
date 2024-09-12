@@ -1,15 +1,16 @@
 ﻿import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '../../service/baseQueryWithReauth.ts'
+import { type AuthRefreshToken, AuthRegisterValues, AuthRequestValues } from '../../types/authForm.ts'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
 	baseQuery: baseQueryWithReauth,
 	endpoints: builder => ({
 		login: builder.mutation({
-			query: (body: { emailAddress: string, password: string }) => ({
+			query: (body: AuthRequestValues) => ({
 				url: '/Login',
 				method: 'POST',
-				body
+				body: { ...body }
 			})
 		}),
 		logout: builder.mutation({
@@ -19,18 +20,17 @@ export const authApi = createApi({
 			})
 		}),
 		register: builder.mutation({
-			query: (body: { firstName: string, lastName: string, userName: string, emailAddress: string, password: string, passwordConform: string
-			}) => ({
+			query: (body: AuthRegisterValues) => ({
 				url: '/Register',
 				method: 'POST',
-				body
+				body: { ...body }
 			})
 		}),
 		refreshToken: builder.mutation({
-			query: (body: { refreshToken: string }) => ({
+			query: (body: AuthRefreshToken) => ({
 				url: '/RefreshToken',
 				method: 'PATCH',
-				body
+				body: { ...body }
 			})
 		})
 	})

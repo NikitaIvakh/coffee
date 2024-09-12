@@ -1,28 +1,28 @@
-﻿export type AuthResponse = {
-	value: AuthResponseValue,
-	isSuccess: boolean,
-	isFailure: boolean,
-	error: AuthResponseError
-}
-
-export type AuthResponseValue = {
-	accessToken: string
-	refreshToken: string
-	user: User
-}
-
-export type AuthResponseError = {
-	code: string,
-	message: string
-}
-
-export type AuthRequestValues = {
+﻿export type AuthRequestValues = {
 	emailAddress: string,
 	password: string,
 }
 
-export type User = {
-	userId: string,
+export type AuthRegisterValues = {
+	firstName: string,
+	lastName: string,
 	userName: string,
-	emailAddress: string
+	emailAddress: string,
+	password: string,
+	passwordConform: string
+}
+
+export type AuthRefreshToken = {
+	refreshToken: string
+}
+
+export type AuthResponseValues = {
+	id: string,
+	firstName: string,
+	lastName: string,
+	userName: string,
+	emailAddress: string,
+	role: string
+	jwtToken: string,
+	refreshToken: string
 }

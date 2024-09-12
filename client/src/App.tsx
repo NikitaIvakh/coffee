@@ -27,13 +27,7 @@ const AnimatedRoutes = () => {
 	
 	useEffect(() => {
 		if (user && user.userName) {
-			dispatch(setUser({
-				id: user.id,
-				userName: user.userName,
-				role: user.role,
-				jwtToken: user.jwtToken,
-				refreshToken: user.refreshToken
-			}))
+			dispatch(setUser(user))
 			dispatch(setUserAuthenticated())
 		}
 	}, [dispatch, user])

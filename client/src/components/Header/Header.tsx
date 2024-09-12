@@ -5,9 +5,8 @@ import ModalWindow from '../../features/modal/ModalWindow.tsx'
 import useAuthModal from '../../features/modal/use-authModal.ts'
 
 const Header = () => {
-	const [userName, handleLogout] = useLogout()
+	const [user, handleLogout] = useLogout()
 	const [authIsOpen, authOpenModalWindow, authCloseModalWindow] = useAuthModal()
-	const user = JSON.parse(localStorage.getItem('user') as '{}')
 	
 	return (
 		<header className='header'>
@@ -18,14 +17,14 @@ const Header = () => {
 					<NavLink to='/Pleasure' className='header__item'>For your pleasure</NavLink>
 				</ul>
 				<ul className='header__admin'>
-					{userName && (
+					{user?.userName && (
 						<>
-							<li className='header__userName'>Welcome, {userName}</li>
+							<li className='header__userName'>Welcome, {user.userName}</li>
 							<button type='button' onClick={handleLogout} className=' btn btn__filter header__button'>Logout</button>
 						</>
 					)}
 					
-					{!userName && (
+					{!user?.userName && (
 						<button onClick={authOpenModalWindow} className='btn btn__filter header__button'>Login</button>
 					)}
 					

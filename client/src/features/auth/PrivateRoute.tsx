@@ -9,13 +9,13 @@ type PrivateRouteProps = {
 }
 
 const PrivateRoute = ({ children, restricted = false }: PrivateRouteProps) => {
-	const { jwtToken, role } = useSelector(selectAuthUser)
+	const user = useSelector(selectAuthUser)
 	
-	if (!jwtToken) {
+	if (!user?.jwtToken) {
 		return <LoadingToRedirect message='You need to log in to access this page.' />
 	}
 	
-	if (restricted && role !== 'Administrator') {
+	if (restricted && user?.role !== 'Administrator') {
 		return <LoadingToRedirect message='You do not have permission to access this page.' />
 	}
 	

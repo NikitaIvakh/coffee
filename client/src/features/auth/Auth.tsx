@@ -1,6 +1,7 @@
 ﻿import { Formik, type FormikHelpers, useField } from 'formik'
 import * as Yup from 'yup'
-import { type MtAuthFormValues, type MyRegisterValues, MyTextInputProps } from '../../types'
+import { MyTextInputProps } from '../../types'
+import type { AuthRegisterValues, AuthRequestValues } from '../../types/authForm.ts'
 import useAuth from './use-auth'
 import './style/authForm.scss'
 
@@ -21,7 +22,7 @@ const MyTextInput = ({ label, ...props }: MyTextInputProps) => {
 const Auth = () => {
 	const [showRegister, setShowRegister, handleRegister, handleLogin] = useAuth()
 	
-	const initialValuesRegister: MyRegisterValues = {
+	const initialValuesRegister: AuthRegisterValues = {
 		firstName: '',
 		lastName: '',
 		userName: '',
@@ -30,7 +31,7 @@ const Auth = () => {
 		passwordConform: ''
 	}
 	
-	const initialValuesLogin: MtAuthFormValues = {
+	const initialValuesLogin: AuthRequestValues = {
 		emailAddress: '',
 		password: ''
 	}
@@ -74,7 +75,7 @@ const Auth = () => {
 			.required('This field is required!')
 	})
 	
-	const handleSwitch = (resetForm: FormikHelpers<MyRegisterValues | MtAuthFormValues>['resetForm']) => {
+	const handleSwitch = (resetForm: FormikHelpers<AuthRegisterValues | AuthRequestValues>['resetForm']) => {
 		setShowRegister(!showRegister)
 		
 		if (showRegister)
@@ -91,9 +92,9 @@ const Auth = () => {
 			onSubmit={async (values, { resetForm }) => {
 				try {
 					if (showRegister) {
-						await handleRegister(values as MyRegisterValues)
+						await handleRegister(values as AuthRegisterValues)
 					} else {
-						await handleLogin(values as MtAuthFormValues)
+						await handleLogin(values as AuthRequestValues)
 					}
 					resetForm()
 				} catch (error) {

@@ -2,14 +2,15 @@
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../store/store.ts'
-import { type AuthErrors, MtAuthFormValues, MyRegisterValues, type RegisterErrors } from '../../types'
+import { AuthErrors, RegisterErrors } from '../../types'
+import { AuthRegisterValues, type AuthRequestValues } from '../../types/authForm.ts'
 import { loginWithErrors, registerWithErrors, successLogin, successRegister } from '../../utils'
 import useAuthModal from '../modal/use-authModal.ts'
 import { useLoginMutation, useRegisterMutation } from './auth-apiSlice.ts'
 import { selectUserAuthenticated } from './auth-Selectors.ts'
 import { setUser } from './auth-slice.ts'
 
-type onSubmit = [boolean, Dispatch<SetStateAction<boolean>>, (value: MyRegisterValues) => Promise<void>, (value: MtAuthFormValues) => Promise<void>, boolean]
+type onSubmit = [boolean, Dispatch<SetStateAction<boolean>>, (value: AuthRegisterValues) => Promise<void>, (value: AuthRequestValues) => Promise<void>, boolean]
 
 const useAuth = (): onSubmit => {
 	const dispatch = useAppDispatch()
@@ -23,28 +24,15 @@ const useAuth = (): onSubmit => {
 	
 	useEffect(() => {
 		if (isLoginSuccess && loginData) {
-			dispatch(setUser({
-				id: loginData.value.id,
-				userName: loginData.value.userName,
-				role: loginData.value.role,
-				jwtToken: loginData.value.jwtToken,
-				refreshToken: loginData.value.refreshToken
-			}))
+			dispatch(setUser(loginData.value))
 			navigate('/')
 			authCloseModalWindow()
 		}
 	}, [isLoginSuccess, loginData, dispatch, navigate])
 	
-	const handleRegister = async (values: MyRegisterValues): Promise<void> => {
+	const handleRegister = async (values: AuthRegisterValues): Promise<void> => {
 		try {
-			await register({
-				firstName: values.firstName,
-				lastName: values.lastName,
-				userName: values.userName,
-				emailAddress: values.emailAddress,
-				password: values.password,
-				passwordConform: values.passwordConform
-			}).unwrap()
+			await register(values).unwrap()
 			successRegister()
 		} catch (e: unknown) {
 			const error = e as RegisterErrors
@@ -53,13 +41,9 @@ const useAuth = (): onSubmit => {
 		}
 	}
 	
-	const handleLogin = async (values: MtAuthFormValues): Promise<void> => {
+	const handleLogin = async (values: AuthRequestValues): Promise<void> => {
 		try {
-			await login({
-				emailAddress: values.emailAddress,
-				password: values.password
-			}).unwrap()
-			
+			await login(values).unwrap()
 			successLogin()
 		} catch (e: unknown) {
 			const error = e as AuthErrors
