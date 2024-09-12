@@ -26,6 +26,12 @@ export const authApi = createApi({
 				body: { ...body }
 			})
 		}),
+		confirmEmail: builder.query<void, string>({
+			query: (token: string) => ({
+				url: `/VerifyEmailToken/${token}`,
+				method: 'GET'
+			})
+		}),
 		refreshToken: builder.mutation({
 			query: (body: AuthRefreshToken) => ({
 				url: '/RefreshToken',
@@ -36,4 +42,10 @@ export const authApi = createApi({
 	})
 })
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useRefreshTokenMutation } = authApi
+export const {
+	useLoginMutation,
+	useLogoutMutation,
+	useRegisterMutation,
+	useLazyConfirmEmailQuery,
+	useRefreshTokenMutation
+} = authApi

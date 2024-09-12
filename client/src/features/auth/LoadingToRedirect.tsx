@@ -12,7 +12,7 @@ const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
 	
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCount((currentCount) => currentCount - 1)
+			setCount(currentCount => currentCount - 1)
 		}, 1000)
 		
 		if (count === 0) {
@@ -23,12 +23,12 @@ const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
 	}, [count, navigate])
 	
 	return (
-		<div className='loading-container'>
-			<div className='loading-content'>
+		<div className='loading__container'>
+			<div className='loading__content'>
 				<h1>Redirecting...</h1>
 				<p>{message}</p>
-				<p>You will be redirected in <span>{count}</span> seconds.</p>
-				<p className='info'>If you are not redirected, <NavLink to='/'>click here</NavLink> to go to the homepage.</p>
+				<p>You will be redirected in <span className='loading__count'>{count}</span> seconds.</p>
+				<p className='loading__info'>If you are not redirected, <NavLink to='/'>click here</NavLink> to go to the homepage.</p>
 			</div>
 		</div>
 	)

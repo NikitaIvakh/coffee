@@ -21,8 +21,8 @@ public class IdentityController(ISender sender) : ApiController(sender)
     private readonly ISender _sender = sender;
     public const string VerifyEmail = "VerifyEmail";
 
-    [HttpGet("VerifyEmailToken")]
-    public async Task<ActionResult<ResultT<bool>>> VerifyEmailToken([FromQuery] string token)
+    [HttpGet($"{nameof(VerifyEmailToken)}/" + "{token}")]
+    public async Task<ActionResult<ResultT<bool>>> VerifyEmailToken(string token)
     {
         var result = await _sender.Send(new VerifyEmailRequest(token));
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);

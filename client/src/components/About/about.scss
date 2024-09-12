@@ -9,9 +9,11 @@
 		max-width: 600px;
 		max-height: 220px;
 		margin: 30px auto 0;
+		padding: 0 15px;
 	}
 	
-	&__description--first, &__description--second {
+	&__description--first,
+	&__description--second {
 		color: var(--color-text-black);
 		font-size: var(--fs-sm);
 		font-weight: var(--fw-normal);
@@ -24,11 +26,15 @@
 	
 	@media (max-width: 575px) {
 		&__description-wrapper {
-			padding: 0 10px 0 10px;
+			padding: 0 20px;
+			max-height: unset;
 		}
 	}
 	
 	@media (max-width: 320px) {
 		padding-top: 30px;
+		&__wrapper {
+			padding: 0 10px;
+		}
 	}
 }

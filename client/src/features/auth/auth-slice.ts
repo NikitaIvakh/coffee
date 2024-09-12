@@ -4,11 +4,13 @@ import type { AuthResponseValues } from '../../types/authForm.ts'
 export type AuthSliceType = {
 	user: AuthResponseValues | null
 	isAuthenticated: boolean
+	isEmailConfirmed: boolean
 }
 
 const initialState: AuthSliceType = {
 	user: null,
-	isAuthenticated: false
+	isAuthenticated: false,
+	isEmailConfirmed: false,
 }
 
 const authSlice = createSlice({
@@ -28,6 +30,10 @@ const authSlice = createSlice({
 			state.isAuthenticated = false
 		},
 		
+		setEmailConfirmed: (state) => {
+			state.isEmailConfirmed = true
+		},
+		
 		setLogout: (state) => {
 			localStorage.clear()
 			state.user = null
@@ -36,4 +42,4 @@ const authSlice = createSlice({
 })
 
 export const auth = authSlice.reducer
-export const { setUser, setLogout, setUserAuthenticated, setUserNoAuthenticated } = authSlice.actions
+export const { setUser, setLogout, setUserAuthenticated, setUserNoAuthenticated, setEmailConfirmed } = authSlice.actions

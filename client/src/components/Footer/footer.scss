@@ -3,11 +3,13 @@
 .footer {
 	margin-top: 30px;
 	padding-bottom: 21px;
+	background-color: var(--color-bg-light); // Background for better contrast
 	
 	&__wrapper {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		flex-wrap: wrap; // Allows wrapping on smaller screens
 	}
 	
 	&__list {
@@ -16,19 +18,62 @@
 		padding: 0;
 		margin: 0;
 		list-style: none;
+		flex-wrap: wrap; // Makes sure list items wrap on smaller screens
 	}
 	
 	&__item {
-		@include list-item-styles(var(--color-text-black));
+		@include list-item-styles(var(--color-text-black)); // Custom mixin for consistent item styling
+		margin-right: 20px;
+		
+		&:last-child {
+			margin-right: 0; // Remove margin from the last item
+		}
 		
 		&:first-child::before {
 			background-image: url('resources/img/icons/beans_dark.svg');
+			content: ''; // Ensure the pseudo-element displays correctly
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			margin-right: 8px;
+			background-size: contain;
+			background-repeat: no-repeat;
 		}
 	}
 	
 	@media (max-width: 767px) {
+		&__list {
+			flex-direction: column;
+			align-items: center;
+		}
+		
 		&__item {
+			margin-right: 0;
+			margin-bottom: 10px;
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+			
 			@include media-item-adjustments;
+		}
+	}
+	
+	@media (max-width: 575px) {
+		&__wrapper {
+			padding: 0 10px;
+		}
+		&__list {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			align-content: center;
+			margin: 0;
+			a {
+				margin-bottom: 0;
+			}
 		}
 	}
 }

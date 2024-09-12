@@ -32,8 +32,9 @@ const Header = () => {
 						<ModalWindow onClose={authCloseModalWindow} title='Login' isVisible={authIsOpen} />
 					)}
 					
+					<NavLink to='/ConfirmEmail' className='btn btn__filter header__button'>Confirm Email</NavLink>
 					{(user?.role && user?.role === 'Administrator') && (
-						<NavLink to='/AdminPanel' className='header__item'>Admin panel</NavLink>
+						<NavLink to='/AdminPanel' className='btn btn__filter header__button'>Admin panel</NavLink>
 					)}
 				</ul>
 			</div>

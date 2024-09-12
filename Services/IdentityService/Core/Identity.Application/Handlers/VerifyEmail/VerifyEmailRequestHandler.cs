@@ -22,7 +22,7 @@ public class VerifyEmailRequestHandler(
                 .GetAll()
                 .AsNoTracking()
                 .Include(key => key.User)
-                .FirstOrDefaultAsync(key => key.Id == request.Id, cancellationToken);
+                .FirstOrDefaultAsync(key => key.UserId == request.Id, cancellationToken);
 
             if (token is null || token.ExpiresAt < DateTime.UtcNow || token.User!.EmailConfirmed)
             {

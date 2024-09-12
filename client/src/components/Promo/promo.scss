@@ -1,5 +1,5 @@
 .promo {
-	padding-top: 111px;
+	padding: 111px 50px;
 	text-align: center;
 	
 	&__header {
@@ -58,6 +58,6 @@
 
 @media (max-width: 320px) {
 	.promo {
-		padding-top: 10px;
+		padding-top: 40px;
 	}
 }

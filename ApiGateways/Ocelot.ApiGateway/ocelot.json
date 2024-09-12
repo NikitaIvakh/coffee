@@ -175,6 +175,20 @@
       "UpstreamPathTemplate": "/api/identity/RefreshToken",
       "UpstreamHttpMethod": ["PATCH"],
       "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/identity/VerifyEmailToken/{token}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": 8091
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/VerifyEmailToken/{token}",
+      "UpstreamHttpMethod": ["GET"],
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
 

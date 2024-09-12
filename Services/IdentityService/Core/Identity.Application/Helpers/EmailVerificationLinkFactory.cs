@@ -17,13 +17,13 @@ public sealed class EmailVerificationLinkFactory(
         }
 
         var scheme = httpContext.Request.Scheme;
-        var host = new HostString("localhost", 8091); // Ensure port is included
+        var host = new HostString("localhost", 9020); // Ensure port is included
 
         var verificationLink = linkGenerator.GetUriByAction(
             httpContext,
             action: "VerifyEmailToken",
             controller: "Identity",
-            values: new { token = token.Id },
+            values: new { token = token.Id }, 
             scheme: scheme,
             host: host
         );
