@@ -7,7 +7,7 @@ type LoadingToRedirectProps = {
 }
 
 const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
-	const [count, setCount] = useState(12345)
+	const [count, setCount] = useState(5)
 	const navigate = useNavigate()
 	
 	useEffect(() => {
