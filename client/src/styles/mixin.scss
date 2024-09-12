@@ -47,7 +47,6 @@
 }
 
 // Card
-
 @mixin coffee-item {
 	display: flex;
 	flex-direction: column;
@@ -115,7 +114,6 @@
 }
 
 // form
-
 @mixin form-container($padding, $min-height: null, $max-height: null) {
 	padding: $padding;
 	width: 100%;
@@ -232,7 +230,6 @@
 	}
 }
 
-
 @mixin file-label {
 	margin-top: 20px;
 	font-size: 16px;
@@ -243,8 +240,6 @@
 }
 
 // Error Card
-
-// mixin.scss
 
 @mixin flex-center {
 	display: flex;

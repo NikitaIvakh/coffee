@@ -13,8 +13,8 @@
 	}
 	
 	&__btn {
-		@include button;
 		margin-top: 20px;
+		@include button;
 	}
 	
 	&__header {

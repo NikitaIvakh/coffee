@@ -23,7 +23,10 @@
 	
 	&__item {
 		@include list-item-styles(var(--color-text-black)); // Custom mixin for consistent item styling
-		margin-right: 20px;
+		
+		& {
+			margin-right: 20px; // Moved inside `&` to prevent deprecation warnings
+		}
 		
 		&:last-child {
 			margin-right: 0; // Remove margin from the last item
@@ -55,7 +58,7 @@
 				margin-bottom: 0;
 			}
 			
-			@include media-item-adjustments;
+			@include media-item-adjustments; // Apply media-item adjustments
 		}
 	}
 	
@@ -63,6 +66,7 @@
 		&__wrapper {
 			padding: 0 10px;
 		}
+		
 		&__list {
 			display: flex;
 			flex-direction: row;
@@ -71,6 +75,7 @@
 			justify-content: center;
 			align-content: center;
 			margin: 0;
+			
 			a {
 				margin-bottom: 0;
 			}
