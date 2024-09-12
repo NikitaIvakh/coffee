@@ -241,3 +241,62 @@
 	color: #333;
 	cursor: pointer;
 }
+
+// Error Card
+
+// mixin.scss
+
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin content-box($max-width: 700px, $padding: 30px 40px, $bg-color: rgba(0, 0, 0, 0.8), $shadow: 0 6px 12px rgba(0, 0, 0, 0.3)) {
+	background: $bg-color;
+	border-radius: 12px;
+	padding: $padding;
+	text-align: center;
+	box-shadow: $shadow;
+	max-width: $max-width;
+	width: 90%;
+	color: #fff;
+}
+
+@mixin button($bg-color: #007bff, $hover-color: #0056b3, $text-color: #fff, $padding: 12px 24px) {
+	padding: $padding;
+	font-size: 16px;
+	color: $text-color;
+	background-color: $bg-color;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	
+	&:hover {
+		background-color: $hover-color;
+	}
+	
+	&:focus {
+		outline: 2px solid $hover-color;
+		outline-offset: 2px;
+	}
+}
+
+// Typography Mixins for different font sizes
+@mixin header-text($font-size: var(--fs-lg), $font-weight: var(--fw-bold), $color: var(--color-text), $margin-bottom: 15px) {
+	font-size: $font-size;
+	font-weight: $font-weight;
+	color: $color;
+	margin-bottom: $margin-bottom;
+}
+
+@mixin message-text($font-size: var(--fs-md), $color: var(--color-text), $margin: 0 0 10px 0) {
+	font-size: $font-size;
+	color: $color;
+	margin: $margin;
+	
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}

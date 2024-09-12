@@ -7,7 +7,7 @@ type LoadingToRedirectProps = {
 }
 
 const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
-	const [count, setCount] = useState(5)
+	const [count, setCount] = useState(12345)
 	const navigate = useNavigate()
 	
 	useEffect(() => {
@@ -25,10 +25,12 @@ const LoadingToRedirect = ({ message }: LoadingToRedirectProps) => {
 	return (
 		<div className='loading__container'>
 			<div className='loading__content'>
-				<h1>Redirecting...</h1>
-				<p>{message}</p>
-				<p>You will be redirected in <span className='loading__count'>{count}</span> seconds.</p>
-				<p className='loading__info'>If you are not redirected, <NavLink to='/'>click here</NavLink> to go to the homepage.</p>
+				<h1 className='loading__header'>Redirecting...</h1>
+				<p className='loading__message'>{message}</p>
+				<p className='loading__redirectText'>You will be redirected in <span
+					className='loading__counter'>{count}</span> seconds.</p>
+				<p className='loading__info'>If you are not redirected, <NavLink to='/' className='loading__link'>click
+					here</NavLink> to go to the homepage.</p>
 			</div>
 		</div>
 	)
