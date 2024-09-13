@@ -31,7 +31,7 @@ const CoffeeList = (props: CoffeeListProps) => {
 	}
 	
 	const renderItems = (coffees: CoffeeItem[]) => {
-		const coffeeItems = coffees.map((coffee) => {
+		const coffeeItems = coffees.length !== 0 ? (coffees.map((coffee) => {
 			const { id, imageUrl, name, coffeeType, price } = coffee
 			return (
 				<CSSTransition timeout={500} key={id} className='coffees-item animate'>
@@ -51,7 +51,9 @@ const CoffeeList = (props: CoffeeListProps) => {
 					</div>
 				</CSSTransition>
 			)
-		})
+		})) : (
+			<div className='no-coffees'>No coffees available</div>
+		)
 		
 		return (
 			<div className='coffees__wrapper'>

@@ -93,6 +93,14 @@
 			align-items: center;
 		}
 	}
+
+	.no-coffees {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		grid-column: 1 / 4;
+		padding-bottom: 0;
+	}
 }
 
 .animate {
