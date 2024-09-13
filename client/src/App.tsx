@@ -5,7 +5,7 @@ import './styles/app.scss'
 import { setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
 import ConfirmEmail from './features/auth/ConfirmEmail.tsx'
 import PrivateRoute from './features/auth/PrivateRoute.tsx'
-import { AdminPanel, ControlsOurCoffee, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
+import { AdminPanel, ControlsOurCoffee, AdminPanelOurPleasure, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
 import { useAppDispatch } from './store/store.ts'
 
 const AnimatedRoutes = () => {
@@ -50,6 +50,7 @@ const AnimatedRoutes = () => {
 						<Route path='/Pleasure' element={<PrivateRoute><Pleasure /></PrivateRoute>} />
 						<Route path='/Pleasure/:id' element={<PrivateRoute><ControlsOurPleasure /></PrivateRoute>} />
 						<Route path='/AdminPanel' element={<PrivateRoute restricted={true}><AdminPanel /></PrivateRoute>} />
+						<Route path='/AdminPanel/:id' element={<PrivateRoute><AdminPanelOurPleasure /></PrivateRoute>} />
 						<Route path='/ConfirmEmail' element={<PrivateRoute><ConfirmEmail /></PrivateRoute>} />
 						<Route path='*' element={<NotFound />} />
 					</Routes>

@@ -9,7 +9,7 @@ export const AdminPanel = () => {
 		<>
 			<HeaderPromoSecond title='Admin Panel' backgroundImage={AdminHeaderBg} />
 			<AdminPanelForm />
-			<Controls path='/AdminPanel' showButtons={true} />
+			<Controls path='AdminPanel' showButtons={true} />
 			<Footer />
 		</>
 	)

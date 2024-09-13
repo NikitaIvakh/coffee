@@ -16,8 +16,7 @@ import { setCurrentPage } from './coffees-slice'
 
 type onSelect = (page: number) => void
 
-const useCoffees = (): [CoffeeItem[], number[], number, boolean, ReturnType<typeof selectCoffeeInfo>, onSelect
-] => {
+const useCoffees = (): [CoffeeItem[], number[], number, boolean, ReturnType<typeof selectCoffeeInfo>, onSelect] => {
 	const dispatch = useAppDispatch()
 	const controls = useSelector(selectControls)
 	const { search, filter } = controls
