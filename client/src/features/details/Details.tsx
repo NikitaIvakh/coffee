@@ -21,7 +21,9 @@ const Details = (props: DetailsProps) => {
 	
 	const renderItems = (coffee: CoffeeById) => {
 		return (
-			<Info path={path} {...coffee} />
+			<div className='details__wrapper'>
+				<Info path={path} {...coffee} />
+			</div>
 		)
 	}
 	
@@ -31,9 +33,7 @@ const Details = (props: DetailsProps) => {
 	
 	return (
 		<div className='details'>
-			<div className='details__wrapper'>
 				{elements}
-			</div>
 		</div>
 	)
 }
