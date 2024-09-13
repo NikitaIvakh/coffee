@@ -15,6 +15,27 @@ interface ApiResponse {
 	}
 }
 
+const decodeJWT = (token: string) => {
+	const base64Url = token.split('.')[1]
+	const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+	const jsonPayload = decodeURIComponent(
+		atob(base64)
+			.split('')
+			.map(function(c) {
+				return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+			})
+			.join('')
+	)
+	
+	return JSON.parse(jsonPayload)
+}
+
+export const isTokenExpired = (token: string) => {
+	const decoded = decodeJWT(token)
+	const currentTime = Math.floor(Date.now() / 1000)
+	return decoded.exp < currentTime
+}
+
 type BaseQueryResult = QueryReturnValue<ApiResponse, FetchBaseQueryError, object>
 
 const baseQuery = fetchBaseQuery({
@@ -31,28 +52,32 @@ const baseQuery = fetchBaseQuery({
 })
 
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-	const user = (api.getState() as RootState).auth?.user
+	const user = (api.getState() as RootState).auth?.user;
 	
-	let result = await baseQuery(args, api, extraOptions) as BaseQueryResult
-	if (result.error && result.error.status === 401) {
+	if (user?.jwtToken && isTokenExpired(user.jwtToken)) {
+		console.log("Токен истек. Необходимо обновить.");
+		
 		const refreshResult = await baseQuery({
 			url: '/RefreshToken',
 			method: 'PATCH',
 			body: {
-				jwtToken: user?.jwtToken,
-				refreshToken: user?.refreshToken
-			}
-		}, api, extraOptions) as BaseQueryResult
+				AccessToken: user?.jwtToken,
+				RefreshToken: user?.refreshToken,
+			},
+		}, api, extraOptions) as BaseQueryResult;
 		
 		if (refreshResult.data) {
-			api.dispatch(setUser(refreshResult.data.value))
-			result = await baseQuery(args, api, extraOptions) as BaseQueryResult
+			api.dispatch(setUser(refreshResult.data.value));
 		} else {
-			api.dispatch(setLogout())
+			api.dispatch(setLogout());
 		}
-	} else if (result.error) {
-		api.dispatch(setLogout())
 	}
 	
-	return result
-}
+	const result = await baseQuery(args, api, extraOptions) as BaseQueryResult;
+	
+	if (result.error && result.error.status === 401) {
+		api.dispatch(setLogout());
+	}
+	
+	return result;
+};

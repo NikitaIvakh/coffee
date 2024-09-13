@@ -2,10 +2,21 @@ import { useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import './styles/app.scss'
-import { setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
+import { useRefreshTokenMutation } from './features/auth/auth-apiSlice.ts'
+import { setLogout, setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
 import ConfirmEmail from './features/auth/ConfirmEmail.tsx'
 import PrivateRoute from './features/auth/PrivateRoute.tsx'
-import { AdminPanel, ControlsOurCoffee, AdminPanelOurPleasure, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
+import {
+	AdminPanel,
+	ControlsOurCoffee,
+	AdminPanelOurPleasure,
+	ControlsOurPleasure,
+	Main,
+	NotFound,
+	OurCoffee,
+	Pleasure
+} from './pages'
+import { isTokenExpired } from './service/baseQueryWithReauth.ts'
 import { useAppDispatch } from './store/store.ts'
 
 const AnimatedRoutes = () => {
@@ -13,6 +24,7 @@ const AnimatedRoutes = () => {
 	const location = useLocation()
 	const nodeRef = useRef(null)
 	const duration = 300
+	const [refreshToken] = useRefreshTokenMutation()
 	
 	const getLocalStorageItem = (key: string) => {
 		try {
@@ -27,11 +39,15 @@ const AnimatedRoutes = () => {
 	const user = getLocalStorageItem('user')
 	
 	useEffect(() => {
-		if (user && user.userName) {
+		if (user && user.jwtToken && !isTokenExpired(user.jwtToken)) {
 			dispatch(setUser(user))
 			dispatch(setUserAuthenticated())
+		} else {
+			refreshToken({ AccessToken: user?.jwtToken, RefreshToken : user?.refreshToken })
+			
 		}
 	}, [dispatch, user])
+	
 	
 	return (
 		<SwitchTransition>

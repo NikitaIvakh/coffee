@@ -13,7 +13,8 @@ export type AuthRegisterValues = {
 }
 
 export type AuthRefreshToken = {
-	refreshToken: string
+	AccessToken: string,
+	RefreshToken: string
 }
 
 export type AuthResponseValues = {
