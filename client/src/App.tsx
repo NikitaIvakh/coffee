@@ -3,19 +3,10 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import './styles/app.scss'
 import { useRefreshTokenMutation } from './features/auth/auth-apiSlice.ts'
-import { setLogout, setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
+import { setUser, setUserAuthenticated } from './features/auth/auth-slice.ts'
 import ConfirmEmail from './features/auth/ConfirmEmail.tsx'
 import PrivateRoute from './features/auth/PrivateRoute.tsx'
-import {
-	AdminPanel,
-	ControlsOurCoffee,
-	AdminPanelOurPleasure,
-	ControlsOurPleasure,
-	Main,
-	NotFound,
-	OurCoffee,
-	Pleasure
-} from './pages'
+import { AdminPanel, ControlsOurCoffee, AdminPanelOurPleasure, ControlsOurPleasure, Main, NotFound, OurCoffee, Pleasure } from './pages'
 import { isTokenExpired } from './service/baseQueryWithReauth.ts'
 import { useAppDispatch } from './store/store.ts'
 
