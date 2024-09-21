@@ -39,7 +39,7 @@ export const isTokenExpired = (token: string) => {
 type BaseQueryResult = QueryReturnValue<ApiResponse, FetchBaseQueryError, object>
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'https://localhost:9020/api/identity',
+	baseUrl: 'https://localhost:5001/api/identity',
 	credentials: 'include',
 	prepareHeaders: (headers, { getState }) => {
 		const jwtToken = (getState() as RootState).auth.user?.jwtToken

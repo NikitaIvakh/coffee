@@ -1,6 +1,6 @@
 ﻿import { createApi } from '@reduxjs/toolkit/query/react'
+import { AuthRefreshToken, AuthRegisterValues, AuthRequestValues } from '../../types/authForm.ts'
 import { baseQueryWithReauth } from '../../service/baseQueryWithReauth.ts'
-import { type AuthRefreshToken, AuthRegisterValues, AuthRequestValues } from '../../types/authForm.ts'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',

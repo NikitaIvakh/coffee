@@ -5,8 +5,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coffee",
-          "Port": 8081
+          "Host": "coffee.webapi",
+          "Port": 5081
         }
       ],
       "UpstreamPathTemplate": "/api/coffee/GetCoffeeList",
@@ -28,8 +28,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coffee",
-          "Port": 8081
+          "Host": "coffee.webapi",
+          "Port": 5081
         }
       ],
       "UpstreamPathTemplate": "/api/coffee/GetCoffee/{id}",
@@ -51,8 +51,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coffee",
-          "Port": 8081
+          "Host": "coffee.webapi",
+          "Port": 5081
         }
       ],
       "UpstreamPathTemplate": "/api/coffee/CreateCoffee",
@@ -71,8 +71,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coffee",
-          "Port": 8081
+          "Host": "coffee.webapi",
+          "Port": 5081
         }
       ],
       "UpstreamPathTemplate": "/api/coffee/UpdateCoffee/{id}",
@@ -91,8 +91,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "coffee",
-          "Port": 8081
+          "Host": "coffee.webapi",
+          "Port": 5081
         }
       ],
       "UpstreamPathTemplate": "/api/coffee/DeleteCoffee/{id}",
@@ -112,8 +112,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamHttpMethod": ["POST"],
@@ -126,8 +126,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamHttpMethod": ["POST"],
@@ -140,8 +140,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamHttpMethod": ["DELETE"],
@@ -154,8 +154,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamHttpMethod": ["DELETE"],
@@ -168,8 +168,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamPathTemplate": "/api/identity/RefreshToken",
@@ -182,8 +182,8 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "identity",
-          "Port": 8091
+          "Host": "identity.webapi",
+          "Port": 5001
         }
       ],
       "UpstreamPathTemplate": "/api/identity/VerifyEmailToken/{token}",

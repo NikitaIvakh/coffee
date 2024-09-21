@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
 {
     const string certPath = "/app/cert.pfx";
-    options.ListenAnyIP(8081, u => u.UseHttps(new X509Certificate2(certPath, "test1234")));
-    options.ListenAnyIP(8080);
+    options.ListenAnyIP(5081, u => u.UseHttps(new X509Certificate2(certPath, "test1234")));
+    options.ListenAnyIP(5080);
 });
 
 builder.Services.AddControllers();

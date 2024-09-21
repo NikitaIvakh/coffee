@@ -1,16 +1,13 @@
-﻿version: '3.8'
-
 services:
-  coffee:
-    container_name: coffee_api
+  coffee.webapi:
+    image: ${DOCKER_REGISTRY-}coffeewebapi
+    container_name: offee.webapi
     build:
       context: .
       dockerfile: Services/Coffees/Presentation/Coffee.WebAPI/Dockerfile
     ports:
-      - "7070:7070"
-      - "8081:8081"
-    environment:
-      - ASPNETCORE_URLS=http://+:7070;https://+:8081
+      - "5080:5080"
+      - "5081:5081"
     volumes:
       - .:/usr/src/app/
       - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
@@ -20,11 +17,29 @@ services:
       - redis
     networks:
       - my_network
-    
-  ocelot.ApiGateway:
-    image: thinkco/ocelot:latest
-    container_name: ocelot.ApiGateway
-    restart: always
+
+  identity.webapi:
+    image: ${DOCKER_REGISTRY-}identitywebapi
+    container_name: identity.webapi
+    build:
+      context: .
+      dockerfile: Services/IdentityService/Presentation/Identity.WebAPI/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    volumes:
+      - .:/usr/src/app/
+      - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
+    depends_on:
+      - postgres
+      - pgadmin
+      - redis
+    networks:
+      - my_network
+
+  ocelot.apigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    container_name: ocelot.apigateway
     build:
       context: .
       dockerfile: ApiGateways/Ocelot.ApiGateway/Dockerfile
@@ -38,31 +53,11 @@ services:
       - postgres
       - pgadmin
       - redis
-      - coffee
-      - identity
+      - coffee.webapi
+      - identity.webapi
     networks:
       - my_network
-      
-  identity:
-    container_name: identity_api
-    build:
-      context: .
-      dockerfile: Services/IdentityService/Presentation/Identity.WebAPI/Dockerfile
-    ports:
-      - "8090:8090"
-      - "8091:8091"
-    environment:
-      - ASPNETCORE_URLS=http://+:8090;https://+:8091
-    volumes:
-      - .:/usr/src/app/
-      - /absolute/path/to/aspnetapp.pfx:/https/cert.pfx
-    depends_on:
-      - postgres
-      - pgadmin
-      - redis
-    networks:
-      - my_network
-  
+
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -119,4 +114,3 @@ volumes:
 networks:
   my_network:
     driver: bridge
-

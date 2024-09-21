@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "identity.webapi": "StartDebugging",
+        "coffee.webapi": "StartDebugging",
+        "ocelot.apigateway": "StartDebugging"
+      }
+    }
+  }
+}
