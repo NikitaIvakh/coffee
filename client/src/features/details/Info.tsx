@@ -1,6 +1,5 @@
 ﻿import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import CoffeeImg from 'resources/img/coffee/coffee_big.jpg'
 import CoffeeBeansBlack from 'resources/img/icons/main_beans_dark.svg'
 import './details.scss'
 import type { CoffeeById } from '../../types'
@@ -10,12 +9,12 @@ interface InfoProps extends CoffeeById {
 }
 
 const Info = (props: InfoProps) => {
-	const { name, coffeeType, description, price, path } = props
+	const { name, coffeeType, description, price, imageUrl, path } = props
 	
 	return (
 		<Fragment>
 			<div className='details__img'>
-				<img src={CoffeeImg} alt={name} />
+				<img src={imageUrl} alt={name} />
 			</div>
 			<div className='details__descr'>
 				<h2 className='details__title'>About it</h2>

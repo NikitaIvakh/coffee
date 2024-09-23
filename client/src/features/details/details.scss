@@ -23,6 +23,12 @@
 	&__img {
 		width: 400px;
 		height: 355px;
+		display: flex;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		flex-direction: row;
 		
 		img {
 			width: 100%;
